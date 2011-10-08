@@ -23,7 +23,7 @@ namespace CastleBlast {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		//glOrtho(0,_winWidth,0,_winHeight,0,-100);
-		gluPerspective(65, _winWidth/(double)_winHeight, 1, 200);
+		gluPerspective(65, _winWidth/(double)_winHeight, 1, 500);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		gluLookAt(10, 15, 29, 0, 0, 0, 0, 1, 0);

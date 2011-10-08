@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Lights.h"
 #include "Sky.h"
+#include "Fog.h"
 
 namespace CastleBlast {
 	class App : public cg::Application {
