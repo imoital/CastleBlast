@@ -7,8 +7,12 @@
 //
 
 #include <cg/cg.h>
+#include "SceneManager.h"
+#include "Camera.h"
+#include "Lights.h"
+#include "Sky.h"
 
-namespace AVT {
+namespace CastleBlast {
 	class App : public cg::Application {
 	public:
 		App();

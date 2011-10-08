@@ -8,9 +8,9 @@
 
 #include "Camera.h"
 
-namespace AVT {
+namespace CastleBlast {
 	
-	Camera::Camera(const std::string& id) : Entity(id) {
+	Camera::Camera() : Entity("CAMERA") {
 	}
 	Camera::~Camera() {
 	}
@@ -22,9 +22,11 @@ namespace AVT {
 	void Camera::draw() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0,_winWidth,0,_winHeight,0,-100);
+		//glOrtho(0,_winWidth,0,_winHeight,0,-100);
+		gluPerspective(65, _winWidth/(double)_winHeight, 1, 200);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+		gluLookAt(10, 15, 29, 0, 0, 0, 0, 1, 0);
 	}
 	void Camera::onReshape(int width, int height) {
 		_winWidth = width;

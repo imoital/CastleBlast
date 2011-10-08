@@ -6,23 +6,21 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef MY_CAMERA_H
-#define MY_CAMERA_H
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include <string>
 #include "cg/cg.h"
 
-namespace AVT {
+namespace CastleBlast {
 	
-	class Camera : public cg::Entity, 
-	public cg::IDrawListener,
-	public cg::IReshapeEventListener
+	class Camera : public cg::Entity, public cg::IDrawListener, public cg::IReshapeEventListener
 	{
 	private:
 		double _winWidth, _winHeight;
 		
 	public:
-		Camera(const std::string& id);
+		Camera();
 		~Camera();
 		void init();
 		void draw();

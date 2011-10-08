@@ -8,16 +8,30 @@
 
 #include "App.h"
 
-namespace AVT {
+namespace CastleBlast {
 	
-	App::App() {
-		_windowInfo.caption = "AVT";
+	// TODO: cg::Aplication("config.ini") needs to be windows compatible
+	App::App() : cg::Application("config.ini") {
+		_windowInfo.caption = "Castle Blast";
 		_windowInfo.width = 800;
 		_windowInfo.height = 600;
 	}
 	App::~App() {}
 	
-	void App::createEntities() {}
+	void App::createEntities() 
+	{
+		addEntity(new Camera());
+		addEntity(new Sky());
+		addEntity(new SceneManager());
+		addEntity(new Lights());
+	}
 	
-	void App::createViews() {}
+	void App::createViews() 
+	{
+		cg::View* v0 = createView("view1");
+		v0->linkEntityAtEnd("CAMERA");
+		v0->linkEntityAtEnd("SCENE_MANAGER");
+		v0->linkEntityAtEnd("LIGHTS");
+		v0->linkEntityAtEnd("SKY");
+	}
 }

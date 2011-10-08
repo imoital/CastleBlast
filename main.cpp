@@ -10,6 +10,6 @@
 #include "App.h"
 
 int main(int argc, char** argv) {
-	cg::Manager::instance()->runApp(new AVT::App(),60,argc,argv);
+	cg::Manager::instance()->runApp(new CastleBlast::App(),60,argc,argv);
 	return 0;
 }
