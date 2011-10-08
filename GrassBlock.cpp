@@ -18,6 +18,10 @@ namespace CastleBlast {
 	
 	int GrassBlock::loadType()
 	{
-		return Loader::loadTexture("Textures/grass.jpg"); //TODO: windows compatible
+#ifdef __APPLE__
+		return Loader::loadTexture("Textures/grass.jpg");
+#else
+		return Loader::loadTexture("..\\..\\src\\Textures\\grass.jpg");
+#endif
 	}
 }

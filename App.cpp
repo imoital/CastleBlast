@@ -10,8 +10,12 @@
 
 namespace CastleBlast {
 	
-	// TODO: cg::Aplication("config.ini") needs to be windows compatible
-	App::App() : cg::Application("config.ini") {
+#ifdef __APPLE__
+	App::App() : cg::Application("config.ini")
+#else
+	App::App() : cg::Application("..\\..\\src\\config.ini")
+#endif
+	{
 		_windowInfo.caption = "Castle Blast";
 		_windowInfo.width = 800;
 		_windowInfo.height = 600;
