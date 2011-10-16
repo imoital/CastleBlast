@@ -25,6 +25,7 @@ namespace CastleBlast {
 	void App::createEntities() 
 	{
 		addEntity(new CameraManager());
+		addEntity(new Controller());
 		//addEntity(new Fog());
 		addEntity(new Sky());
 		addEntity(new SceneManager());
