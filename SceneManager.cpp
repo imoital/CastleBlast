@@ -26,6 +26,7 @@ namespace CastleBlast {
 		_worldSize = cg::Properties::instance()->getInt("WORLD_SIZE");
 		_block = new GrassBlock();
 		_world = createMatrix();
+		_projectile = new Projectile();
 	}
 	
 	void SceneManager::draw()
@@ -67,8 +68,10 @@ namespace CastleBlast {
 			}
 		}
 		
-		glEnd();
 		
+		
+		glEnd();
+		_projectile->draw();
 		glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 	}

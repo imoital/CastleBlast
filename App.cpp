@@ -24,8 +24,8 @@ namespace CastleBlast {
 	
 	void App::createEntities() 
 	{
-		addEntity(new Camera());
-		addEntity(new Fog());
+		addEntity(new CameraManager());
+		//addEntity(new Fog());
 		addEntity(new Sky());
 		addEntity(new SceneManager());
 		addEntity(new Lights());
@@ -34,7 +34,7 @@ namespace CastleBlast {
 	void App::createViews() 
 	{
 		cg::View* v0 = createView("view1");
-		v0->linkEntityAtEnd("CAMERA");
+		v0->linkEntityAtEnd("CAMERA_MANAGER");
 		v0->linkEntityAtEnd("SCENE_MANAGER");
 		v0->linkEntityAtEnd("LIGHTS");
 		v0->linkEntityAtEnd("SKY");
