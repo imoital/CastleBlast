@@ -6,22 +6,22 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef CAMERA_H
-#define CAMERA_H
+#ifndef WORLDCAMERA_H
+#define WORLDCAMERA_H
 
 #include <string>
 #include "cg/cg.h"
 
 namespace CastleBlast {
 	
-	class Camera : public cg::Entity, public cg::IDrawListener, public cg::IReshapeEventListener
+	class WorldCamera : public cg::Entity, public cg::IDrawListener, public cg::IReshapeEventListener
 	{
 	private:
 		double _winWidth, _winHeight;
 		
 	public:
-		Camera();
-		~Camera();
+		WorldCamera();
+		~WorldCamera();
 		void init();
 		void draw();
 		void onReshape(int width, int height);
