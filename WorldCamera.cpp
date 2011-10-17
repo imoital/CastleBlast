@@ -6,20 +6,20 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#include "Camera.h"
+#include "WorldCamera.h"
 
 namespace CastleBlast {
 	
-	Camera::Camera() : Entity("CAMERA") {
+	WorldCamera::WorldCamera() : Entity("WORLD_CAMERA") {
 	}
-	Camera::~Camera() {
+	WorldCamera::~WorldCamera() {
 	}
-	void Camera::init() {
+	void WorldCamera::init() {
 		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
 		_winWidth = win.width;
 		_winHeight = win.height;
 	}
-	void Camera::draw() {
+	void WorldCamera::draw() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		//glOrtho(0,_winWidth,0,_winHeight,0,-100);
@@ -28,7 +28,7 @@ namespace CastleBlast {
 		glLoadIdentity();
 		gluLookAt(10, 15, 29, 0, 0, 0, 0, 1, 0);
 	}
-	void Camera::onReshape(int width, int height) {
+	void WorldCamera::onReshape(int width, int height) {
 		_winWidth = width;
 		_winHeight = height;
 	}
