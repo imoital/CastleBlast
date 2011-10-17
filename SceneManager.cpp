@@ -39,7 +39,9 @@ namespace CastleBlast {
 		
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+		
+		GLfloat mat_ambient[] = {1.0f,1.0f,1.0f,1.0f};
+		glMaterialfv(GL_FRONT,GL_AMBIENT,mat_ambient);
 		
 		glBegin(GL_QUADS);
 		
@@ -71,8 +73,8 @@ namespace CastleBlast {
 		
 		
 		glEnd();
-		_projectile->draw();
 		glDisable(GL_TEXTURE_2D);
+		_projectile->draw();
 		glPopMatrix();
 	}
 }

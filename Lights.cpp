@@ -20,7 +20,7 @@ namespace CastleBlast {
 		GLfloat diffuse_light[] = {1.0f,1.0f,1.0f,1.0f};
 		GLfloat specular_light[] = {0.9f,0.9f,0.9f,1.0f};
 		GLfloat position_light[] = {0.0f, 0.0f, 100.0f};
-		//glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
 		glLightfv(GL_LIGHT0, GL_AMBIENT, ambient_light);
 		glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);

@@ -3,6 +3,7 @@
 
 #include <cg/cg.h>
 #include "CameraManager.h"
+#include "DebugManager.h"
 
 namespace CastleBlast {
 	class Controller : 
@@ -15,6 +16,7 @@ namespace CastleBlast {
 		void specialKeyReleased(int key);
 		void keypressed(int key);
 		void keyReleased(int key);*/
+		bool _F2Pressed;
 	public:
 		Controller(void);
 		~Controller(void);

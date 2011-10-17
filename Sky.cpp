@@ -21,8 +21,9 @@ namespace CastleBlast {
 	
 	void Sky::draw()
 	{
+		glDisable(GL_LIGHTING);
 		glColor3d(0.53, 0.81, 0.98);
 		glutSolidSphere(_worldSize, 16, 16);
-		glColor3d(1, 1, 1); //Needs to be where or all the scene will turn blue
+		glEnable(GL_LIGHTING);
 	}
 }

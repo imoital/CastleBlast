@@ -12,6 +12,7 @@ namespace CastleBlast {
 
 	void Controller::init()
 	{
+		_F2Pressed = false;
 	}
 
 	void Controller::onKeyPressed(unsigned char key)
@@ -23,6 +24,12 @@ namespace CastleBlast {
 
 	void Controller::onKeyReleased(unsigned char key)
 	{
+		if (key == GLUT_KEY_F2) {
+			DebugManager *debugManager = (DebugManager*) cg::Registry::instance()->get("DEBUG_MANAGER");
+			if (debugManager) {
+				debugManager->toggleDebug();
+			}
+		}
 	}
 	
 	void Controller::onSpecialKeyPressed(int key)

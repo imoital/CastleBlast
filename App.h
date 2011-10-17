@@ -13,6 +13,7 @@
 #include "Fog.h"
 #include "CameraManager.h"
 #include "Controller.h"
+#include "DebugManager.h"
 
 namespace CastleBlast {
 	class App : public cg::Application {
