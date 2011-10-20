@@ -76,7 +76,7 @@ namespace CastleBlast {
 							tempMat->m_specular[0] = r;
 							tempMat->m_specular[1] = g;
 							tempMat->m_specular[2] = b;
-							tempMat->m_specular[1] = 1;
+							tempMat->m_specular[3] = 1;
 							break;
 						}
 						case 'a':
@@ -227,6 +227,8 @@ namespace CastleBlast {
 					if (strstr(buf, "//")) {
 						/* v//n */
 						sscanf(buf, "%d//%d", &v, &n);
+						tri->m_normals[0] = n - 1;
+						tri->m_vertexIndices[0] = v - 1;
 						fscanf(inputfile, "%d//%d", &v, &n);
 						tri->m_normals[1] = n - 1;
 						tri->m_vertexIndices[1] = v - 1;
@@ -288,6 +290,9 @@ namespace CastleBlast {
 			std::cout << "    Diffuse: " << it->second->m_diffuse[0] << " " << it->second->m_diffuse[1] << " " << it->second->m_diffuse[2] << " " << std::endl;
 			std::cout << "    Specular: " << it->second->m_specular[0] << " " << it->second->m_specular[1] << " " << it->second->m_specular[2] << " " << std::endl;
 			std::cout << "    Shininess: " << it->second->m_shininess << std::endl;
+			if (it->second->m_asTexture) {
+				std::cout << "    Texture: " << it->second->m_pTextureFilename << std::endl;
+			}
 		}
 	}
 	
