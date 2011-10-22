@@ -17,8 +17,7 @@ namespace CastleBlast {
 	class Cannon : public cg::Entity, public cg::IDrawListener {
 	private:
 		Model *_cannon;
-		Model *_wheel1;
-		Model *_wheel2;
+		Model *_wheels;
 		
 	public:
 		Cannon();
