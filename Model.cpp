@@ -123,7 +123,7 @@ namespace CastleBlast {
 						strncat(filename, "/", strlen(filename));
 						strncat(filename, path, strlen(filename));
 #else
-						strcpy(filename, "\\");
+						strncat(filename, "\\", strlen(filename));
 						strncat(filename, path, strlen(filename));
 #endif
 						path = strtok(NULL, "/");
@@ -202,7 +202,25 @@ namespace CastleBlast {
 				{
 					fgets(buf, sizeof(buf), inputfile);
 					sscanf(buf, "%s", buf, buf);
+#ifdef __APPLE__
 					strcpy(mtllibname, buf);
+#else
+					char tempFilename[LINE_SIZE];
+					char *path;
+
+					strcpy(tempFilename, buf);
+					path = strtok(tempFilename, "/");
+
+					strcpy(mtllibname, "..\\..\\src\\");
+					strncat(mtllibname, path, strlen(mtllibname));
+
+					path = strtok(NULL, "/");
+					while (path != NULL) {
+						strncat(mtllibname, "\\", strlen(mtllibname));
+						strncat(mtllibname, path, strlen(mtllibname));
+						path = strtok(NULL, "/");
+					}
+#endif
 					readMTL(mtllibname);
 					break;
 				}
