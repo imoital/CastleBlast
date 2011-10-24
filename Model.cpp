@@ -139,6 +139,7 @@ namespace CastleBlast {
 					break;
 			}
 		}
+		return true;
 	}
 	
 	bool Model::loadModelData(const char *filename)
@@ -312,6 +313,7 @@ namespace CastleBlast {
 				std::cout << "    Texture: " << it->second->m_pTextureFilename << std::endl;
 			}
 		}
+		return true;
 	}
 	
 	void Model::drawModel()
