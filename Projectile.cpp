@@ -36,7 +36,7 @@ namespace CastleBlast {
 			glMaterialfv(GL_FRONT,GL_SPECULAR,mat_specular);
 			glMaterialfv(GL_FRONT,GL_SHININESS,mat_shininess);
 
-			glTranslatef(10, 10, 10);
+			glTranslatef(0, 0, 0);
 		
 			if (_debug){
 				glDisable(GL_LIGHTING);

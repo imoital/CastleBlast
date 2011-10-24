@@ -25,8 +25,8 @@ namespace CastleBlast {
 #endif
 	{
 		_windowInfo.caption = "Castle Blast";
-		_windowInfo.width = 800;
-		_windowInfo.height = 600;
+		_windowInfo.width = 1000;
+		_windowInfo.height = 800;
 	}
 	App::~App() {}
 	
@@ -35,7 +35,7 @@ namespace CastleBlast {
 		addEntity(new DebugManager());
 		addEntity(new CameraManager());
 		addEntity(new Controller());
-		addEntity(new Fog());
+		//addEntity(new Fog());
 		addEntity(new Sky());
 		addEntity(new SceneManager());
 		addEntity(new Lights());

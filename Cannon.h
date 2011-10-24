@@ -14,10 +14,13 @@
 
 namespace CastleBlast {
 	
-	class Cannon : public cg::Entity, public cg::IDrawListener {
+	class Cannon : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener {
 	private:
 		Model *_cannon;
 		Model *_wheels;
+		cg::Vector3d _position;
+		float _wheelRotation;
+		float _cannonRotation;
 		
 	public:
 		Cannon();
@@ -25,6 +28,7 @@ namespace CastleBlast {
 		
 		void init();
 		void draw();
+		void update(unsigned long elapsed_millis);
 	};
 }
 
