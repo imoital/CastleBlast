@@ -27,7 +27,7 @@ namespace CastleBlast {
 #ifdef __APPLE__
 		_wheels->loadModelData("Models/wheels.obj");
 #else
-		_wheel1->loadModelData("..\\..\\src\\Models\\wheels.obj");
+		_wheels->loadModelData("..\\..\\src\\Models\\wheels.obj");
 #endif
 	}
 	
