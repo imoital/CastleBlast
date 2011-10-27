@@ -49,7 +49,9 @@ namespace CastleBlast {
 			{
 				glTranslatef(_position[0], _position[1], _position[2]);
 				glRotatef(_cannonRotation, 0, 0, 1);
+				glEnable(GL_NORMALIZE);
 				_cannon->drawModel();
+				glDisable(GL_NORMALIZE);
 			}
 			glPopMatrix();
 		}
