@@ -22,6 +22,44 @@ namespace CastleBlast {
 			}
 		}
 		
+		//CASTLE
+		int c[19][20] = { 
+			{13, 12, 13, 12, 13, 7, 8, 7, 8, 7, 8, 7, 8, 7, 13, 12, 13, 12, 13,0},
+			{12, 11, 11, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 11, 11, 12,0},
+			{13, 11, 11, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 11, 11, 11, 13,0},
+			{12, 11, 11, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 11, 11, 12,0},
+			{13, 12, 13, 12, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 12, 13, 12, 13,0},
+			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0},
+			{8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 6},
+			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, -6},
+			{8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, -6},
+			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, -6},
+			{8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, -6},
+			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, -6},
+			{8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 6},
+			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0},
+			{13, 12, 13, 12, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 12, 13, 12, 13, 0},
+			{12, 11, 11, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 11, 11, 12, 0},
+			{13, 11, 11, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 11, 11, 11, 13, 0},
+			{12, 11, 11, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 11, 11, 12, 0},
+			{13, 12, 13, 12, 13, 7, 8, 7, 8, 7, 8, 7, 8, 7, 13, 12, 13, 12, 13, 0}};
+		
+		for (int i = 1; i < _worldHeight; i++) {
+			for (int j = 160, a = 0; a < 19; a++, j++){
+				for (int k = 150, b = 0; b < 20; b++, k++) {
+					if (c[a][b] > 0) {
+						matrix[i][j][k] = 3;
+						c[a][b]--;
+					}
+					if (c[a][b] < 0) {
+						c[a][b]++;
+						if (c[a][b] == -1)
+							c[a][b] = 1;
+					}
+				}
+			}
+		}
+		
 		return matrix;
 	}
 	
@@ -149,7 +187,10 @@ namespace CastleBlast {
 					quads *q1 = _quads[type][i];
 					quads *q2 = _quads[type][j];
 					
-					if (q1->startColumn == q2->startColumn && q1->endColumn == q2->endColumn && q1->endLine == q2->startLine-1) {
+					if (q1->startColumn == q2->startColumn && 
+					    q1->endColumn == q2->endColumn && 
+					    q1->endLine == q2->startLine-1 &&
+					    q1->depth == q2->depth) {
 						q1->endLine = q2->endLine;
 						_quads[type].erase(_quads[type].begin()+j);
 						j--;
@@ -173,7 +214,8 @@ namespace CastleBlast {
 	{
 		_worldSize = cg::Properties::instance()->getInt("WORLD_SIZE");
 		_worldHeight = cg::Properties::instance()->getInt("WORLD_HEIGHT");
-		_block = new GrassBlock();
+		_grassBlock = new GrassBlock();
+		_stoneBlock = new StoneBlock();
 		_worldOriginal = createMatrix();
 		_world = createMatrix();
 		initWorldMatrix();
@@ -189,26 +231,19 @@ namespace CastleBlast {
 		
 		glPushMatrix();
 		
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, _block->getTexture());
-		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		
-		GLfloat mat_ambient[] = {1.0f,1.0f,1.0f,1.0f};
-		glMaterialfv(GL_FRONT,GL_AMBIENT,mat_ambient);
-		
-		glBegin(GL_QUADS);
 		
 		for (int i = 0; i < _quads.size(); i++) {
 			for (int j = 0; j < _quads[i].size(); j++){
-				_block->draw(1, 0, 1, 1, 1, 0, _quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
+				
+				if (i == 0){
+					_grassBlock->draw(1, 0, 1, 1, 1, 0, _quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
+				}
+				if (i == 2){
+					_stoneBlock->draw(1, 0, 1, 1, 1, 0, _quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
+				}
 			}
 		}
-
 		
-		glEnd();
-		glDisable(GL_TEXTURE_2D);
 		_projectile->draw();
 		glPopMatrix();
 	}

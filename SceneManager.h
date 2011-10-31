@@ -12,6 +12,7 @@
 #include <cg/cg.h>
 #include "Block.h"
 #include "GrassBlock.h"
+#include "StoneBlock.h"
 #include "Projectile.h"
 
 namespace CastleBlast {
@@ -44,7 +45,8 @@ namespace CastleBlast {
 		
 		int _worldSize; //the size of the world
 		int _worldHeight;
-		Block *_block; //TODO: have more blocks of diferent types
+		Block *_grassBlock;
+		Block *_stoneBlock;
 		Projectile *_projectile;
 		std::vector<std::vector<std::vector<int> > > _world;
 		std::vector<std::vector<std::vector<int> > > _worldOriginal;	//matriz that represents the blocks in the world
