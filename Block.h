@@ -35,7 +35,7 @@ namespace CastleBlast {
 		 
 			matrixPos is the position of the block in the world matrix
 		 */
-		void draw (int f, int bk, int l, int r, int t, int bt, cg::Vector3d matrixPos);
+		void draw(int f, int bk, int l, int r, int t, int bt, int startLine, int endLine, int startColumn, int endColumn, int depth);
 		
 		// Needs to be implemented in the below classes to load a texture
 		virtual int loadType() = 0;
@@ -47,14 +47,15 @@ namespace CastleBlast {
 		int _blockSize;
 		cg::Vector3d _startFrom; // where the first block will start to be drawn
 		cg::Vector3d _startPoint; // where the block will start to be drawn
+		cg::Vector3d _endPoint;
 		
-		void drawFrontFace();
-		void drawBackFace();
-		void drawLeftFace();
-		void drawRightFace();
-		void drawTopFace();
-		void drawBottomFace();
-		void makeTexture();
+		void drawFrontFace(int lines, int columns);
+		void drawBackFace(int lines, int columns);
+		void drawLeftFace(int lines, int columns);
+		void drawRightFace(int lines, int columns);
+		void drawTopFace(int lines, int columns);
+		void drawBottomFace(int lines, int columns);
+		void makeTexture(int lines, int columns);
 	};
 }
 
