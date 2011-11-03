@@ -21,8 +21,8 @@ namespace CastleBlast {
 		Projectile();
 		~Projectile();
 		void draw();
-		
-		void toggleDebug();
+		void debugDrawAxis();
+		void debugToggle();
 	};
 }
 #endif

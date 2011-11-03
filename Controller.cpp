@@ -27,7 +27,7 @@ namespace CastleBlast {
 		if (key == GLUT_KEY_F2) {
 			DebugManager *debugManager = (DebugManager*) cg::Registry::instance()->get("DEBUG_MANAGER");
 			if (debugManager) {
-				debugManager->toggleDebug();
+				debugManager->debugToggle();
 			}
 		}
 	}

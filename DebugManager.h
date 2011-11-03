@@ -26,7 +26,7 @@ namespace CastleBlast {
 		void init();
 		
 		void addObjectDebug(DebugMode *debug);
-		void toggleDebug();
+		void debugToggle();
 	};
 }
 

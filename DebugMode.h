@@ -11,16 +11,13 @@
 
 #include "DebugManager.h"
 
-#define ON true
-#define OFF false
-
 namespace CastleBlast {
 	class DebugMode {
 	public:
 		DebugMode();
 		~DebugMode();
 		
-		virtual void toggleDebug() = 0;
+		virtual void debugToggle() = 0;
 	};
 }
 

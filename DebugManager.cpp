@@ -25,10 +25,10 @@ namespace CastleBlast {
 		_debugClasses.push_back(debug);
 	}
 	
-	void DebugManager::toggleDebug()
+	void DebugManager::debugToggle()
 	{
 		for (int i = 0; i < _debugClasses.size(); i++) {
-			_debugClasses[i]->toggleDebug();
+			_debugClasses[i]->debugToggle();
 		}
 	}
 	
