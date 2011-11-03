@@ -27,7 +27,7 @@ namespace CastleBlast {
 		_wheels->loadModelData("Models/wheels.obj");
 #else
 		_cannon->loadModelData("..\\..\\src\\Models\\cannon.obj");
-		_wheel1->loadModelData("..\\..\\src\\Models\\wheels.obj");
+		_wheels->loadModelData("..\\..\\src\\Models\\wheels.obj");
 #endif
 
 	}
