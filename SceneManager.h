@@ -14,6 +14,7 @@
 #include "GrassBlock.h"
 #include "StoneBlock.h"
 #include "Projectile.h"
+#include "FreeImage.h"
 
 namespace CastleBlast {
 	
@@ -52,10 +53,9 @@ namespace CastleBlast {
 		std::vector<std::vector<std::vector<int> > > _worldOriginal;	//matriz that represents the blocks in the world
 		void updateQuads(); //turns the world matrix into quads
 		
-		//function that will create a matriz that represents the block in the world
-		//TODO: need to be in three dimensions
+		//function that will create a matriz that represents the blocks in the world
 		//TODO: need to represent more types of blocks
-		std::vector<std::vector<std::vector<int> > > createMatrix();
+		std::vector<std::vector<std::vector<int> > > createWorld();
 		
 	};
 }

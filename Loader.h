@@ -10,6 +10,7 @@
 #define LOADER_H
 
 #include "cg/cg.h"
+#include "FreeImage.h"
 
 namespace CastleBlast {
 	
@@ -17,6 +18,7 @@ namespace CastleBlast {
 	class Loader {
 	public:
 		static GLuint loadTexture(const char *filename);
+		static std::vector<std::vector<int> > createHeightMap (const char* filename, int maxHeight);
 	};
 }
 

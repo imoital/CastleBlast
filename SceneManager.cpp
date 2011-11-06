@@ -7,54 +7,47 @@
 //
 
 #include "SceneManager.h"
+#include "Loader.h"
 
 namespace CastleBlast {
 	
-	std::vector<std::vector<std::vector<int> > > SceneManager::createMatrix()
+	std::vector<std::vector<std::vector<int> > > SceneManager::createWorld()
 	{
 		
 		std::vector<std::vector<int> > tmp(_worldSize, std::vector<int>(_worldSize, 0));
 		std::vector<std::vector<std::vector<int> > > matrix(_worldHeight, tmp);
 		
-		for (int i = 0; i < _worldSize; i++) {
+#ifdef __APPLE__
+		std::vector<std::vector<int> > terrain = Loader::createHeightMap("HeightMaps/terrain.png", 6);
+#else
+		std::vector<std::vector<int> > terrain = Loader::createHeightMap("..\\..\\src\\HeightMaps\\terrain.png", 6);
+#endif
+		
+		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < _worldSize; j++) {
-				matrix[0][i][j] = 1;
+				for (int k = 0; k < _worldSize; k++) {
+					if (terrain[j][k] > 0){
+						matrix[i][j][k] = 1;
+						terrain[j][k]--;
+					}
+				}
 			}
 		}
 		
-		//CASTLE
-		int c[19][20] = { 
-			{13, 12, 13, 12, 13, 7, 8, 7, 8, 7, 8, 7, 8, 7, 13, 12, 13, 12, 13,0},
-			{12, 11, 11, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 11, 11, 12,0},
-			{13, 11, 11, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 11, 11, 11, 13,0},
-			{12, 11, 11, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 11, 11, 12,0},
-			{13, 12, 13, 12, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 12, 13, 12, 13,0},
-			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0},
-			{8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 6},
-			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, -6},
-			{8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, -6},
-			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, -6},
-			{8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, -6},
-			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, -6},
-			{8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 6},
-			{7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0},
-			{13, 12, 13, 12, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 12, 13, 12, 13, 0},
-			{12, 11, 11, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 11, 11, 12, 0},
-			{13, 11, 11, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 11, 11, 11, 13, 0},
-			{12, 11, 11, 11, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 11, 11, 11, 12, 0},
-			{13, 12, 13, 12, 13, 7, 8, 7, 8, 7, 8, 7, 8, 7, 13, 12, 13, 12, 13, 0}};
+		// Loads the castle
+		// 13 is the height of the castle
+#ifdef __APPLE__
+		std::vector<std::vector<int> > castle = Loader::createHeightMap("HeightMaps/castle.png", 13);
+#else
+		std::vector<std::vector<int> > castle = Loader::createHeightMap("..\\..\\src\\HeightMaps\\castle.png", 13);
+#endif
 		
 		for (int i = 1; i < _worldHeight; i++) {
-			for (int j = 160, a = 0; a < 19; a++, j++){
-				for (int k = 150, b = 0; b < 20; b++, k++) {
-					if (c[a][b] > 0) {
+			for (int j = 160, a = 0; a < 30; a++, j++){
+				for (int k = 120, b = 0; b < 30; b++, k++) {
+					if (castle[a][b] > 0) {
 						matrix[i][j][k] = 3;
-						c[a][b]--;
-					}
-					if (c[a][b] < 0) {
-						c[a][b]++;
-						if (c[a][b] == -1)
-							c[a][b] = 1;
+						castle[a][b]--;
 					}
 				}
 			}
@@ -216,8 +209,8 @@ namespace CastleBlast {
 		_worldHeight = cg::Properties::instance()->getInt("WORLD_HEIGHT");
 		_grassBlock = new GrassBlock();
 		_stoneBlock = new StoneBlock();
-		_worldOriginal = createMatrix();
-		_world = createMatrix();
+		_worldOriginal = createWorld();
+		_world = createWorld();
 		initWorldMatrix();
 		_projectile = new Projectile();
 		initQuads();

@@ -43,6 +43,13 @@ namespace CastleBlast {
 		// returns the texture of the block
 		int getTexture();
 		
+	protected:
+		// materials for blocks
+		GLfloat mat_ambient[4];
+		GLfloat mat_difusse[4];
+		GLfloat mat_specular[4];
+		GLfloat shininess;
+		
 	private:
 		int _blockSize;
 		cg::Vector3d _startFrom; // where the first block will start to be drawn

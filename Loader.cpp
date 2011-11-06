@@ -7,7 +7,6 @@
 //
 
 #include "Loader.h"
-#include "FreeImage.h"
 
 namespace CastleBlast {
 	
@@ -53,5 +52,33 @@ namespace CastleBlast {
 		
 		return gl_texID;
 	}
+	
+	std::vector<std::vector<int> > Loader::createHeightMap(const char* filename, int maxHeight)
+	{
+		RGBQUAD color;
+		int width, height;
+		FIBITMAP *image = FreeImage_Load(FIF_PNG, filename, PNG_DEFAULT);
+		
+		width = FreeImage_GetWidth(image);
+		height = FreeImage_GetHeight(image);
+		
+		std::vector<std::vector<int> > map;
+		
+		for (int i = 0;  i < width; i++) {
+			std::vector<int> a;
+			map.push_back(a);
+			for (int j = 0; j < height; j++){
+				FreeImage_GetPixelColor(image, i, j, &color);
+				float rgbRed = 1 - (float)color.rgbRed/(float)255;
+				int depth = rgbRed*maxHeight;
+				map[i].push_back(depth);
+			}
+			std::cout << std::endl;
+			
+		}
+		
+		return map;
+	}
+	
 
 }

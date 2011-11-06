@@ -16,7 +16,7 @@ namespace CastleBlast {
 	
 	void Cannon::init()
 	{
-		_position = cg::Vector3d(0,1,0);
+		_position = cg::Vector3d(0,4,0);
 		_wheelRotation = 0;
 		_cannonRotation = 0;
 		
@@ -36,7 +36,7 @@ namespace CastleBlast {
 	{
 		glPushMatrix();
 		{
-			glScaled(2, 2, 2); // if you remove the scale don't forget to remove the GL_NORMALIZE (lines 52 and 54)
+			//glScaled(2, 2, 2); // if you remove the scale don't forget to remove the GL_NORMALIZE (lines 52 and 54)
 			glTranslated(_position[0], _position[1], _position[2]); //translate the whoel cannon (cannon+wheels)
 			glPushMatrix(); 
 			{
