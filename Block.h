@@ -17,7 +17,8 @@ namespace CastleBlast {
 	class Block {
 	
 	public:
-		int _materialDL; //texture of the block
+		int _topBottomTexture; //texture of the block
+		int _sideTexture;
 		
 		Block();
 		~Block();
@@ -27,17 +28,19 @@ namespace CastleBlast {
 		void draw(int startLine, int endLine, int startColumn, int endColumn, int depth);
 		
 		// Needs to be implemented in the below classes to load a texture
-		virtual int loadType() = 0;
-		
-		// returns the texture of the block
-		int getTexture();
+		virtual void loadTextures() = 0;
 		
 	protected:
 		// materials for blocks
-		GLfloat mat_ambient[4];
-		GLfloat mat_difusse[4];
-		GLfloat mat_specular[4];
-		GLfloat shininess;
+		GLfloat topBottom_mat_ambient[4];
+		GLfloat topBottom_mat_difusse[4];
+		GLfloat topBottom_mat_specular[4];
+		GLfloat topBottom_shininess;
+		
+		GLfloat side_mat_ambient[4];
+		GLfloat side_mat_difusse[4];
+		GLfloat side_mat_specular[4];
+		GLfloat side_shininess;
 		
 	private:
 		int _blockSize;

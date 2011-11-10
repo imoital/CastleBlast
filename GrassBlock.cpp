@@ -11,34 +11,37 @@
 namespace CastleBlast {
 	
 	GrassBlock::GrassBlock() : Block() {
-		_materialDL = loadType();
 		
-		mat_ambient[0] = 0.1f;
-		mat_ambient[1] = 0.6f;
-		mat_ambient[2] = 0.1f;
-		mat_ambient[3] = 1.0f;
+		topBottom_mat_ambient[0] = 0.1f;
+		topBottom_mat_ambient[1] = 0.4f;
+		topBottom_mat_ambient[2] = 0.1f;
+		topBottom_mat_ambient[3] = 1.0f;
 		
-		mat_difusse[0] = 0.0f;
-		mat_difusse[1] = 0.3f;
-		mat_difusse[2] = 0.0f;
-		mat_difusse[3] = 1.0f;
+		topBottom_mat_difusse[0] = 0.0f;
+		topBottom_mat_difusse[1] = 0.3f;
+		topBottom_mat_difusse[2] = 0.0f;
+		topBottom_mat_difusse[3] = 1.0f;
 		
-		mat_specular[0] = 0.0f;
-		mat_specular[1] = 0.7f;
-		mat_specular[2] = 0.0f;
-		mat_specular[3] = 1.0f;
+		topBottom_mat_specular[0] = 0.0f;
+		topBottom_mat_specular[1] = 0.7f;
+		topBottom_mat_specular[2] = 0.0f;
+		topBottom_mat_specular[3] = 1.0f;
 		
-		shininess = 5;
+		topBottom_shininess = 5;
+		
+		loadTextures();
 	}
 	
 	GrassBlock::~GrassBlock() {}
 	
-	int GrassBlock::loadType()
+	void GrassBlock::loadTextures()
 	{
 #ifdef __APPLE__
-		return Loader::loadTexture("Textures/grass.jpg");
+		_topBottomTexture = Loader::loadTexture("Textures/grass.jpg");
+		_sideTexture = Loader::loadTexture("Textures/sideGrass.jpg");
 #else
-		return Loader::loadTexture("..\\..\\src\\Textures\\grass.jpg");
+		_topBottomTexture = Loader::loadTexture("..\\..\\src\\Textures\\grass.jpg");
+		_sideTexture = Loader::loadTexture("..\\..\\src\\Textures\\sideGrass.jpg");
 #endif
 	}
 }

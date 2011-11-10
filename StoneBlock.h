@@ -21,7 +21,7 @@ namespace CastleBlast {
 		StoneBlock();
 		~StoneBlock();
 		
-		int loadType();
+		void loadTextures();
 		
 	};
 }

@@ -18,22 +18,39 @@ namespace CastleBlast {
 		_startFrom = cg::Vector3d(-wordlSize, 0, - wordlSize);
 		
 		//default material for block
-		mat_ambient[0] = 0.9f;
-		mat_ambient[1] = 0.9f;
-		mat_ambient[2] = 0.9f;
-		mat_ambient[3] = 1.0f;
+		topBottom_mat_ambient[0] = 0.9f;
+		topBottom_mat_ambient[1] = 0.9f;
+		topBottom_mat_ambient[2] = 0.9f;
+		topBottom_mat_ambient[3] = 1.0f;
 		
-		mat_difusse[0] = 0.3f;
-		mat_difusse[1] = 0.9f;
-		mat_difusse[2] = 0.3f;
-		mat_difusse[3] = 1.0f;
+		topBottom_mat_difusse[0] = 0.3f;
+		topBottom_mat_difusse[1] = 0.9f;
+		topBottom_mat_difusse[2] = 0.3f;
+		topBottom_mat_difusse[3] = 1.0f;
 		
-		mat_specular[0] = 0.3f;
-		mat_specular[1] = 0.3f;
-		mat_specular[2] = 0.3f;
-		mat_specular[3] = 1.0f;
+		topBottom_mat_specular[0] = 0.3f;
+		topBottom_mat_specular[1] = 0.3f;
+		topBottom_mat_specular[2] = 0.3f;
+		topBottom_mat_specular[3] = 1.0f;
 		
-		shininess = 12;
+		topBottom_shininess = 12;
+		
+		side_mat_ambient[0] = 0.9f;
+		side_mat_ambient[1] = 0.9f;
+		side_mat_ambient[2] = 0.9f;
+		side_mat_ambient[3] = 1.0f;
+		
+		side_mat_difusse[0] = 0.3f;
+		side_mat_difusse[1] = 0.9f;
+		side_mat_difusse[2] = 0.3f;
+		side_mat_difusse[3] = 1.0f;
+		
+		side_mat_specular[0] = 0.3f;
+		side_mat_specular[1] = 0.3f;
+		side_mat_specular[2] = 0.3f;
+		side_mat_specular[3] = 1.0f;
+		
+		side_shininess = 12;
 		
 	}
 	
@@ -53,146 +70,170 @@ namespace CastleBlast {
 		int columns = endColumn-startColumn+1; // number of columns to be draw
 		
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, _materialDL);
 		
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glBindTexture(GL_TEXTURE_2D, _sideTexture);
+		glMaterialfv(GL_FRONT,GL_AMBIENT, side_mat_ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, side_mat_difusse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, side_mat_specular);
+		glMaterialf(GL_FRONT, GL_SHININESS, side_shininess);
 		
-		glMaterialfv(GL_FRONT,GL_AMBIENT,mat_ambient);
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_difusse);
-		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-		glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+		drawFrontFace(lines, columns);
+		drawBackFace(lines, columns);
+		drawLeftFace(lines, columns);
+		drawRightFace(lines, columns);
 		
-		glBegin(GL_QUADS);
-		{
-			drawFrontFace(lines, columns);
-			drawBackFace(lines, columns);
-			drawLeftFace(lines, columns);
-			drawRightFace(lines, columns);
-			drawTopFace(lines, columns);
-			drawBottomFace(lines, columns);
-		}
-		glEnd();
+		
+		glBindTexture(GL_TEXTURE_2D, _topBottomTexture);
+		glMaterialfv(GL_FRONT,GL_AMBIENT, topBottom_mat_ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, topBottom_mat_difusse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, topBottom_mat_specular);
+		glMaterialf(GL_FRONT, GL_SHININESS, topBottom_shininess);
+		
+		drawTopFace(lines, columns);
+		drawBottomFace(lines, columns);
+
 		glDisable(GL_TEXTURE_2D);
 
 	}
 	
 	void Block::drawTopFace(int lines, int columns) 
 	{
-		glNormal3d(0, 1, 0);
-		glTexCoord2d(0, columns);
-		glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
-		
-		glNormal3d(0, 1, 0);
-		glTexCoord2d(lines, columns);
-		glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
-		
-		glNormal3d(0, 1, 0);
-		glTexCoord2d(lines, 0);
-		glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
-		
-		glNormal3d(0, 1, 0);
-		glTexCoord2d(0, 0);
-		glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
+		glBegin(GL_QUADS);
+		{
+			glNormal3d(0, 1, 0);
+			glTexCoord2d(0, columns);
+			glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
+			
+			glNormal3d(0, 1, 0);
+			glTexCoord2d(lines, columns);
+			glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
+			
+			glNormal3d(0, 1, 0);
+			glTexCoord2d(lines, 0);
+			glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
+			
+			glNormal3d(0, 1, 0);
+			glTexCoord2d(0, 0);
+			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
+		}
+		glEnd();
 	}
 	
 	void Block::drawRightFace(int lines, int columns)
 	{
-		glNormal3d(1, 0, 0);
-		glTexCoord2d(0, 1);
-		glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
-		
-		glNormal3d(1, 0, 0);
-		glTexCoord2d(columns, 1);
-		glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
-		
-		glNormal3d(1, 0, 0);
-		glTexCoord2d(columns, 0);
-		glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
-		
-		glNormal3d(1, 0, 0);
-		glTexCoord2d(0, 0);
-		glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
+		glBegin(GL_QUADS);
+		{
+			glNormal3d(1, 0, 0);
+			glTexCoord2d(0, 1);
+			glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
+			
+			glNormal3d(1, 0, 0);
+			glTexCoord2d(columns, 1);
+			glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
+			
+			glNormal3d(1, 0, 0);
+			glTexCoord2d(columns, 0);
+			glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
+			
+			glNormal3d(1, 0, 0);
+			glTexCoord2d(0, 0);
+			glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
+		}
+		glEnd();
 	}
 	
 	void Block::drawLeftFace(int lines, int columns)
 	{
-		glNormal3d(-1, 0, 0);
-		glTexCoord2d(1, columns);
-		glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
-		
-		glNormal3d(-1, 0, 0);
-		glTexCoord2d(0, columns);
-		glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
-		
-		glNormal3d(-1, 0, 0);
-		glTexCoord2d(0, 0);
-		glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
-		
-		glNormal3d(-1, 0, 0);
-		glTexCoord2d(1, 0);
-		glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
+		glBegin(GL_QUADS);
+		{
+			glNormal3d(-1, 0, 0);
+			glTexCoord2d(columns, 1);
+			glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
+			
+			glNormal3d(-1, 0, 0);
+			glTexCoord2d(0, 1);
+			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
+			
+			glNormal3d(-1, 0, 0);
+			glTexCoord2d(0, 0);
+			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
+			
+			glNormal3d(-1, 0, 0);
+			glTexCoord2d(columns, 0);
+			glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
+		}
+		glEnd();
 	}
 	
 	void Block::drawFrontFace(int lines, int columns)
 	{
-		glNormal3d(0, 0, 1);
-		glTexCoord2d(0, 1);
-		glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
-		
-		glNormal3d(0, 0, 1);
-		glTexCoord2d(0, 0);
-		glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
-		
-		glNormal3d(0, 0, 1);
-		glTexCoord2d(lines, 0);
-		glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
-		
-		glNormal3d(0, 0, 1);
-		glTexCoord2d(lines, 1);
-		glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
+		glBegin(GL_QUADS);
+		{
+			glNormal3d(0, 0, 1);
+			glTexCoord2d(0, 1);
+			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
+			
+			glNormal3d(0, 0, 1);
+			glTexCoord2d(0, 0);
+			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
+			
+			glNormal3d(0, 0, 1);
+			glTexCoord2d(lines, 0);
+			glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
+			
+			glNormal3d(0, 0, 1);
+			glTexCoord2d(lines, 1);
+			glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
+		}
+		glEnd();
 	}
 	
 	void Block::drawBottomFace(int lines, int columns)
 	{
-		glNormal3d(0, -1, 0);
-		glTexCoord2d(lines, columns);
-		glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
-		
-		glNormal3d(0, -1, 0);
-		glTexCoord2d(0, columns);
-		glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
-		
-		glNormal3d(0, -1, 0);
-		glTexCoord2d(0, 0);
-		glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
-		
-		glNormal3d(0, -1, 0);
-		glTexCoord2d(lines, 0);
-		glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
+		glBegin(GL_QUADS);
+		{
+			glNormal3d(0, -1, 0);
+			glTexCoord2d(lines, columns);
+			glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
+			
+			glNormal3d(0, -1, 0);
+			glTexCoord2d(0, columns);
+			glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
+			
+			glNormal3d(0, -1, 0);
+			glTexCoord2d(0, 0);
+			glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
+			
+			glNormal3d(0, -1, 0);
+			glTexCoord2d(lines, 0);
+			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
+		}
+		glEnd();
 	}
 	
 	void Block::drawBackFace(int lines, int columns)
 	{
-		glNormal3d(0, 0, -1);
-		glTexCoord2d(lines, 1);
-		glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
-		
-		glNormal3d(0, 0, -1);
-		glTexCoord2d(0, 1);
-		glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
-		
-		glNormal3d(0, 0, -1);
-		glTexCoord2d(0, 0);
-		glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
-		
-		glNormal3d(0, 0, -1);
-		glTexCoord2d(lines, 0);
-		glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
-	}
-	
-	int Block::getTexture()
-	{
-		return _materialDL;
+		glBegin(GL_QUADS);
+		{
+			glNormal3d(0, 0, -1);
+			glTexCoord2d(lines, 1);
+			glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
+			
+			glNormal3d(0, 0, -1);
+			glTexCoord2d(0, 1);
+			glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
+			
+			glNormal3d(0, 0, -1);
+			glTexCoord2d(0, 0);
+			glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
+			
+			glNormal3d(0, 0, -1);
+			glTexCoord2d(lines, 0);
+			glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
+		}
+		glEnd();
 	}
 }

@@ -21,7 +21,7 @@ namespace CastleBlast {
 		GrassBlock();
 		~GrassBlock();
 		
-		int loadType();
+		void loadTextures();
 		
 	};
 }
