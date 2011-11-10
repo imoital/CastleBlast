@@ -22,20 +22,9 @@ namespace CastleBlast {
 		Block();
 		~Block();
 		
-		/* draw (int f, int bk, int l, int r, int t, int bt, cg::Vector3d matrixPos):
-		 
-			f = 1	-> draw front face
-			bk = 1	-> draw back face
-			l = 1 -> draw left face
-			r = 1 -> draw right face
-			t = 1 -> draw top face
-			bt = 1 -> draw bottom face
-			
-			if any of the above variables is equal to 0 the face is not drawn
-		 
-			matrixPos is the position of the block in the world matrix
-		 */
-		void draw(int f, int bk, int l, int r, int t, int bt, int startLine, int endLine, int startColumn, int endColumn, int depth);
+		// draws a cube from the start line ('startLine') to the endline('endLine'), 
+		// from the start column ('startColumn') to the end column ('endColumn') and at depth 'depth'
+		void draw(int startLine, int endLine, int startColumn, int endColumn, int depth);
 		
 		// Needs to be implemented in the below classes to load a texture
 		virtual int loadType() = 0;

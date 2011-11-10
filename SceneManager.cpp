@@ -17,6 +17,7 @@ namespace CastleBlast {
 		std::vector<std::vector<int> > tmp(_worldSize, std::vector<int>(_worldSize, 0));
 		std::vector<std::vector<std::vector<int> > > matrix(_worldHeight, tmp);
 		
+		//Loads the terrain
 #ifdef __APPLE__
 		std::vector<std::vector<int> > terrain = Loader::createHeightMap("HeightMaps/terrain.png", 6);
 #else
@@ -192,15 +193,14 @@ namespace CastleBlast {
 			}
 		}
 		
+		int nQuads = 0;
 		for (int m = 0; m < _quads.size(); m++) {
-			std::cout << "quad type : " << m+1 << std::endl;
-			for (int n = 0; n < _quads[m].size(); n++){
-				std::cout << "    Quad " << n << std::endl;
-				std::cout << "        StartLine: " << _quads[m][n]->startLine << "  EndLine: " << _quads[m][n]->endLine << std::endl;
-				std::cout << "        StartColumn: " << _quads[m][n]->startColumn << "  EndColumn: " << _quads[m][n]->endColumn << std::endl;
-				std::cout << "        Depth: " << _quads[m][n]->depth << std::endl;
-			}
+			
+			nQuads = nQuads + _quads[m].size();
+			
 		}
+		
+		std::cout << "Number of quads: " << nQuads << std::endl;
 	}
 	
 	void SceneManager::init()
@@ -229,10 +229,10 @@ namespace CastleBlast {
 			for (int j = 0; j < _quads[i].size(); j++){
 				
 				if (i == 0){
-					_grassBlock->draw(1, 0, 1, 1, 1, 0, _quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
+					_grassBlock->draw(_quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
 				}
 				if (i == 2){
-					_stoneBlock->draw(1, 0, 1, 1, 1, 0, _quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
+					_stoneBlock->draw(_quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
 				}
 			}
 		}

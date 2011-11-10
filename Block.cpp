@@ -34,11 +34,12 @@ namespace CastleBlast {
 		mat_specular[3] = 1.0f;
 		
 		shininess = 12;
+		
 	}
 	
 	Block::~Block() {}
 	
-	void Block::draw(int f, int bk, int l, int r, int t, int bt, int startLine, int endLine, int startColumn, int endColumn, int depth){
+	void Block::draw(int startLine, int endLine, int startColumn, int endColumn, int depth){
 		
 		_startPoint = cg::Vector3d(_startFrom[0] + _blockSize*startLine, 
 					   _startFrom[1] + _blockSize*depth, 
@@ -64,12 +65,12 @@ namespace CastleBlast {
 		
 		glBegin(GL_QUADS);
 		{
-			if (f) { drawFrontFace(lines, columns); }
-			if (bk) { drawBackFace(lines, columns); }
-			if (l) { drawLeftFace(lines, columns); }
-			if (r) { drawRightFace(lines, columns); }
-			if (t) { drawTopFace(lines, columns); }
-			if (bt) { drawBottomFace(lines, columns); }
+			drawFrontFace(lines, columns);
+			drawBackFace(lines, columns);
+			drawLeftFace(lines, columns);
+			drawRightFace(lines, columns);
+			drawTopFace(lines, columns);
+			drawBottomFace(lines, columns);
 		}
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
