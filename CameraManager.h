@@ -6,8 +6,8 @@
 namespace CastleBlast 
 {
 	class CameraManager : 
-		public cg::Entity,
-		public cg::IDrawListener
+		public cg::Entity, public cg::IDrawListener,
+		public cg::IUpdateListener, public cg::IMouseEventListener
 	{
 	private:
 		std::vector<WorldCamera*> _cameraVector;
@@ -19,6 +19,11 @@ namespace CastleBlast
 		void switchCamera();
 		void init();
 		void draw();
+		void update(unsigned long elapsed_millis);
+		void onMouse(int button, int state, int x, int y);
+		void onMouseMotion(int x, int y);
+		void onMousePassiveMotion(int x, int y);
+		
 	};
 }
 #endif

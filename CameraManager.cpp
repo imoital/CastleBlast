@@ -25,4 +25,19 @@ namespace CastleBlast
 	{
 		_worldCamera->draw();
 	}
+
+	void CameraManager::update(unsigned long elapsed_millis)
+	{
+		_worldCamera->update(elapsed_millis);
+	}
+	
+	void CameraManager::onMouse(int button, int state, int x, int y){
+		_worldCamera->onMouse(button, state, x, y);
+	}
+	void CameraManager::onMouseMotion(int x, int y){
+		_worldCamera->onMouseMotion(x, y);
+	}
+	 void CameraManager::onMousePassiveMotion(int x, int y){
+		_worldCamera->onMousePassiveMotion(x,y);
+	}
 }

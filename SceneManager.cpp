@@ -195,9 +195,7 @@ namespace CastleBlast {
 		
 		int nQuads = 0;
 		for (int m = 0; m < _quads.size(); m++) {
-			
 			nQuads = nQuads + _quads[m].size();
-			
 		}
 		
 		std::cout << "Number of quads: " << nQuads << std::endl;
