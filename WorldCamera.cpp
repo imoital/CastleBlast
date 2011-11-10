@@ -24,7 +24,7 @@ namespace CastleBlast {
 		_eye = cg::Vector3d(10,15,29);
 		_center = cg::Vector3d(0,0,0);
 		_up.set(0,1,0);
-		_front.set(1,1,1);
+		_front.set(1,0,0);
 		_right.set(0,0,1);
 		_isRoll = false;
 		_scale = 5.0f;
@@ -76,15 +76,16 @@ namespace CastleBlast {
 
 	void WorldCamera::onMouseMotion(int x, int y)
 	{
-			double anglex = (_lastMousePosition[0] - x) / (double)5;
-				_q.setRotationDeg(anglex,_up);
-				_front = apply(_q,_front);
-				_right = apply(_q,_right);
-				_orientation = _q * _orientation;
-			double angley = (y - _lastMousePosition[1]) / (double)5;
-				_q.setRotationDeg(angley, _right);
-				_front = apply(_q,_front);
-				_orientation = _q * _orientation;
+		double anglex = (_lastMousePosition[0] - x) / (double)5;
+			_q.setRotationDeg(anglex,_up);
+			_front = apply(_q,_front);
+			_right = apply(_q,_right);
+			//_orientation = _q * _orientation;
+		double angley = (y - _lastMousePosition[1]) / (double)5;
+			_q.setRotationDeg(angley, _right);
+			//_up = apply(_q, _up);
+			_front = apply(_q,_front);
+			//_orientation = _q * _orientation;
 		_lastMousePosition.set(x,y);
 	}
 
