@@ -74,7 +74,6 @@ namespace CastleBlast {
 		if(cg::KeyBuffer::instance()->isKeyDown('d')) {
 			_cannonRotation = _cannonRotation - 0.01*elapsed_millis;
 		}
-		
 		//std::cout << "" << _wheelRotation << std::endl;
 	}
 }

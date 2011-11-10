@@ -193,12 +193,12 @@ namespace CastleBlast {
 		}
 		
 		for (int m = 0; m < _quads.size(); m++) {
-			std::cout << "quad type : " << m+1 << std::endl;
+		//	std::cout << "quad type : " << m+1 << std::endl;
 			for (int n = 0; n < _quads[m].size(); n++){
-				std::cout << "    Quad " << n << std::endl;
-				std::cout << "        StartLine: " << _quads[m][n]->startLine << "  EndLine: " << _quads[m][n]->endLine << std::endl;
-				std::cout << "        StartColumn: " << _quads[m][n]->startColumn << "  EndColumn: " << _quads[m][n]->endColumn << std::endl;
-				std::cout << "        Depth: " << _quads[m][n]->depth << std::endl;
+			//	std::cout << "    Quad " << n << std::endl;
+			//	std::cout << "        StartLine: " << _quads[m][n]->startLine << "  EndLine: " << _quads[m][n]->endLine << std::endl;
+			//	std::cout << "        StartColumn: " << _quads[m][n]->startColumn << "  EndColumn: " << _quads[m][n]->endColumn << std::endl;
+			//	std::cout << "        Depth: " << _quads[m][n]->depth << std::endl;
 			}
 		}
 	}
