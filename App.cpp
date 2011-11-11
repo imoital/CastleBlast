@@ -15,6 +15,7 @@
 #include "Controller.h"
 #include "DebugManager.h"
 #include "Cannon.h"
+#include "King.h"
 
 namespace CastleBlast {
 	
@@ -40,6 +41,7 @@ namespace CastleBlast {
 		addEntity(new SceneManager());
 		addEntity(new Lights());
 		addEntity(new Cannon());
+		addEntity(new King());
 	}
 	
 	void App::createViews() 
@@ -51,5 +53,6 @@ namespace CastleBlast {
 		v0->linkEntityAtEnd("SKY");
 		v0->linkEntityAtEnd("FOG");
 		v0->linkEntityAtEnd("CANNON");
+		v0->linkEntityAtEnd("KING");
 	}
 }

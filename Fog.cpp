@@ -31,7 +31,7 @@ namespace CastleBlast {
 		glFogi (GL_FOG_MODE, GL_LINEAR);
 		glFogfv (GL_FOG_COLOR, _fogColor); 
 		glFogf (GL_FOG_DENSITY, _density); 
-		glFogf(GL_FOG_START, 300.f);
+		glFogf(GL_FOG_START, 200.f);
 		glFogf(GL_FOG_END, 500.f);
 		glHint (GL_FOG_HINT, GL_NICEST);
 		
