@@ -10,7 +10,8 @@
 
 namespace CastleBlast {
 	
-	King::King() : cg::Entity("KING") {}
+	King::King() : cg::Entity("KING") 
+	{}
 	
 	King::~King() {}
 	
@@ -22,13 +23,24 @@ namespace CastleBlast {
 #else
 		_king->loadModelData("..\\..\\src\\Models\\King.obj");
 #endif
-		_position = cg::Vector3d(10,4,0);
+		_position = cg::Vector3d(0,0,0);
 	}
 	
 	void King::draw()
 	{
-		glTranslatef(_position[0], _position[1], _position[2]);
-		glScalef(0.7, 0.7, 0.7);
-		_king->drawModel();
+		glPushMatrix();
+		{
+			glTranslatef(_position[0], _position[1], _position[2]);
+			glScalef(0.7, 0.7, 0.7);
+			_king->drawModel();
+		}
+		glPopMatrix();
+	}
+	
+	void King::update(unsigned long elapsed_millis) {}
+	
+	void King::placeKing(cg::Vector3d position)
+	{
+		_position = position;
 	}
 }

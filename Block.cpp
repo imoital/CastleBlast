@@ -10,12 +10,10 @@
 
 namespace CastleBlast {
 	
-	Block::Block() 
+	Block::Block(cg::Vector3d startFrom) 
 	{
 		_blockSize = cg::Properties::instance()->getInt("BLOCK_SIZE");
-		int wordlSize = cg::Properties::instance()->getInt("WORLD_SIZE");
-		
-		_startFrom = cg::Vector3d(-wordlSize, 0, - wordlSize);
+		_startFrom = startFrom;
 		
 		//default material for block
 		topBottom_mat_ambient[0] = 0.9f;
@@ -74,18 +72,19 @@ namespace CastleBlast {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+		//draw side faces
 		glBindTexture(GL_TEXTURE_2D, _sideTexture);
 		glMaterialfv(GL_FRONT,GL_AMBIENT, side_mat_ambient);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, side_mat_difusse);
 		glMaterialfv(GL_FRONT, GL_SPECULAR, side_mat_specular);
 		glMaterialf(GL_FRONT, GL_SHININESS, side_shininess);
-		
+	
 		drawFrontFace(lines, columns);
 		drawBackFace(lines, columns);
 		drawLeftFace(lines, columns);
 		drawRightFace(lines, columns);
 		
-		
+		// draw top and bottom faces
 		glBindTexture(GL_TEXTURE_2D, _topBottomTexture);
 		glMaterialfv(GL_FRONT,GL_AMBIENT, topBottom_mat_ambient);
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, topBottom_mat_difusse);

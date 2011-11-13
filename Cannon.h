@@ -29,6 +29,7 @@ namespace CastleBlast {
 		void init();
 		void draw();
 		void update(unsigned long elapsed_millis);
+		void placeCannon(cg::Vector3d position);
 	};
 }
 

@@ -20,7 +20,7 @@ namespace CastleBlast {
 		int _topBottomTexture; //texture of the block
 		int _sideTexture;
 		
-		Block();
+		Block(cg::Vector3d startFrom);
 		~Block();
 		
 		// draws a cube from the start line ('startLine') to the endline('endLine'), 

@@ -18,7 +18,7 @@ namespace CastleBlast {
 	class StoneBlock : public Block {
 		
 	public:
-		StoneBlock();
+		StoneBlock(cg::Vector3d startFrom);
 		~StoneBlock();
 		
 		void loadTextures();

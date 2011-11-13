@@ -10,7 +10,7 @@
 
 namespace CastleBlast {
 	
-	StoneBlock::StoneBlock() : Block() {
+	StoneBlock::StoneBlock(cg::Vector3d startFrom) : Block(startFrom) {
 		
 		topBottom_mat_ambient[0] = 0.5f;
 		topBottom_mat_ambient[1] = 0.5f;

@@ -10,7 +10,7 @@
 
 namespace CastleBlast {
 	
-	GrassBlock::GrassBlock() : Block() {
+	GrassBlock::GrassBlock(cg::Vector3d startFrom) : Block(startFrom) {
 		
 		topBottom_mat_ambient[0] = 0.1f;
 		topBottom_mat_ambient[1] = 0.4f;

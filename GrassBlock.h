@@ -18,7 +18,7 @@ namespace CastleBlast {
 	class GrassBlock : public Block {
 	
 	public:
-		GrassBlock();
+		GrassBlock(cg::Vector3d startFrom);
 		~GrassBlock();
 		
 		void loadTextures();

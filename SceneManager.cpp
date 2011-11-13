@@ -35,25 +35,6 @@ namespace CastleBlast {
 			}
 		}
 		
-		// Loads the castle
-		// 13 is the height of the castle
-#ifdef __APPLE__
-		std::vector<std::vector<int> > castle = Loader::createHeightMap("HeightMaps/castle.png", 13);
-#else
-		std::vector<std::vector<int> > castle = Loader::createHeightMap("..\\..\\src\\HeightMaps\\castle.png", 13);
-#endif
-		
-		for (int i = 1; i < _worldHeight; i++) {
-			for (int j = 160, a = 0; a < 30; a++, j++){
-				for (int k = 120, b = 0; b < 30; b++, k++) {
-					if (castle[a][b] > 0) {
-						matrix[i][j][k] = 3;
-						castle[a][b]--;
-					}
-				}
-			}
-		}
-		
 		return matrix;
 	}
 	
@@ -77,6 +58,7 @@ namespace CastleBlast {
 				}
 			}
 		}
+		updateQuads();
 	}
 	
 	SceneManager::quads* SceneManager::makeQuad(int startLine, int startColumn, int endLine, int endColumn, int depth)
@@ -93,6 +75,7 @@ namespace CastleBlast {
 	
 	void SceneManager::initQuads() 
 	{
+		_quads.clear();
 		for (int i = 0; i < 4; i++){
 			std::vector<quads*> vec;
 			_quads.push_back(vec);
@@ -105,10 +88,7 @@ namespace CastleBlast {
 	
 	void SceneManager::updateQuads()
 	{
-		// clear all the contents in the _quads vector for each type
-		for (int i = 0; i < 4; i++) {
-			_quads[i].clear();
-		}
+		initQuads();
 		
 		int prevType = -1;
 		for (int i = 0; i < _worldHeight; i++) { // world level
@@ -205,15 +185,14 @@ namespace CastleBlast {
 	{
 		_worldSize = cg::Properties::instance()->getInt("WORLD_SIZE");
 		_worldHeight = cg::Properties::instance()->getInt("WORLD_HEIGHT");
-		_grassBlock = new GrassBlock();
-		_stoneBlock = new StoneBlock();
+		_blockSize = cg::Properties::instance()->getInt("BLOCK_SIZE");
+		_startFrom  = cg::Vector3d(-_worldSize, 0, -_worldSize);
+		_grassBlock = new GrassBlock(_startFrom);
+		_stoneBlock = new StoneBlock(_startFrom);
+		loadCastleHeightMap();
 		_worldOriginal = createWorld();
 		_world = createWorld();
 		initWorldMatrix();
-		_projectile = new Projectile();
-		initQuads();
-		
-		
 		updateQuads();
 	}
 	
@@ -221,21 +200,76 @@ namespace CastleBlast {
 	{
 		
 		glPushMatrix();
-		
-		
-		for (int i = 0; i < _quads.size(); i++) {
-			for (int j = 0; j < _quads[i].size(); j++){
-				
-				if (i == 0){
-					_grassBlock->draw(_quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
+		{
+			for (int i = 0; i < _quads.size(); i++) {
+				for (int j = 0; j < _quads[i].size(); j++){
+					
+					if (i == 0){
+						_grassBlock->draw(_quads[i][j]->startLine, 
+								  _quads[i][j]->endLine, 
+								  _quads[i][j]->startColumn, 
+								  _quads[i][j]->endColumn, 
+								  _quads[i][j]->depth);
+					}
+					else if (i == 1){
+						_stoneBlock->draw(_quads[i][j]->startLine, 
+								  _quads[i][j]->endLine, 
+								  _quads[i][j]->startColumn, 
+								  _quads[i][j]->endColumn, 
+								  _quads[i][j]->depth);
+					}
 				}
-				if (i == 2){
-					_stoneBlock->draw(_quads[i][j]->startLine, _quads[i][j]->endLine, _quads[i][j]->startColumn, _quads[i][j]->endColumn, _quads[i][j]->depth);
+			}
+		}
+		glPopMatrix();
+	}
+	
+	cg::Vector3d SceneManager::getWorldPosition(int posX, int posY)
+	{
+		int i;
+		
+		for (i = 0; i < _worldHeight; i++)
+		{
+			if (_worldOriginal[i][posX][posY] == 0)
+				break;
+		}
+		
+		float x = _startFrom[0] + _blockSize*(posX+1);
+		float y = _startFrom[1] + i*_blockSize;
+		float z = _startFrom[2] + _blockSize*posY;
+		
+		return cg::Vector3d(x, y, z);
+	}
+	
+	void SceneManager::update(unsigned long elapsed_millis) {}
+	
+	void SceneManager::placeCastle(int posX, int posY)
+	{
+		std::vector<std::vector<int> > castle = _castle;
+		
+		for (int i = 1; i < _worldHeight; i++) {
+			for (int j = posX, a = 0; a < 30; a++, j++){
+				for (int k = posY, b = 0; b < 30; b++, k++) {
+					if (castle[a][b] > 0) {
+						_worldOriginal[i][j][k] = 2;
+						_world[i][j][k] = 2;
+						castle[a][b]--;
+					}
 				}
 			}
 		}
 		
-		_projectile->draw();
-		glPopMatrix();
+		updateQuads();
+	}
+	
+	void SceneManager::loadCastleHeightMap()
+	{
+		// Loads the castle
+		// 13 is the height of the castle
+#ifdef __APPLE__
+		_castle = Loader::createHeightMap("HeightMaps/castle.png", 13);
+#else
+		_castle = Loader::createHeightMap("..\\..\\src\\HeightMaps\\castle.png", 13);
+#endif
 	}
 }

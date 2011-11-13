@@ -16,6 +16,7 @@
 #include "DebugManager.h"
 #include "Cannon.h"
 #include "King.h"
+#include "GameManager.h"
 
 namespace CastleBlast {
 	
@@ -38,21 +39,18 @@ namespace CastleBlast {
 		addEntity(new Controller());
 		addEntity(new Fog());
 		addEntity(new Sky());
-		addEntity(new SceneManager());
+		addEntity(new GameManager());
 		addEntity(new Lights());
-		addEntity(new Cannon());
-		addEntity(new King());
 	}
 	
 	void App::createViews() 
 	{
 		cg::View* v0 = createView("view1");
 		v0->linkEntityAtEnd("CAMERA_MANAGER");
-		v0->linkEntityAtEnd("SCENE_MANAGER");
+		v0->linkEntityAtEnd("GAME_MANAGER");
 		v0->linkEntityAtEnd("LIGHTS");
 		v0->linkEntityAtEnd("SKY");
 		v0->linkEntityAtEnd("FOG");
-		v0->linkEntityAtEnd("CANNON");
-		v0->linkEntityAtEnd("KING");
+		
 	}
 }
