@@ -34,7 +34,6 @@ namespace CastleBlast {
 		glPushMatrix();
 		{
 			glTranslatef(_position[0], _position[1], _position[2]);
-			glScalef(0.7, 0.7, 0.7);
 			_model->drawModel(_type);
 		}
 		glPopMatrix();

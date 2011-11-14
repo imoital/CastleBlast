@@ -39,6 +39,7 @@ namespace CastleBlast {
 		addEntity(new Controller());
 		addEntity(new Fog());
 		addEntity(new Sky());
+		addEntity(new SceneManager());
 		addEntity(new GameManager());
 		addEntity(new Lights());
 	}
@@ -47,6 +48,7 @@ namespace CastleBlast {
 	{
 		cg::View* v0 = createView("view1");
 		v0->linkEntityAtEnd("CAMERA_MANAGER");
+		v0->linkEntityAtEnd("SCENE_MANAGER");
 		v0->linkEntityAtEnd("GAME_MANAGER");
 		v0->linkEntityAtEnd("LIGHTS");
 		v0->linkEntityAtEnd("SKY");

@@ -31,6 +31,7 @@ namespace CastleBlast {
 		void update(unsigned long elapsed_millis);
 		cg::Vector3d getWorldPosition (int posX, int posY);
 		void placeCastle (int posX, int posY);
+		int getWorldSize();
 		
 	private:
 		
@@ -39,7 +40,8 @@ namespace CastleBlast {
 			int endLine;
 			int startColumn;
 			int endColumn;
-			int depth;
+			int startDepth;
+			int endDepth;
 		};
 		
 		std::vector<std::vector<quads*> > _quads; // quads to be drawn for each type of block

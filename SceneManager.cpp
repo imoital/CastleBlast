@@ -68,7 +68,7 @@ namespace CastleBlast {
 		q->startColumn = startColumn;
 		q->endLine = endLine;
 		q->endColumn = endColumn;
-		q->depth = depth;
+		q->startDepth = depth;
 		
 		return q;
 	}
@@ -82,7 +82,20 @@ namespace CastleBlast {
 		}
 	}
 	
-	SceneManager::SceneManager() : cg::Entity("SCENE_MANAGER") {}
+	SceneManager::SceneManager() : cg::Entity("SCENE_MANAGER") 
+	{
+		_worldSize = cg::Properties::instance()->getInt("WORLD_SIZE");
+		_worldHeight = cg::Properties::instance()->getInt("WORLD_HEIGHT");
+		_blockSize = cg::Properties::instance()->getInt("BLOCK_SIZE");
+		_startFrom  = cg::Vector3d(-_worldSize, 0, -_worldSize);
+		_grassBlock = new GrassBlock(_startFrom);
+		_stoneBlock = new StoneBlock(_startFrom);
+		loadCastleHeightMap();
+		_worldOriginal = createWorld();
+		_world = createWorld();
+		initWorldMatrix();
+		updateQuads();
+	}
 	
 	SceneManager::~SceneManager() {}
 	
@@ -164,7 +177,7 @@ namespace CastleBlast {
 					if (q1->startColumn == q2->startColumn && 
 					    q1->endColumn == q2->endColumn && 
 					    q1->endLine == q2->startLine-1 &&
-					    q1->depth == q2->depth) {
+					    q1->startDepth == q2->startDepth) {
 						q1->endLine = q2->endLine;
 						_quads[type].erase(_quads[type].begin()+j);
 						j--;
@@ -172,6 +185,25 @@ namespace CastleBlast {
 				}
 			}
 		}
+		
+		// TODO: depth in blocks
+		/*for (int type = 0; type < _quads.size(); type++) {
+			for (int i = 0; i < _quads[type].size(); i++) {
+				for (int j = i+1; j < _quads[type].size(); j++) {
+					quads *q1 = _quads[type][i];
+					quads *q2 = _quads[type][j];
+					
+					if (q1->startColumn == q2->startColumn && 
+					    q1->endColumn == q2->endColumn && 
+					    q1->endLine == q2->endLine &&
+					    q1->startLine == q2->startLine) {
+						q1->endDepth = q2->startDepth;
+						_quads[type].erase(_quads[type].begin()+j);
+						j--;
+					}
+				}
+			}
+		}*/
 		
 		int nQuads = 0;
 		for (int m = 0; m < _quads.size(); m++) {
@@ -182,19 +214,7 @@ namespace CastleBlast {
 	}
 	
 	void SceneManager::init()
-	{
-		_worldSize = cg::Properties::instance()->getInt("WORLD_SIZE");
-		_worldHeight = cg::Properties::instance()->getInt("WORLD_HEIGHT");
-		_blockSize = cg::Properties::instance()->getInt("BLOCK_SIZE");
-		_startFrom  = cg::Vector3d(-_worldSize, 0, -_worldSize);
-		_grassBlock = new GrassBlock(_startFrom);
-		_stoneBlock = new StoneBlock(_startFrom);
-		loadCastleHeightMap();
-		_worldOriginal = createWorld();
-		_world = createWorld();
-		initWorldMatrix();
-		updateQuads();
-	}
+	{}
 	
 	void SceneManager::draw()
 	{
@@ -209,14 +229,14 @@ namespace CastleBlast {
 								  _quads[i][j]->endLine, 
 								  _quads[i][j]->startColumn, 
 								  _quads[i][j]->endColumn, 
-								  _quads[i][j]->depth);
+								  _quads[i][j]->startDepth);
 					}
 					else if (i == 1){
 						_stoneBlock->draw(_quads[i][j]->startLine, 
 								  _quads[i][j]->endLine, 
 								  _quads[i][j]->startColumn, 
 								  _quads[i][j]->endColumn, 
-								  _quads[i][j]->depth);
+								  _quads[i][j]->startDepth);
 					}
 				}
 			}
@@ -271,5 +291,10 @@ namespace CastleBlast {
 #else
 		_castle = Loader::createHeightMap("..\\..\\src\\HeightMaps\\castle.png", 13);
 #endif
+	}
+	
+	int SceneManager::getWorldSize()
+	{
+		return _worldSize;
 	}
 }

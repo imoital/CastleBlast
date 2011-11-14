@@ -8,8 +8,8 @@
 
 #include "GameManager.h"
 #include "Player.h"
-#include "SceneManager.h"
 #include "ModelManager.h"
+#include "PlayerManager.h"
 
 namespace CastleBlast {
 	
@@ -19,24 +19,15 @@ namespace CastleBlast {
 	
 	void GameManager::preInit()
 	{
-		_sceneManager = new SceneManager();
-		_player1 = new Player("PLAYER1");
 		
 	}
 	
 	void GameManager::createEntities()
 	{		
-		addAtBeginning(_sceneManager);
-		addAtBeginning(_player1);
+		addAtBeginning(new PlayerManager());
 	}
 	
 	void GameManager::postInit()
 	{
-		_sceneManager->placeCastle(160, 120);
-		_sceneManager->placeCastle(160, 230);
-		cg::Vector3d kingPosition = _sceneManager->getWorldPosition(174, 135);
-		cg::Vector3d cannonPosition = _sceneManager->getWorldPosition(164, 145);
-		_player1->positionKing(kingPosition);
-		_player1->positionCannon(cannonPosition);
 	}
 }
