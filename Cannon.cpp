@@ -28,8 +28,8 @@ namespace CastleBlast {
 		_model->newModel(_cannon, "Models/cannon.obj");
 		_model->newModel(_wheels, "Models/wheels.obj");
 #else
-		_mdoel->newModel(_cannon, "..\\..\\src\\Models\\cannon.obj");
-		_wheels->newModel(_wheels, ("..\\..\\src\\Models\\wheels.obj");
+		_model->newModel(_cannon, "..\\..\\src\\Models\\cannon.obj");
+		_model->newModel(_wheels, "..\\..\\src\\Models\\wheels.obj");
 #endif
 
 	}
