@@ -9,15 +9,17 @@
 #ifndef CANNON_H
 #define CANNON_H
 
-#include "Model.h"
 #include "cg/cg.h"
 
 namespace CastleBlast {
 	
+	class ModelManager;
+	
 	class Cannon : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener {
 	private:
-		Model *_cannon;
-		Model *_wheels;
+		std::string _cannon;
+		std::string _wheels;
+		ModelManager* _model;
 		cg::Vector3d _position;
 		float _wheelRotation;
 		float _cannonRotation;

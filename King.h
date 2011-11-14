@@ -7,13 +7,17 @@
 //
 
 #include "cg/cg.h"
-#include "Model.h"
+
 
 namespace CastleBlast {
-	class King : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener {
+	
+	class ModelManager;
+	
+	class King : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener{
 	private:
-		Model* _king;
+		ModelManager* _model;
 		cg::Vector3d _position;
+		std::string _type;
 		
 	public:
 		King();

@@ -17,6 +17,7 @@ namespace CastleBlast {
 	private:
 		SceneManager* _sceneManager;
 		Player* _player1;
+		
 	public:
 		GameManager();
 		~GameManager();

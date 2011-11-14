@@ -7,6 +7,7 @@
 //
 
 #include "Cannon.h"
+#include "ModelManager.h"
 
 namespace CastleBlast {
 	
@@ -16,18 +17,19 @@ namespace CastleBlast {
 	
 	void Cannon::init()
 	{
+		_cannon = "CANNON";
+		_wheels = "WHEELS";
 		_position = cg::Vector3d(0,0,0);
 		_wheelRotation = 0;
 		_cannonRotation = 0;
 		
-		_cannon = new Model();
-		_wheels = new Model();
+		_model = (ModelManager*)cg::Registry::instance()->get("MODEL_MANAGER");
 #ifdef __APPLE__
-		_cannon->loadModelData("Models/cannon.obj");
-		_wheels->loadModelData("Models/wheels.obj");
+		_model->newModel(_cannon, "Models/cannon.obj");
+		_model->newModel(_wheels, "Models/wheels.obj");
 #else
-		_cannon->loadModelData("..\\..\\src\\Models\\cannon.obj");
-		_wheels->loadModelData("..\\..\\src\\Models\\wheels.obj");
+		_mdoel->newModel(_cannon, "..\\..\\src\\Models\\cannon.obj");
+		_wheels->newModel(_wheels, ("..\\..\\src\\Models\\wheels.obj");
 #endif
 
 	}
@@ -42,7 +44,7 @@ namespace CastleBlast {
 			{
 				glTranslatef(.5, 1.7, 0); // translate the wheels to be in the final position
 				glRotatef(_wheelRotation, 0, 0, 1); // Rotates the Wheels
-				_wheels->drawModel();	//draw the wheels
+				_model->drawModel(_wheels);	//draw the wheels
 			}
 			glPopMatrix();
 		
@@ -50,7 +52,7 @@ namespace CastleBlast {
 			{
 				glRotatef(_cannonRotation, 0, 0, 1); // rotates the cannon
 				glEnable(GL_NORMALIZE);		// needs to be where because of the scale
-				_cannon->drawModel();		// draw the cannon
+				_model->drawModel(_cannon);		// draw the cannon
 				glDisable(GL_NORMALIZE);
 			}
 			glPopMatrix();

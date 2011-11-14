@@ -14,9 +14,8 @@
 #include "CameraManager.h"
 #include "Controller.h"
 #include "DebugManager.h"
-#include "Cannon.h"
-#include "King.h"
 #include "GameManager.h"
+#include "ModelManager.h"
 
 namespace CastleBlast {
 	
@@ -34,6 +33,7 @@ namespace CastleBlast {
 	
 	void App::createEntities() 
 	{
+		addEntity(new ModelManager());
 		addEntity(new DebugManager());
 		addEntity(new CameraManager());
 		addEntity(new Controller());

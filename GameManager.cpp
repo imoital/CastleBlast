@@ -9,6 +9,7 @@
 #include "GameManager.h"
 #include "Player.h"
 #include "SceneManager.h"
+#include "ModelManager.h"
 
 namespace CastleBlast {
 	
