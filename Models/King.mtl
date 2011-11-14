@@ -1,21 +1,10 @@
-# Blender MTL File: 'KingV2.blend'
-# Material Count: 2
-newmtl BlackRubber_King
-Ns 10
-Ka 0.000000 0.000000 0.000000
-Kd 0.008000 0.008000 0.008000
-Ks 0.200000 0.200000 0.200000
-Ni 1.000000
-d 1.000000
-illum 2
-map_Kd Textures/King.png
-
-
+# Blender MTL File: 'King.blend'
+# Material Count: 1
 newmtl Material_King
-Ns 10
-Ka 0.300000 0.300000 0.300000
-Kd 0.400000 0.400000 0.400000
-Ks 0.200000 0.200000 0.200000
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
 illum 2
