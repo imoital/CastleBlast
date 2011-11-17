@@ -52,7 +52,7 @@ namespace CastleBlast {
 		
 		for (int i = 0; i < size(); i++) {
 			cg::Vector3d kingPos = sceneManager->getWorldPosition(playerPos[i][0]+14, playerPos[i][1]+15);
-			cg::Vector3d cannonPos = sceneManager->getWorldPosition(playerPos[i][0]+4, playerPos[i][1]+25);
+			cg::Vector3d cannonPos = sceneManager->getWorldPosition(playerPos[i][0]+4, playerPos[i][1]+24);
 			_players[i]->positionKing(kingPos);
 			_players[i]->positionCannon(cannonPos);
 		}

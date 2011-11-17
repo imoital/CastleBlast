@@ -40,16 +40,20 @@ namespace CastleBlast {
 		{
 			glTranslated(_position[0], _position[1], _position[2]); //translate the whoel cannon (cannon+wheels)
 			glRotated(-90, 0, 1, 0);
+			glScalef(1.5, 1.5, 1.5);
 			glPushMatrix(); 
 			{
 				glTranslatef(.5, 1.7, 0); // translate the wheels to be in the final position
 				glRotatef(_wheelRotation, 0, 0, 1); // Rotates the Wheels
+				glEnable(GL_NORMALIZE);		// needs to be where because of the scale
 				_model->drawModel(_wheels);	//draw the wheels
+				glDisable(GL_NORMALIZE);
 			}
 			glPopMatrix();
 		
 			glPushMatrix();
 			{
+				glTranslatef(1, 1.5, 0);
 				glRotatef(_cannonRotation, 0, 0, 1); // rotates the cannon
 				glEnable(GL_NORMALIZE);		// needs to be where because of the scale
 				_model->drawModel(_cannon);		// draw the cannon
