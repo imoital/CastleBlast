@@ -70,8 +70,9 @@ namespace CastleBlast {
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
 
 		//draw side faces
 		glBindTexture(GL_TEXTURE_2D, _sideTexture);
