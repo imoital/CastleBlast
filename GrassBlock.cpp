@@ -37,11 +37,11 @@ namespace CastleBlast {
 	void GrassBlock::loadTextures()
 	{
 #ifdef __APPLE__
-		_topBottomTexture = Loader::loadTexture("Textures/grass.jpg");
-		_sideTexture = Loader::loadTexture("Textures/sideGrass.jpg");
+		_topBottomTexture = Loader::loadTexture("Textures/grass.png");
+		_sideTexture = Loader::loadTexture("Textures/sideGrass.png");
 #else
-		_topBottomTexture = Loader::loadTexture("..\\..\\src\\Textures\\grass.jpg");
-		_sideTexture = Loader::loadTexture("..\\..\\src\\Textures\\sideGrass.jpg");
+		_topBottomTexture = Loader::loadTexture("..\\..\\src\\Textures\\grass.png");
+		_sideTexture = Loader::loadTexture("..\\..\\src\\Textures\\sideGrass.png");
 #endif
 	}
 }

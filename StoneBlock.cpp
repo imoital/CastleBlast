@@ -54,9 +54,9 @@ namespace CastleBlast {
 	void StoneBlock::loadTextures()
 	{
 #ifdef __APPLE__
-		_topBottomTexture = Loader::loadTexture("Textures/stone.jpg");
+		_topBottomTexture = Loader::loadTexture("Textures/stone.png");
 #else
-		_topBottomTexture = Loader::loadTexture("..\\..\\src\\Textures\\stone.jpg");
+		_topBottomTexture = Loader::loadTexture("..\\..\\src\\Textures\\stone.png");
 #endif
 		_sideTexture = _topBottomTexture;
 	}

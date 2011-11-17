@@ -43,7 +43,7 @@ namespace CastleBlast {
 			glScalef(1.5, 1.5, 1.5);
 			glPushMatrix(); 
 			{
-				glTranslatef(.5, 1.7, 0); // translate the wheels to be in the final position
+				glTranslatef(.5, 1.2, 0); // translate the wheels to be in the final position
 				glRotatef(_wheelRotation, 0, 0, 1); // Rotates the Wheels
 				glEnable(GL_NORMALIZE);		// needs to be where because of the scale
 				_model->drawModel(_wheels);	//draw the wheels
@@ -53,7 +53,7 @@ namespace CastleBlast {
 		
 			glPushMatrix();
 			{
-				glTranslatef(1, 1.5, 0);
+				glTranslatef(1, 1, 0);
 				glRotatef(_cannonRotation, 0, 0, 1); // rotates the cannon
 				glEnable(GL_NORMALIZE);		// needs to be where because of the scale
 				_model->drawModel(_cannon);		// draw the cannon
