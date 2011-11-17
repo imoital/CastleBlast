@@ -68,7 +68,8 @@ namespace CastleBlast {
 		int columns = endColumn-startColumn+1; // number of columns to be draw
 		
 		glEnable(GL_TEXTURE_2D);
-		
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -95,6 +96,7 @@ namespace CastleBlast {
 		drawBottomFace(lines, columns);
 
 		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_CULL_FACE);
 
 	}
 	
@@ -107,16 +109,16 @@ namespace CastleBlast {
 			glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
 			
 			glNormal3d(0, 1, 0);
-			glTexCoord2d(lines, columns);
-			glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
+			glTexCoord2d(0, 0);
+			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
 			
 			glNormal3d(0, 1, 0);
 			glTexCoord2d(lines, 0);
 			glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
 			
 			glNormal3d(0, 1, 0);
-			glTexCoord2d(0, 0);
-			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
+			glTexCoord2d(lines, columns);
+			glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
 		}
 		glEnd();
 	}
@@ -125,19 +127,19 @@ namespace CastleBlast {
 	{
 		glBegin(GL_QUADS);
 		{
-			glNormal3d(1, 0, 0);
+			glNormal3d(-1, 0, 0);
 			glTexCoord2d(0, 1);
 			glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
 			
-			glNormal3d(1, 0, 0);
+			glNormal3d(-1, 0, 0);
 			glTexCoord2d(columns, 1);
 			glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
 			
-			glNormal3d(1, 0, 0);
+			glNormal3d(-1, 0, 0);
 			glTexCoord2d(columns, 0);
 			glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
 			
-			glNormal3d(1, 0, 0);
+			glNormal3d(-1, 0, 0);
 			glTexCoord2d(0, 0);
 			glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
 		}
@@ -148,21 +150,21 @@ namespace CastleBlast {
 	{
 		glBegin(GL_QUADS);
 		{
-			glNormal3d(-1, 0, 0);
+			glNormal3d(1, 0, 0);
 			glTexCoord2d(columns, 1);
 			glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
 			
-			glNormal3d(-1, 0, 0);
-			glTexCoord2d(0, 1);
-			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
+			glNormal3d(1, 0, 0);
+			glTexCoord2d(columns, 0);
+			glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
 			
-			glNormal3d(-1, 0, 0);
+			glNormal3d(1, 0, 0);
 			glTexCoord2d(0, 0);
 			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
 			
-			glNormal3d(-1, 0, 0);
-			glTexCoord2d(columns, 0);
-			glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
+			glNormal3d(1, 0, 0);
+			glTexCoord2d(0, 1);
+			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
 		}
 		glEnd();
 	}
@@ -199,16 +201,17 @@ namespace CastleBlast {
 			glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
 			
 			glNormal3d(0, -1, 0);
-			glTexCoord2d(0, columns);
-			glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
+			glTexCoord2d(lines, 0);
+			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
 			
 			glNormal3d(0, -1, 0);
 			glTexCoord2d(0, 0);
 			glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
 			
 			glNormal3d(0, -1, 0);
-			glTexCoord2d(lines, 0);
-			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
+			glTexCoord2d(0, columns);
+			glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
+			
 		}
 		glEnd();
 	}
