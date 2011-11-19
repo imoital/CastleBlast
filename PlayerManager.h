@@ -16,6 +16,7 @@ namespace CastleBlast {
 	private:
 		std::vector<Player*> _players;
 		float _distancePlayers; //distance from witch player
+		int _currentPlayer;
 		
 	public:
 		PlayerManager();
@@ -24,5 +25,6 @@ namespace CastleBlast {
 		void createEntities();
 		void preInit();
 		void postInit();
+		Player* nextPlayer();
 	};
 }

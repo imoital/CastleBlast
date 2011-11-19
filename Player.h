@@ -19,13 +19,15 @@ namespace CastleBlast {
 	private:
 		King* _king;
 		Cannon* _cannon;
+		int _playerNumber;
 		
 	public:
-		Player(std::string id);
+		Player(std::string id, int number);
 		~Player();
 		
 		void createEntities();
 		void positionKing(cg::Vector3d initPosition);
 		void positionCannon(cg::Vector3d initPosition);
+		int getPlayerNumber();
 	};
 }

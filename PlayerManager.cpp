@@ -20,6 +20,7 @@ namespace CastleBlast {
 	void PlayerManager::preInit()
 	{
 		_distancePlayers = 2*3.14 / (double) cg::Properties::instance()->getInt("NUM_PLAYERS");
+		_currentPlayer = 0;
 
 	}
 	
@@ -30,7 +31,7 @@ namespace CastleBlast {
 		for (int i = 0; i < numPlayers; i++) {
 			std::ostringstream player;
 			player << "PLAYER" << i;
-			Player* p = new Player(player.str());
+			Player* p = new Player(player.str(), i+1);
 			_players.push_back(p);
 			addAtBeginning(p);
 		}
@@ -56,5 +57,13 @@ namespace CastleBlast {
 			_players[i]->positionKing(kingPos);
 			_players[i]->positionCannon(cannonPos);
 		}
+	}
+	
+	Player* PlayerManager::nextPlayer()
+	{
+		int numPlayers = cg::Properties::instance()->getInt("NUM_PLAYERS");
+		Player* p = _players[_currentPlayer];
+		_currentPlayer = (_currentPlayer+1)%numPlayers;
+		return p;
 	}
 }

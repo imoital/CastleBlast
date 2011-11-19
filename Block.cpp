@@ -202,16 +202,16 @@ namespace CastleBlast {
 			glVertex3d(_startPoint[0], _startPoint[1], _startPoint[2]);
 			
 			glNormal3d(0, -1, 0);
-			glTexCoord2d(lines, 0);
-			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
+			glTexCoord2d(0, columns);
+			glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
 			
 			glNormal3d(0, -1, 0);
 			glTexCoord2d(0, 0);
 			glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
 			
 			glNormal3d(0, -1, 0);
-			glTexCoord2d(0, columns);
-			glVertex3d(_endPoint[0], _startPoint[1], _startPoint[2]);
+			glTexCoord2d(lines, 0);
+			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
 			
 		}
 		glEnd();

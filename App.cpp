@@ -16,6 +16,7 @@
 #include "DebugManager.h"
 #include "GameManager.h"
 #include "ModelManager.h"
+#include "FontsManager.h"
 
 namespace CastleBlast {
 	
@@ -33,6 +34,7 @@ namespace CastleBlast {
 	
 	void App::createEntities() 
 	{
+		addEntity(new FontsManager());
 		addEntity(new ModelManager());
 		addEntity(new DebugManager());
 		addEntity(new CameraManager());

@@ -66,7 +66,7 @@ namespace CastleBlast {
 	
 	void Cannon::update(unsigned long elapsed_millis)
 	{
-		if(cg::KeyBuffer::instance()->isKeyDown('w')) {
+		/*if(cg::KeyBuffer::instance()->isKeyDown('w')) {
 			_position[2] = _position[2] + 0.001*elapsed_millis;
 			_wheelRotation = _wheelRotation - 0.04*elapsed_millis;
 		}
@@ -79,7 +79,7 @@ namespace CastleBlast {
 		}
 		if(cg::KeyBuffer::instance()->isKeyDown('d') && _cannonRotation > -17) {
 			_cannonRotation = _cannonRotation - 0.01*elapsed_millis;
-		}
+		}*/
 	}
 	
 	void Cannon::placeCannon(cg::Vector3d position)

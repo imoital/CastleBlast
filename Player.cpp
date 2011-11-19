@@ -12,7 +12,10 @@
 
 namespace CastleBlast {
 	
-	Player::Player(std::string id) : cg::Group(id){}
+	Player::Player(std::string id, int number) : cg::Group(id)
+	{
+		_playerNumber = number;
+	}
 	
 	Player::~Player() {}
 	
@@ -34,5 +37,10 @@ namespace CastleBlast {
 	void Player::positionCannon(cg::Vector3d initPosition)
 	{
 		_cannon->placeCannon(initPosition);
+	}
+	
+	int Player::getPlayerNumber()
+	{
+		return _playerNumber;
 	}
 }

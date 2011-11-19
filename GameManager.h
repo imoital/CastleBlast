@@ -11,12 +11,19 @@
 namespace CastleBlast {
 	
 	class SceneManager;
+	class PlayerManager;
 	class Player;
+	class FontsManager;
 	
 	class GameManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate {
 	private:
 		SceneManager* _sceneManager;
-		Player* _player1;
+		PlayerManager* _playerManager;
+		Player* _currentPlayer;
+		FontsManager* _fontsManager;
+		bool _changePlayerPressed;
+		GLuint _fontTexture;
+		GLuint _base;
 		
 	public:
 		GameManager();
@@ -25,5 +32,7 @@ namespace CastleBlast {
 		void preInit();
 		void postInit();
 		void createEntities();
+		void preDrawOverlay();
+		void preUpdate(unsigned long elapsed_millis);
 	};
 }
