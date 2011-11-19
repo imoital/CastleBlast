@@ -10,8 +10,9 @@
 #include "Player.h"
 #include "ModelManager.h"
 #include "PlayerManager.h"
-#include "Loader.h"
 #include "FontsManager.h"
+#include "SceneManager.h"
+#include "CameraManager.h"
 
 namespace CastleBlast {
 	
@@ -21,15 +22,17 @@ namespace CastleBlast {
 	
 	void GameManager::preInit()
 	{
+		_sceneManager = new SceneManager();
 		_playerManager = new PlayerManager();
 		_changePlayerPressed = false;
 		_fontsManager = (FontsManager*)cg::Registry::instance()->get("FONTS_MANAGER");
-		
 	}
 	
 	void GameManager::createEntities()
 	{		
 		addAtBeginning(_playerManager);
+		addAtBeginning(_sceneManager);
+		addAtBeginning(new CameraManager());
 	}
 	
 	void GameManager::postInit()

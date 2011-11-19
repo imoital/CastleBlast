@@ -20,7 +20,7 @@ namespace CastleBlast {
 	
 	// SceneManager: this class will construct the scene
 	//TODO: add more types of blocks to the scene
-	class SceneManager : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener
+	class SceneManager : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener, public cg::IMouseEventListener
 	{
 	public:
 		SceneManager();

@@ -9,6 +9,7 @@
 #include "PlayerManager.h"
 #include "Player.h"
 #include "SceneManager.h"
+#include "GameManager.h"
 #include <math.h>
 
 namespace CastleBlast {
@@ -40,7 +41,8 @@ namespace CastleBlast {
 	void PlayerManager::postInit()
 	{
 		cg::Vector2d distanceCenter = cg::Vector2d (50, 50); //player distance from center
-		SceneManager* sceneManager = (SceneManager*)cg::Registry::instance()->get("SCENE_MANAGER");
+		GameManager* gameManager = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
+		SceneManager* sceneManager = (SceneManager*)gameManager->get("SCENE_MANAGER");
 		int worldsize = sceneManager->getWorldSize();
 		int center = worldsize/2;
 		std::vector<cg::Vector2d> playerPos;
