@@ -43,9 +43,9 @@ namespace CastleBlast {
 	void GameManager::preDrawOverlay()
 	{
 		std::stringstream player;
-		player << "Player " << _currentPlayer->getPlayerNumber();
+		player << "Player " << _currentPlayer->getPlayerNumber() << " turn";
 		
-		_fontsManager->printFont(10, 10,1, 0, 1, player.str());
+		_fontsManager->printFont(10, 10,1, 0, 2, player.str());
 	}
 	
 	void GameManager::preUpdate(unsigned long elapsed_millis)
