@@ -10,5 +10,8 @@ namespace CastleBlast {
 	
 	class Collidable {
 		
+	public:
+		virtual bool isCollision(Collidable* otherObj) = 0;
+		void notify();
 	};
 }

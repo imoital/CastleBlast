@@ -12,8 +12,22 @@
 #include <cg/cg.h>
 
 namespace CastleBlast {
-	class CollisionManager {
+	
+	class Collidable;
+	
+	class CollisionManager : cg::Entity {
 		
+	private:
+		std::vector<Collidable*> _collidableObjects;
+		
+	public:
+		CollisionManager();
+		~CollisionManager();
+		
+		void init();
+		void addCollidableObject(Collidable* obj);
+		
+		bool verifyCollision(Collidable *obj);
 	};
 }
 
