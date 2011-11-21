@@ -9,7 +9,7 @@
 #include "FontsManager.h"
 #include "Loader.h"
 #ifdef __APPLE__
-#include <dirent.h
+#include <dirent.h>
 #endif
 
 namespace CastleBlast {
