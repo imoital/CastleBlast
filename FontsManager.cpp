@@ -8,7 +8,9 @@
 
 #include "FontsManager.h"
 #include "Loader.h"
-#include <dirent.h>
+#ifdef __APPLE__
+#include <dirent.h
+#endif
 
 namespace CastleBlast {
 	
@@ -23,21 +25,21 @@ namespace CastleBlast {
 	
 	void FontsManager::GLBuildFonts()
 	{
+		
+#ifdef __APPLE__
+
 		DIR *dir;
+
 		struct dirent *ent;
 
 		std::string fontDir;
 		std::string thisDir = ".";
 		std::string preVDir = "..";
 		std::string macThing = ".DS_Store"; // on mac this folder is created in every dicertory
-		
-#ifdef __APPLE__
+
 		fontDir = "Fonts/";
-#else
-		fontDir = "..\\..\\src\\Fonts\\";
-#endif
 		dir = opendir(fontDir.c_str());
-		
+
 		if (dir != NULL) {
 			
 			ent = readdir(dir);
@@ -56,6 +58,17 @@ namespace CastleBlast {
 			
 			closedir (dir);
 		}
+
+#else
+		for(int i = 0; i < 3; i++) {
+			std::string partialFile = "..\\..\\src\\Fonts\\Font_";
+			std::stringstream file;
+			file << partialFile << i <<".bmp";
+
+			_textureFonts.push_back(Loader::loadTexture(file.str().c_str()));
+			_bases.push_back(Loader::buildFont(_textureFonts[i]));
+		}
+#endif
 		
 	}
 	
