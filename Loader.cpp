@@ -135,7 +135,8 @@ namespace CastleBlast {
 		glMatrixMode(GL_PROJECTION);                        // Select The Projection Matrix
 		glPushMatrix();                             // Store The Projection Matrix
 		glLoadIdentity();                           // Reset The Projection Matrix
-		glOrtho(0,1000,0,800,-1,1);                      // Set Up An Ortho Screen
+		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
+		glOrtho(0,win.width,0,win.height,-1,1);                      // Set Up An Ortho Screen
 		
 		glMatrixMode(GL_MODELVIEW);                     // Select The Modelview Matrix
 		glPushMatrix();                             // Store The Modelview Matrix
