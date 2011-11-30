@@ -8,6 +8,7 @@
 
 #include "WorldCamera.h"
 
+
 namespace CastleBlast {
 	
 	WorldCamera::WorldCamera() : Entity("WORLD_CAMERA") {
@@ -21,13 +22,22 @@ namespace CastleBlast {
 		_winWidth = win.width;
 		_winHeight = win.height;
 		_orientation.setRotationDeg(0,cg::Vector3d::ny);
-		_eye = cg::Vector3d(10,15,29);
-		_center = cg::Vector3d(0,0,0);
+		_eye.set(0,0,0);
+		_center.set(0,0,0);
+		_eyeInc.set(0,5,0);
+		_centerInc.set(0,5,0);
 		_up.set(0,1,0);
 		_front.set(1,0,0);
 		_right.set(0,0,1);
 		_isRoll = false;
-		_scale = 5.0f;
+		_scale = 150.0f;
+		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
+		/* Initialize camera position */
+		_q.setRotationDeg(-90,_up);
+		_front = apply(_q,_front);
+		_right = apply(_q,_right);
+		_q.setRotationDeg(15, _right);
+		_front = apply(_q,_front);
 	}
 	void WorldCamera::draw() {
 		_eye = _front * _scale;
@@ -36,23 +46,36 @@ namespace CastleBlast {
 		gluPerspective(65, _winWidth/(double)_winHeight, 1, 500);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(_eye[0], _eye[1], _eye[2],
-			_center[0], _center[1], _center[2],
+		gluLookAt(_eye[0]+_eyeInc[0], _eye[1]+_eyeInc[1], _eye[2]+_eyeInc[2],
+			_center[0]+_centerInc[0], _center[1]+_centerInc[1], _center[2]+_centerInc[2],
 			_up[0], _up[1], _up[2]);
 	}
 
 	void WorldCamera::update(unsigned long elapsed_millis)
 	{
-		double v = 0.001;
-		cg::Vector3d vec;
-		vec[0] = (_center[0] - _eye[0]);
-		vec[1] = (_eye[1] + _center[1]);
 		if (cg::KeyBuffer::instance()->isKeyDown('a')) {
-			_eye[1] += v*vec[1]*elapsed_millis;
+			_eyeInc[0] -= _cameraSpeed*_front[2];
+			_eyeInc[2] += _cameraSpeed*_front[0];
+			_centerInc[0] -= _cameraSpeed*_front[2];
+			_centerInc[2] += _cameraSpeed*_front[0];
 		}
-
 		if (cg::KeyBuffer::instance()->isKeyDown('d')) {
-			_eye[1] -= v*vec[1]*elapsed_millis;
+			_eyeInc[0] += _cameraSpeed*_front[2];
+			_eyeInc[2] -= _cameraSpeed*_front[0];
+			_centerInc[0] += _cameraSpeed*_front[2];
+			_centerInc[2] -= _cameraSpeed*_front[0];
+		}
+		if (cg::KeyBuffer::instance()->isKeyDown('w')) {
+			_eyeInc[0] -= _cameraSpeed*_front[0];
+			_eyeInc[2] -= _cameraSpeed*_front[2];
+			_centerInc[0] -= _cameraSpeed*_front[0];
+			_centerInc[2] -= _cameraSpeed*_front[2];
+		}
+		if (cg::KeyBuffer::instance()->isKeyDown('s')) {
+			_eyeInc[0] += _cameraSpeed*_front[0];
+			_eyeInc[2] += _cameraSpeed*_front[2];
+			_centerInc[0] += _cameraSpeed*_front[0];
+			_centerInc[2] += _cameraSpeed*_front[2];
 		}
 
 	}
@@ -67,8 +90,9 @@ namespace CastleBlast {
 		_isRoll = (button == GLUT_RIGHT_BUTTON);
 		_lastMousePosition.set(x,y);
 		if (state == GLUT_UP) {
-			if (button == GLUT_WHEEL_UP) 
+			if (button == GLUT_WHEEL_UP)
 				_scale -= 0.5f;
+
 			else if (button == GLUT_WHEEL_DOWN)
 				_scale += 0.5f;
 		}
@@ -80,12 +104,9 @@ namespace CastleBlast {
 			_q.setRotationDeg(anglex,_up);
 			_front = apply(_q,_front);
 			_right = apply(_q,_right);
-			//_orientation = _q * _orientation;
 		double angley = (y - _lastMousePosition[1]) / (double)5;
 			_q.setRotationDeg(angley, _right);
-			//_up = apply(_q, _up);
 			_front = apply(_q,_front);
-			//_orientation = _q * _orientation;
 		_lastMousePosition.set(x,y);
 	}
 

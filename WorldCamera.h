@@ -10,7 +10,9 @@
 #define WORLDCAMERA_H
 
 #include <string>
+#include <Math.h>
 #include "cg/cg.h"
+#define PI 3.14159265
 
 namespace CastleBlast {
 	
@@ -21,8 +23,9 @@ namespace CastleBlast {
 	private:
 		double _winWidth, _winHeight, _anglex, _angley;
 		int _mouseWheelUp, _mouseWheelDown;
-		cg::Vector3d _eye;
-		cg:: Vector3d _center;
+		int _cameraSpeed;
+		cg::Vector3d _eye, _eyeInc;
+		cg:: Vector3d _center, _centerInc;
 		cg::Vector2d _lastMousePosition;
 		cg::Quaterniond _orientation, _q;
 		bool _isRoll;
