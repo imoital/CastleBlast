@@ -38,7 +38,7 @@ namespace CastleBlast {
 	{
 		glPushMatrix();
 		{
-			glTranslated(_position[0], _position[1], _position[2]); //translate the whoel cannon (cannon+wheels)
+			glTranslated(_position[0], _position[1], _position[2]); //translate the whole cannon (cannon+wheels)
 			glRotated(-90, 0, 1, 0);
 			glScalef(1.5, 1.5, 1.5);
 			glPushMatrix(); 

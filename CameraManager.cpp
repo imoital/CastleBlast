@@ -2,7 +2,7 @@
 
 namespace CastleBlast 
 {
-	CameraManager::CameraManager(void) : cg::Entity("CAMERA_MANAGER")
+	CameraManager::CameraManager(void) : cg::Group("CAMERA_MANAGER")
 	{
 	}
 
@@ -10,34 +10,39 @@ namespace CastleBlast
 	{
 	}
 
-	void CameraManager::init()
+	void CameraManager::createEntities()
 	{
 		_worldCamera = new WorldCamera();
-		_worldCamera->init();
-		//addAtBeginning(_camera);
+		_canonCamera = new CanonCamera();
+		addAtBeginning(_worldCamera);
+		addAtBeginning(_canonCamera);
+		_isWorldCamera = true;
+		_changeCameraKeyPressed = false;
 	}
 
 	void CameraManager::switchCamera()
 	{
+		removeAll();
+		if (_isWorldCamera) {
+			addAtBeginning(_canonCamera);
+			_isWorldCamera = false;
+		} else {
+			addAtBeginning(_worldCamera);
+			_isWorldCamera = true;
+		}
 	}
 
-	void CameraManager::draw()
+	void CameraManager::preUpdate(unsigned long elapsed_millis) 
 	{
-		_worldCamera->draw();
-	}
+		
+		if(cg::KeyBuffer::instance()->isKeyDown('c') && !_changeCameraKeyPressed) {
+			switchCamera();
+			_changeCameraKeyPressed = true;
+		}
+		if (cg::KeyBuffer::instance()->isKeyUp('c') && _changeCameraKeyPressed) {
+			_changeCameraKeyPressed = false;
+		}
 
-	void CameraManager::update(unsigned long elapsed_millis)
-	{
-		_worldCamera->update(elapsed_millis);
-	}
-	
-	void CameraManager::onMouse(int button, int state, int x, int y){
-		_worldCamera->onMouse(button, state, x, y);
-	}
-	void CameraManager::onMouseMotion(int x, int y){
-		_worldCamera->onMouseMotion(x, y);
-	}
-	 void CameraManager::onMousePassiveMotion(int x, int y){
-		_worldCamera->onMousePassiveMotion(x,y);
+		std::cout << size() << std::endl;
 	}
 }
