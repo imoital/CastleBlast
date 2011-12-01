@@ -45,4 +45,17 @@ namespace CastleBlast {
 	{
 		_position = position;
 	}
+
+/*	void King::onMouse(int button, int state, int x, int y)
+	{
+		std::cout << "cannon" << std::endl;
+	}
+	void King::onMouseMotion(int x, int y)
+	{
+		std::cout << "cannon" << std::endl;
+	}
+	void King::onMousePassiveMotion(int x, int y)
+	{
+		std::cout << "cannon" << std::endl;
+	}*/
 }
