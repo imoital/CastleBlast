@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "King.h"
 #include "Cannon.h"
-
+#include "CameraManager.h"
 namespace CastleBlast {
 	
 	Player::Player(std::string id, int number) : cg::Group(id)
@@ -27,6 +27,7 @@ namespace CastleBlast {
 		
 		addAtBeginning(_king);
 		addAtBeginning(_cannon);
+		addAtBeginning(new CameraManager());
 	}
 	
 	void Player::positionKing(cg::Vector3d initPosition)

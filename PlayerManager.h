@@ -12,7 +12,8 @@ namespace CastleBlast {
 	
 	class Player;
 	
-	class PlayerManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::IMouseEventListener {
+	class PlayerManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent 
+	{
 	private:
 		std::vector<Player*> _players;
 		float _distancePlayers; //distance from witch player

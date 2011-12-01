@@ -16,7 +16,8 @@ namespace CastleBlast {
 	class ModelManager;
 	class Projectile;
 	
-	class Cannon : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener {
+	class Cannon : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener, public cg::IMouseEventListener 
+	{
 	private:
 		std::string _cannon;
 		std::string _wheels;
@@ -35,6 +36,9 @@ namespace CastleBlast {
 		void draw();
 		void update(unsigned long elapsed_millis);
 		void placeCannon(cg::Vector3d position);
+	/*	void onMouse(int button, int state, int x, int y);
+		void onMouseMotion(int x, int y);
+		void onMousePassiveMotion(int x, int y);*/
 	};
 }
 

@@ -2,22 +2,22 @@
 //  Camera.cpp
 //  Project
 //
-//  Created by InÃªs on 10/5/11.
+//  Created by Inês on 10/5/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#include "WorldCamera.h"
+#include "CanonCamera.h"
 
 
 namespace CastleBlast {
 	
-	WorldCamera::WorldCamera() : Entity("WORLD_CAMERA") {
+	CanonCamera::CanonCamera() : Entity("CANON_CAMERA") {
 	}
-	WorldCamera::~WorldCamera() {
+	CanonCamera::~CanonCamera() {
 	}
 
 
-	void WorldCamera::init() {
+	void CanonCamera::init() {
 		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
 		_winWidth = win.width;
 		_winHeight = win.height;
@@ -33,13 +33,13 @@ namespace CastleBlast {
 		_scale = 150.0f;
 		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
 		/* Initialize camera position */
-		_q.setRotationDeg(-90,_up);
+		/*_q.setRotationDeg(-90,_up);
 		_front = apply(_q,_front);
 		_right = apply(_q,_right);
 		_q.setRotationDeg(15, _right);
-		_front = apply(_q,_front);
+		_front = apply(_q,_front);*/
 	}
-	void WorldCamera::draw() {
+	void CanonCamera::draw() {
 		_eye = _front * _scale;
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -51,7 +51,7 @@ namespace CastleBlast {
 			_up[0], _up[1], _up[2]);
 	}
 
-	void WorldCamera::update(unsigned long elapsed_millis)
+	void CanonCamera::update(unsigned long elapsed_millis)
 	{
 		if (cg::KeyBuffer::instance()->isKeyDown('a')) {
 			_eyeInc[0] -= _cameraSpeed*_front[2];
@@ -85,7 +85,7 @@ namespace CastleBlast {
 # define GLUT_WHEEL_DOWN 4
 #endif
 
-	void WorldCamera::onMouse(int button, int state, int x, int y)
+	void CanonCamera::onMouse(int button, int state, int x, int y)
 	{
 		_isRoll = (button == GLUT_RIGHT_BUTTON);
 		_lastMousePosition.set(x,y);
@@ -98,7 +98,7 @@ namespace CastleBlast {
 		}
 	}
 
-	void WorldCamera::onMouseMotion(int x, int y)
+	void CanonCamera::onMouseMotion(int x, int y)
 	{
 		double anglex = (_lastMousePosition[0] - x) / (double)5;
 			_q.setRotationDeg(anglex,_up);
@@ -110,10 +110,10 @@ namespace CastleBlast {
 		_lastMousePosition.set(x,y);
 	}
 
-	void WorldCamera::onMousePassiveMotion(int x, int y)
+	void CanonCamera::onMousePassiveMotion(int x, int y)
 	{
 	}
-	void WorldCamera::onReshape(int width, int height) 
+	void CanonCamera::onReshape(int width, int height) 
 	{
 		_winWidth = width;
 		_winHeight = height;

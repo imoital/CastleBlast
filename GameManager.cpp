@@ -12,7 +12,7 @@
 #include "PlayerManager.h"
 #include "FontsManager.h"
 #include "SceneManager.h"
-#include "CameraManager.h"
+//#include "CameraManager.h"
 
 namespace CastleBlast {
 	
@@ -30,9 +30,9 @@ namespace CastleBlast {
 	
 	void GameManager::createEntities()
 	{		
-		addAtBeginning(_playerManager);
 		addAtBeginning(_sceneManager);
-		addAtBeginning(new CameraManager());
+		addAtBeginning(_playerManager);
+	//	addAtBeginning(new CameraManager());
 	}
 	
 	void GameManager::postInit()

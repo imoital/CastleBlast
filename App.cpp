@@ -25,8 +25,8 @@ namespace CastleBlast {
 #endif
 	{
 		_windowInfo.caption = "Castle Blast";
-		_windowInfo.width = 1000;
-		_windowInfo.height = 800;
+		_windowInfo.width = 800;
+		_windowInfo.height = 600;
 	}
 	App::~App() {}
 	

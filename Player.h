@@ -8,13 +8,15 @@
 
 #include "cg/cg.h"
 
+
 namespace CastleBlast {
 	
 	// prevent cicles in include classes. The includes are in the .cpp file
 	class King;
 	class Cannon;
-	
-	class Player : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate {
+										// se aqui eu tirar cg::IMouseEventListener e puser cg::GroupMouseEvent CRASHA!
+	class Player : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent
+	{
 		
 	private:
 		King* _king;

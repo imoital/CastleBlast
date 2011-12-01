@@ -2,12 +2,12 @@
 //  Camera.h
 //  Project
 //
-//  Created by InÃªs on 10/5/11.
+//  Created by Inês on 10/5/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef WORLDCAMERA_H
-#define WORLDCAMERA_H
+#ifndef CANONCAMERA_H
+#define CANONCAMERA_H
 
 #include <string>
 #include <Math.h>
@@ -16,7 +16,7 @@
 
 namespace CastleBlast {
 	
-	class WorldCamera : public cg::Entity, public cg::IDrawListener, 
+	class CanonCamera : public cg::Entity, public cg::IDrawListener, 
 		public cg::IReshapeEventListener, public cg::IUpdateListener,
 		public cg::IMouseEventListener
 	{
@@ -33,8 +33,8 @@ namespace CastleBlast {
 		float _scale;
 		
 	public:
-		WorldCamera();
-		~WorldCamera();
+		CanonCamera();
+		~CanonCamera();
 		void init();
 		void draw();
 		void update(unsigned long elapsed_millis);
