@@ -7,6 +7,7 @@
 //
 
 #include "cg/cg.h"
+#include "CameraManager.h"
 
 namespace CastleBlast {
 	

@@ -42,7 +42,5 @@ namespace CastleBlast
 		if (cg::KeyBuffer::instance()->isKeyUp('c') && _changeCameraKeyPressed) {
 			_changeCameraKeyPressed = false;
 		}
-
-		std::cout << size() << std::endl;
 	}
 }

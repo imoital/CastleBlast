@@ -27,6 +27,7 @@ namespace CastleBlast {
 		
 		addAtBeginning(_king);
 		addAtBeginning(_cannon);
+		addAtBeginning(new CameraManager());
 	}
 	
 	void Player::positionKing(cg::Vector3d initPosition)
