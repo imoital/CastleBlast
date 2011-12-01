@@ -8,6 +8,7 @@
 
 #include "Cannon.h"
 #include "ModelManager.h"
+#include "Projectile.h"
 
 namespace CastleBlast {
 	
@@ -22,6 +23,8 @@ namespace CastleBlast {
 		_position = cg::Vector3d(0,0,0);
 		_wheelRotation = 0;
 		_cannonRotation = 0;
+		_orientation = cg::Vector3d(0,0,1);
+		_projectile = new Projectile();
 		
 		_model = (ModelManager*)cg::Registry::instance()->get("MODEL_MANAGER");
 #ifdef __APPLE__
@@ -62,11 +65,18 @@ namespace CastleBlast {
 			glPopMatrix();
 		}
 		glPopMatrix();
+		
+		glPushMatrix();
+		{
+			//glTranslated(4,2,0);
+			_projectile->draw();
+		}
+		glPopMatrix();
 	}
 	
 	void Cannon::update(unsigned long elapsed_millis)
 	{
-		/*if(cg::KeyBuffer::instance()->isKeyDown('w')) {
+		if(cg::KeyBuffer::instance()->isKeyDown('w')) {
 			_position[2] = _position[2] + 0.001*elapsed_millis;
 			_wheelRotation = _wheelRotation - 0.04*elapsed_millis;
 		}
@@ -79,7 +89,13 @@ namespace CastleBlast {
 		}
 		if(cg::KeyBuffer::instance()->isKeyDown('d') && _cannonRotation > -17) {
 			_cannonRotation = _cannonRotation - 0.01*elapsed_millis;
-		}*/
+		}
+		
+		_projectile->update(_position, _cannonRotation, elapsed_millis);
+		
+		if(cg::KeyBuffer::instance()->isKeyDown(' ')) {
+			_projectile->start();
+		}
 	}
 	
 	void Cannon::placeCannon(cg::Vector3d position)

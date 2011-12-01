@@ -14,6 +14,7 @@
 namespace CastleBlast {
 	
 	class ModelManager;
+	class Projectile;
 	
 	class Cannon : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener {
 	private:
@@ -23,6 +24,8 @@ namespace CastleBlast {
 		cg::Vector3d _position;
 		float _wheelRotation;
 		float _cannonRotation;
+		cg::Vector3d _orientation;
+		Projectile* _projectile;
 		
 	public:
 		Cannon();

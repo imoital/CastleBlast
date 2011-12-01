@@ -2,11 +2,12 @@
 
 namespace CastleBlast {
 
-	Projectile::Projectile(void)
+	Projectile::Projectile()
 	{
 		_size = cg::Vector3d(5, 15, 3); 
 		_position = cg::Vector3d(10.0, 10.0, 10.0);
 		_debug = false;
+		_start = false;
 		_front.set(2,0,0);
 		_up.set(0,2,0);
 		_right.set(0,0,2);
@@ -15,6 +16,8 @@ namespace CastleBlast {
 
 	Projectile::~Projectile(void)
 	{}
+	
+	void Projectile::init() {}
 
 	void Projectile::draw()
 	{
@@ -35,11 +38,13 @@ namespace CastleBlast {
 			glMaterialfv(GL_FRONT,GL_DIFFUSE,mat_diffuse);
 			glMaterialfv(GL_FRONT,GL_SPECULAR,mat_specular);
 			glMaterialfv(GL_FRONT,GL_SHININESS,mat_shininess);
-
+			
+			glTranslated(_position[0], _position[1], _position[2]);
+			
 			if(_debug)
 				debugDrawAxis();
 
-			glutSolidSphere(1, 16, 16);
+			glutSolidSphere(0.5, 16, 16);
 		}
 		glPopMatrix();
 	}
@@ -73,10 +78,32 @@ namespace CastleBlast {
 		}
 	}
 
-	
 	void Projectile::debugToggle()
 	{
 		_debug = !_debug;
+	}
+	
+	void Projectile::update(cg::Vector3d position, float rotation, unsigned long elapsed_millis) 
+	{
+		if (!_start){
+			float radRotation = (rotation*3.14)/(float)180 + 0.79;
+			_position = position;
+			_position[1] = _position[1] + 7*sin(radRotation);
+			_position[2] = _position[2] + 7*cos(radRotation);
+			_direction = cg::Vector3d(0, sin(radRotation), cos(radRotation));
+		}
+		else {
+			_position += _direction;
+			_position[1] -= G*elapsed_millis*0.0015;
+			std::cout << "direction " << _direction << std::endl;
+			std::cout << "gravity " << G*elapsed_millis*0.0015 << std::endl;
+			std::cout << "position " << _position << std::endl;
+		}
+	}
+	
+	void Projectile::start()
+	{
+		_start = true;
 	}
 				
 }
