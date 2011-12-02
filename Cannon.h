@@ -36,9 +36,7 @@ namespace CastleBlast {
 		void draw();
 		void update(unsigned long elapsed_millis);
 		void placeCannon(cg::Vector3d position);
-	/*	void onMouse(int button, int state, int x, int y);
-		void onMouseMotion(int x, int y);
-		void onMousePassiveMotion(int x, int y);*/
+		cg::Vector3d getPosition();
 	};
 }
 

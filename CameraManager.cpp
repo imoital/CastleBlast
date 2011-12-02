@@ -2,8 +2,9 @@
 
 namespace CastleBlast 
 {
-	CameraManager::CameraManager(void) : cg::Group("CAMERA_MANAGER")
+	CameraManager::CameraManager(Cannon *cannon) : cg::Group("CAMERA_MANAGER")
 	{
+		_cannon = cannon;
 	}
 
 	CameraManager::~CameraManager(void)
@@ -13,7 +14,7 @@ namespace CastleBlast
 	void CameraManager::createEntities()
 	{
 		_worldCamera = new WorldCamera();
-		_canonCamera = new CanonCamera();
+		_canonCamera = new CanonCamera(_cannon);
 		addAtBeginning(_worldCamera);
 		addAtBeginning(_canonCamera);
 		_isWorldCamera = true;

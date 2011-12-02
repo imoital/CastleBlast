@@ -12,10 +12,12 @@
 #include <string>
 #include <Math.h>
 #include "cg/cg.h"
+#include "Cannon.h"
 #define PI 3.14159265
 
 namespace CastleBlast {
 	
+
 	class CanonCamera : public cg::Entity, public cg::IDrawListener, 
 		public cg::IReshapeEventListener, public cg::IUpdateListener,
 		public cg::IMouseEventListener
@@ -31,9 +33,11 @@ namespace CastleBlast {
 		bool _isRoll;
 		cg::Vector3d _up,_front,_right;
 		float _scale;
+		cg::Vector3d _cannonPos;
+		Cannon *_cannon;
 		
 	public:
-		CanonCamera();
+		CanonCamera(Cannon *cannon);
 		~CanonCamera();
 		void init();
 		void draw();

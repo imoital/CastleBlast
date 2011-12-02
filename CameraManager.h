@@ -4,6 +4,7 @@
 #include "cg/cg.h"
 #include "WorldCamera.h"
 #include "CanonCamera.h"
+#include "Cannon.h"
 
 namespace CastleBlast 
 {
@@ -18,9 +19,10 @@ namespace CastleBlast
 		bool _changeCameraKeyPressed;
 		typedef std::vector<WorldCamera*>::iterator _worldCameraIterator;
 		bool _isWorldCamera;
+		Cannon *_cannon;
 	
 	public:
-		CameraManager(void);
+		CameraManager(Cannon *cannon);
 		~CameraManager(void);
 		void createEntities();
 		void switchCamera();
