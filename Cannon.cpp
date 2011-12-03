@@ -25,6 +25,7 @@ namespace CastleBlast {
 		_cannonRotation = 0;
 		_orientation = cg::Vector3d(0,0,1);
 		_projectile = new Projectile();
+		_fire = false;
 		
 		_model = (ModelManager*)cg::Registry::instance()->get("MODEL_MANAGER");
 #ifdef __APPLE__
@@ -68,33 +69,34 @@ namespace CastleBlast {
 		
 		glPushMatrix();
 		{
-			//glTranslated(4,2,0);
-			_projectile->draw();
+			if(_fire)
+				_projectile->draw();
 		}
 		glPopMatrix();
 	}
 	
 	void Cannon::update(unsigned long elapsed_millis)
 	{
-		if(cg::KeyBuffer::instance()->isKeyDown('w')) {
+		if(cg::KeyBuffer::instance()->isKeyDown('u')) {
 			_position[2] = _position[2] + 0.001*elapsed_millis;
 			_wheelRotation = _wheelRotation - 0.04*elapsed_millis;
 		}
-		if(cg::KeyBuffer::instance()->isKeyDown('s')) {
+		if(cg::KeyBuffer::instance()->isKeyDown('j')) {
 			_position[2] = _position[2] - 0.001*elapsed_millis;
 			_wheelRotation = _wheelRotation + 0.04*elapsed_millis;
 		}
-		if(cg::KeyBuffer::instance()->isKeyDown('a') && _cannonRotation < 33) {
+		if(cg::KeyBuffer::instance()->isKeyDown('h') && _cannonRotation < 33) {
 			_cannonRotation = _cannonRotation + 0.01*elapsed_millis;
 		}
-		if(cg::KeyBuffer::instance()->isKeyDown('d') && _cannonRotation > -17) {
+		if(cg::KeyBuffer::instance()->isKeyDown('k') && _cannonRotation > -17) {
 			_cannonRotation = _cannonRotation - 0.01*elapsed_millis;
 		}
 		
-		_projectile->update(_position, _cannonRotation, elapsed_millis);
+		_projectile->update(_position, _cannonRotation-27, elapsed_millis);
 		
-		if(cg::KeyBuffer::instance()->isKeyDown(' ')) {
+		if(cg::KeyBuffer::instance()->isKeyDown(' ') && !_fire) {
 			_projectile->start();
+			_fire = true;
 		}
 	}
 	

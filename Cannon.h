@@ -27,6 +27,7 @@ namespace CastleBlast {
 		float _cannonRotation;
 		cg::Vector3d _orientation;
 		Projectile* _projectile;
+		bool _fire;
 		
 	public:
 		Cannon();

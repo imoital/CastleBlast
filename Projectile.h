@@ -16,6 +16,7 @@ namespace CastleBlast {
 		cg::Vector3d _front, _up, _right;
 		cg::Vector3d _direction;
 		cg::Vector3d _startPosition;
+		int _force;
 		bool _start;
 		
 	public:
