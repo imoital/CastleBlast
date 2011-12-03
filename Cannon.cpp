@@ -103,18 +103,11 @@ namespace CastleBlast {
 	void Cannon::placeCannon(cg::Vector3d position)
 	{
 		_position = position;
+		std::cout << _position << std::endl;
 	}
 
-/*	void Cannon::onMouse(int button, int state, int x, int y)
+	cg::Vector3d Cannon::getPosition()
 	{
-		std::cout << "cannon" << std::endl;
+		return _position;
 	}
-	void Cannon::onMouseMotion(int x, int y)
-	{
-		std::cout << "cannon" << std::endl;
-	}
-	void Cannon::onMousePassiveMotion(int x, int y)
-	{
-		std::cout << "cannon" << std::endl;
-	}*/
 }
