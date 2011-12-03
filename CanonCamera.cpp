@@ -23,8 +23,8 @@ namespace CastleBlast {
 		_winHeight = win.height;
 		_anglex = 0;
 		_angley = 0;
-		_eye.set(0,10,0);
-		_center.set(10,10,0);
+		_eye.set(0,0,0);
+		_center.set(0,0,0);
 		_eyeInc.set(0,0,0);
 		_centerInc.set(0,5,0);
 		_up.set(0,1,0);
@@ -42,11 +42,10 @@ namespace CastleBlast {
 		gluPerspective(65, _winWidth/(double)_winHeight, 1, 500);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(_eye[0], _eye[1], _eye[2],
-			_center[0], _center[1], _center[2],
+		/* CAREFULL! the Magic Numbers in gluLookAt have the purpose of shifting the camera a bit from the cannon */
+		gluLookAt(_eye[0]+_cannonPos[0]+2, _eye[1]+_cannonPos[1]+3, _eye[2]+_cannonPos[2]+2,
+			_center[0]+_cannonPos[0], _center[1]+_cannonPos[1], _center[2]+_cannonPos[2],
 			_up[0], _up[1], _up[2]);
-	//	std::cout << _eye[0]+_eyeInc[0]<< " " << _eye[1]+_eyeInc[1]<< " " << _eye[2]+_eyeInc[2] << std::endl;
-	//	std::cout << _cannonPos[0] << " " << _cannonPos[1] << " " << _cannonPos[2] << std::endl;
 	}
 
 	void CanonCamera::update(unsigned long elapsed_millis)
