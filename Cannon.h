@@ -23,13 +23,17 @@ namespace CastleBlast {
 		std::string _wheels;
 		cg::Vector2d _lastMousePosition;
 		cg::Vector3d _cannonRotation;
+		cg::Vector3d _right, _up, _front;
 		double _anglex, _angley;
 		ModelManager* _model;
 		cg::Vector3d _position;
 		float _wheelRotation;
-		cg::Vector3d _orientation;
 		Projectile* _projectile;
 		bool _fire;
+
+		double _rotationMatrix[16];
+		cg::Quaterniond _q;
+		cg::Quaterniond _orientation;
 		
 	public:
 		Cannon();

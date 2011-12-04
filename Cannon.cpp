@@ -23,11 +23,15 @@ namespace CastleBlast {
 		_position = cg::Vector3d(0,0,0);
 		_wheelRotation = 0;
 		_cannonRotation.set(0, 0, 0);
-		_orientation = cg::Vector3d(0,0,1);
 		_projectile = new Projectile();
 		_fire = false;
 		_anglex = 0;
 		_angley = 0;
+
+		_orientation.setRotationDeg(0,cg::Vector3d(0,1,0));
+		_right.set(0,0,1);
+		_front.set(1,0,0);
+		_up.set(0,1,0);
 
 		_model = (ModelManager*)cg::Registry::instance()->get("MODEL_MANAGER");
 #ifdef __APPLE__
@@ -59,10 +63,8 @@ namespace CastleBlast {
 		
 			glPushMatrix();
 			{
+				glMultMatrixd(_rotationMatrix);
 				glTranslatef(1, 1, 0);
-				glRotatef(_cannonRotation[2], 0, 0, 1); // rotates the cannon
-				glRotatef(_cannonRotation[1], 0, 1, 0);
-				glRotatef(_cannonRotation[0], 1, 0, 0);
 				glEnable(GL_NORMALIZE);		// needs to be where because of the scale
 				_model->drawModel(_cannon);		// draw the cannon
 				glDisable(GL_NORMALIZE);
@@ -76,6 +78,7 @@ namespace CastleBlast {
 			_projectile->draw();
 		}
 		glPopMatrix();
+	
 	}
 	
 	void Cannon::update(unsigned long elapsed_millis)
@@ -123,14 +126,20 @@ namespace CastleBlast {
 
 	void Cannon::onMouseMotion(int x, int y) 
 	{
-		_anglex -= (_lastMousePosition[0] - x)*0.2;
-		_angley -= (_lastMousePosition[1] - y);
-		std::cout << sin(_angley) << std::endl;
-		_cannonRotation[0] = _angley*sin(_anglex*3.1415926535897932384626433832795/180);
-		_cannonRotation[1] = _anglex;
-		_cannonRotation[2] = _angley*cos(_anglex*3.1415926535897932384626433832795/180); //-140*sin(_angley);
+		_anglex = -0.25*(_lastMousePosition[0] - x);
+		_angley = -0.6*(_lastMousePosition[1] - y);
+		std::cout << _angley << std::endl;
+
+		_q.setRotationDeg(_angley, _right);
+		_up = apply(_q,_up);
+		_front = apply(_q,_front);
+		_orientation = _q*_orientation;
+		_orientation.getGLMatrix(_rotationMatrix);
+		_q.setRotationDeg(_anglex,_up);
+		//apply(_q,_front);
+		_right = apply(_q,_right);
+		_orientation = _q*_orientation;
+		_orientation.getGLMatrix(_rotationMatrix);
 		_lastMousePosition.set(x,y);
-		std::cout << _cannonRotation << std::endl;
-		std::cout << _anglex << " " << _angley << std::endl;
 	}
 }
