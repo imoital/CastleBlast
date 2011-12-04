@@ -14,9 +14,9 @@ namespace CastleBlast
 	void CameraManager::createEntities()
 	{
 		_worldCamera = new WorldCamera();
-		_canonCamera = new CanonCamera(_cannon);
+		_cannonCamera = new CannonCamera(_cannon);
 		addAtBeginning(_worldCamera);
-		addAtBeginning(_canonCamera);
+		addAtBeginning(_cannonCamera);
 		_isWorldCamera = true;
 		_changeCameraKeyPressed = false;
 	}
@@ -25,7 +25,7 @@ namespace CastleBlast
 	{
 		removeAll();
 		if (_isWorldCamera) {
-			addAtBeginning(_canonCamera);
+			addAtBeginning(_cannonCamera);
 			_isWorldCamera = false;
 		} else {
 			addAtBeginning(_worldCamera);

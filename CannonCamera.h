@@ -6,8 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef CANONCAMERA_H
-#define CANONCAMERA_H
+#ifndef CANNONCAMERA_H
+#define CANNONCAMERA_H
 
 #include <string>
 #include <Math.h>
@@ -18,7 +18,7 @@
 namespace CastleBlast {
 	
 
-	class CanonCamera : public cg::Entity, public cg::IDrawListener, 
+	class CannonCamera : public cg::Entity, public cg::IDrawListener, 
 		public cg::IReshapeEventListener, public cg::IUpdateListener,
 		public cg::IMouseEventListener
 	{
@@ -37,8 +37,8 @@ namespace CastleBlast {
 		Cannon *_cannon;
 		
 	public:
-		CanonCamera(Cannon *cannon);
-		~CanonCamera();
+		CannonCamera(Cannon *cannon);
+		~CannonCamera();
 		void init();
 		void draw();
 		void update(unsigned long elapsed_millis);
