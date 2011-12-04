@@ -69,8 +69,7 @@ namespace CastleBlast {
 		
 		glPushMatrix();
 		{
-			if(_fire)
-				_projectile->draw();
+			_projectile->draw();
 		}
 		glPopMatrix();
 	}
@@ -98,12 +97,14 @@ namespace CastleBlast {
 			_projectile->start();
 			_fire = true;
 		}
+		if(cg::KeyBuffer::instance()->isKeyUp(' ')) {
+			_fire = false;
+		}
 	}
 	
 	void Cannon::placeCannon(cg::Vector3d position)
 	{
 		_position = position;
-		std::cout << _position << std::endl;
 	}
 
 	cg::Vector3d Cannon::getPosition()

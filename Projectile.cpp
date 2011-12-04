@@ -2,7 +2,7 @@
 
 namespace CastleBlast {
 
-	Projectile::Projectile()
+	Projectile::Projectile() : Collidable(0.7, 0.7, 0.7)
 	{
 		_size = cg::Vector3d(5, 15, 3); 
 		_position = cg::Vector3d(10.0, 10.0, 10.0);
@@ -42,10 +42,12 @@ namespace CastleBlast {
 			
 			glTranslated(_position[0], _position[1], _position[2]);
 			
-			if(_debug)
-				debugDrawAxis();
-
-			glutSolidSphere(0.7, 16, 16);
+			if (_start) {
+				if(_debug)
+					debugDrawAxis();
+				
+				glutSolidSphere(0.7, 16, 16);
+			}
 		}
 		glPopMatrix();
 	}
@@ -101,14 +103,28 @@ namespace CastleBlast {
 			_position[1] += _direction[1] * time - (G*time*time)/2;
 			_position[0] += _direction[0]*time;
 			_position[2] += _direction[2]*time;
-			
-			//_position += _direction*_force;
-			//_position[1] -= G*elapsed_millis*0.02;
+			if (notify(_position)) _start = false;
 		}
 	}
 	
 	void Projectile::start()
 	{
 		_start = true;
+	}
+	
+	bool Projectile::isCollision(CastleBlast::Collidable *obj)
+	{
+		Collidable::boundaries otherBoundaries = obj->getBoundaries();
+		
+		if ((_boundes.x_min >= otherBoundaries.x_min) &&
+		    (_boundes.x_max <= otherBoundaries.x_max) &&
+		    (_boundes.y_min >= otherBoundaries.y_min) &&
+		    (_boundes.y_max <= otherBoundaries.y_max) &&
+		    (_boundes.z_min >= otherBoundaries.z_min) &&
+		    (_boundes.z_max <= otherBoundaries.z_max)) {
+			_start = false;
+			return true;
+		}
+		else return false;
 	}
 }

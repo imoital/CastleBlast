@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#ifndef APP_H
+#define APP_H
 #include <cg/cg.h>
 
 namespace CastleBlast {
@@ -17,3 +19,4 @@ namespace CastleBlast {
 		void createViews();
 	};
 }
+#endif

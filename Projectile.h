@@ -3,12 +3,13 @@
 
 #include <cg/cg.h>
 #include "DebugMode.h"
+#include "Collidable.h"
 
 #define G 9.8 // G = 9.8m/s^2
 
 namespace CastleBlast {
 
-	class Projectile : public DebugMode
+	class Projectile : public DebugMode, public Collidable
 	{
 	private:
 		cg::Vector3d _position;
@@ -30,6 +31,7 @@ namespace CastleBlast {
 		void debugDrawAxis();
 		void debugToggle();
 		void start();
+		bool isCollision(Collidable *obj);
 	};
 }
 #endif

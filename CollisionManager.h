@@ -15,7 +15,7 @@ namespace CastleBlast {
 	
 	class Collidable;
 	
-	class CollisionManager : cg::Entity {
+	class CollisionManager : public cg::Entity {
 		
 	private:
 		std::vector<Collidable*> _collidableObjects;

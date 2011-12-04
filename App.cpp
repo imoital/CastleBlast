@@ -15,6 +15,7 @@
 #include "GameManager.h"
 #include "ModelManager.h"
 #include "FontsManager.h"
+#include "CollisionManager.h"
 
 namespace CastleBlast {
 	
@@ -32,6 +33,7 @@ namespace CastleBlast {
 	
 	void App::createEntities() 
 	{
+		addEntity(new CollisionManager());
 		addEntity(new FontsManager());
 		addEntity(new ModelManager());
 		addEntity(new DebugManager());
@@ -45,6 +47,7 @@ namespace CastleBlast {
 	void App::createViews() 
 	{
 		cg::View* v0 = createView("view1");
+		v0->linkEntityAtEnd("COLLISION_MANAGER");
 		v0->linkEntityAtEnd("CAMERA_MANAGER");
 		v0->linkEntityAtEnd("SCENE_MANAGER");
 		v0->linkEntityAtEnd("GAME_MANAGER");

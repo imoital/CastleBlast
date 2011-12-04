@@ -6,20 +6,47 @@
 //  Copyright 2011 AVT. All rights reserved.
 //
 
+#include <cg/cg.h>
+
+#ifndef COLLIDABLE_H
+#define COLLIDABLE_H
+
 namespace CastleBlast {
 	
 	class CollisionManager;
 	
 	class Collidable {
+		
+	protected:	
+		struct boundaries {
+			double Xdimension;
+			double Ydimension;
+			double Zdimension;
+			double x_min;
+			double x_max;
+			double y_min;
+			double y_max;
+			double z_min;
+			double z_max;
+		};
+		
+		boundaries _boundes;
+		
 	private:
-		int _x_min, _x_max, _y_min, _y_max, _z_min, _z_max;
+		cg::Vector3d _objPosition;
 		CollisionManager* _collisionManager;
 		
+		void setBounderies();
+		
 	public:
-		Collidable(/*int x_min, int x_max, int y_min, int y_max, int z_min, int z_max*/);
+		Collidable(double Xdimension, double Ydimension, double Zdimension);
 		~Collidable();
 		
-		virtual bool isCollision(double x_min, double x_max, double y_min, double y_max, double z_min, double z_max) = 0;
-		void notify();
+		void newPosition (cg::Vector3d postion);
+		virtual bool isCollision(Collidable* obj) = 0;
+		bool notify(cg::Vector3d position);
+		boundaries getBoundaries();
 	};
 }
+
+#endif

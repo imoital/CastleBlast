@@ -40,6 +40,7 @@ namespace CastleBlast {
 	
 	void SceneManager::initWorldMatrix()
 	{
+		_world = _worldOriginal;
 		for (int i = 0; i < _worldHeight; i++) {
 			for (int j = 0; j < _worldSize; j++) {
 				for (int k = 0; k < _worldSize; k++) {
@@ -82,7 +83,7 @@ namespace CastleBlast {
 		}
 	}
 	
-	SceneManager::SceneManager() : cg::Entity("SCENE_MANAGER") 
+	SceneManager::SceneManager() : cg::Entity("SCENE_MANAGER"), Collidable(0,0,0)
 	{
 		_worldSize = cg::Properties::instance()->getInt("WORLD_SIZE");
 		_worldHeight = cg::Properties::instance()->getInt("WORLD_HEIGHT");
@@ -296,5 +297,93 @@ namespace CastleBlast {
 	int SceneManager::getWorldSize()
 	{
 		return _worldSize;
+	}
+	
+	int SceneManager::getXMatrixPos(double x) 
+	{
+		return (x-_startFrom[0])/_blockSize;
+	}
+	
+	int SceneManager::getYMatrixPos(double y)
+	{
+		return (y-_startFrom[1])/_blockSize;
+	}
+	
+	int SceneManager::getZMatrixPos(double z)
+	{
+		return (z-_startFrom[2])/_blockSize;
+	}
+	
+	bool SceneManager::isCollision(CastleBlast::Collidable *obj)
+	{
+		boundaries otherObjectBoundaries = obj->getBoundaries();
+		
+		int i_max = getXMatrixPos(otherObjectBoundaries.x_min);
+		int i_min = getXMatrixPos(otherObjectBoundaries.x_max);
+		int k_max = getYMatrixPos(otherObjectBoundaries.y_min);
+		int k_min = getYMatrixPos(otherObjectBoundaries.y_max);
+		int j_max = getZMatrixPos(otherObjectBoundaries.z_min);
+		int j_min = getZMatrixPos(otherObjectBoundaries.z_max);
+		
+		if (i_max < 0 || i_min < 0 || j_min < 0 || j_max < 0 || k_min < 0 || k_max < 0)
+			return true;
+		
+		if (i_max >= _worldSize || i_min >= _worldSize || j_min >= _worldSize || j_max >= _worldSize || k_min >= _worldHeight || k_max >= _worldHeight)
+			return false;
+		
+		bool collided = false;
+		std::vector<cg::Vector3d> positions;
+		
+		if (_worldOriginal[k_min][i_min][j_min] != 0) {
+			positions.push_back(cg::Vector3d(i_min, j_min, k_min));
+			collided = true;
+		}
+		if(_worldOriginal[k_min][i_max][j_min] != 0) {
+			positions.push_back(cg::Vector3d(i_max, j_min, k_min));
+			collided = true;
+		}
+		if(_worldOriginal[k_max][i_max][j_min] != 0) {
+			positions.push_back(cg::Vector3d(i_max, j_min, k_max));
+			collided = true;
+		}
+		if(_worldOriginal[k_max][i_min][j_min] != 0) {
+			positions.push_back(cg::Vector3d(i_min, j_min, k_max));
+			collided = true;
+		}
+		if(_worldOriginal[k_max][i_min][j_max] != 0) {
+			positions.push_back(cg::Vector3d(i_min, j_max, k_max));
+			collided = true;
+		}
+		if(_worldOriginal[k_max][i_max][j_max] != 0) {
+			positions.push_back(cg::Vector3d(i_max, j_max, k_max));
+			collided = true;
+		}
+		if(_worldOriginal[k_min][i_max][j_max] != 0) {
+			positions.push_back(cg::Vector3d(i_max, j_max, k_min));
+			collided = true;
+		}
+		if(_worldOriginal[k_min][i_min][j_max] != 0) {
+			positions.push_back(cg::Vector3d(i_min, j_max, k_min));
+			collided = true;
+		}
+		
+		if (collided)
+			collision(positions);
+					    
+		return collided;
+	}
+	
+	void SceneManager::collision(std::vector<cg::Vector3d> positions) 
+	{
+		int posX, posY, posZ;
+		
+		for (int i = 0; i < positions.size(); i++) {
+			posX = positions[i][0];
+			posY = positions[i][1];
+			posZ = positions[i][2];
+			if (posZ != 0)
+				_worldOriginal[posZ][posX][posY] = 0;
+		}
+		initWorldMatrix();
 	}
 }

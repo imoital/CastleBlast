@@ -6,8 +6,9 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#ifndef PLAYER_H
+#define PLAYER_H
 #include "cg/cg.h"
-
 
 namespace CastleBlast {
 	
@@ -22,6 +23,7 @@ namespace CastleBlast {
 		King* _king;
 		Cannon* _cannon;
 		int _playerNumber;
+		bool _currentPlayer;
 		
 	public:
 		Player(std::string id, int number);
@@ -30,6 +32,10 @@ namespace CastleBlast {
 		void createEntities();
 		void positionKing(cg::Vector3d initPosition);
 		void positionCannon(cg::Vector3d initPosition);
+		void setCurrentPlayer();
+		void unsetCurrentPlayer();
 		int getPlayerNumber();
 	};
 }
+
+#endif

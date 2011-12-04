@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#ifndef MODEL_MANAGER_H
+#define MODEL_MANAGER_H
 #include "cg/cg.h"
 #include <map>
 
@@ -26,3 +28,5 @@ namespace CastleBlast {
 		void drawModel(std::string type);
 	};
 }
+
+#endif

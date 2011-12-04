@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#ifndef GAME_MANAGER_H
+#define GAME_MANAGER_H
 #include "cg/cg.h"
 
 namespace CastleBlast {
@@ -36,3 +38,5 @@ namespace CastleBlast {
 		void preUpdate(unsigned long elapsed_millis);
 	};
 }
+
+#endif

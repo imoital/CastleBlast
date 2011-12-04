@@ -15,12 +15,18 @@
 #include "StoneBlock.h"
 #include "Projectile.h"
 #include "FreeImage.h"
+#include "Collidable.h"
 
 namespace CastleBlast {
 	
 	// SceneManager: this class will construct the scene
 	//TODO: add more types of blocks to the scene
-	class SceneManager : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener, public cg::IMouseEventListener
+	class SceneManager : 
+	public cg::Entity, 
+	public cg::IDrawListener, 
+	public cg::IUpdateListener, 
+	public cg::IMouseEventListener, 
+	public Collidable
 	{
 	public:
 		SceneManager();
@@ -33,7 +39,7 @@ namespace CastleBlast {
 		void placeCastle (int posX, int posY);
 		int getWorldSize();
 		
-	private:
+	protected:
 		
 		struct quads {
 			int startLine;
@@ -66,6 +72,13 @@ namespace CastleBlast {
 		
 		void loadCastleHeightMap();
 		std::vector<std::vector<int> > _castle;
+		
+		int getXMatrixPos(double x);
+		int getYMatrixPos(double y);
+		int getZMatrixPos(double z);
+		
+		bool isCollision(CastleBlast::Collidable *obj);
+		void collision(std::vector<cg::Vector3d>);
 		
 	};
 }

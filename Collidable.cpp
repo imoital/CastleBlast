@@ -12,21 +12,41 @@
 
 namespace CastleBlast {
 	
-	Collidable::Collidable(/*int x_min, int x_max, int y_min, int y_max, int z_min, int z_max*/)
+	Collidable::Collidable(double Xdimension, double Ydimension, double Zdimension)
 	{
 		_collisionManager = (CollisionManager*)cg::Registry::instance()->get("COLLISION_MANAGER");
-		/*_x_min = x_min;
-		_x_max = x_max;
-		_y_min = y_min;
-		_y_max = y_max;
-		_z_min = z_min;
-		_z_max = z_max;*/
+		_collisionManager->addCollidableObject(this);
+		_boundes.Xdimension = Xdimension;
+		_boundes.Ydimension = Ydimension;
+		_boundes.Zdimension = Zdimension;
 	}
 	
 	Collidable::~Collidable() {}
 	
-	void Collidable::notify()
+	bool Collidable::notify(cg::Vector3d position)
 	{
-		_collisionManager->verifyCollision(this);
+		newPosition(position);
+		return _collisionManager->verifyCollision(this);
+	}
+	
+	Collidable::boundaries Collidable::getBoundaries()
+	{
+		return _boundes;
+	}
+	
+	void Collidable::newPosition(cg::Vector3d postion)
+	{
+		_objPosition = postion;
+		setBounderies();
+	}
+	
+	void Collidable::setBounderies()
+	{
+		_boundes.x_min = _objPosition[0]-_boundes.Xdimension/2.0;
+		_boundes.x_max = _objPosition[0]+_boundes.Xdimension/2.0;
+		_boundes.y_min = _objPosition[1]-_boundes.Xdimension/2.0;
+		_boundes.y_max = _objPosition[1]+_boundes.Xdimension/2.0;
+		_boundes.z_min = _objPosition[2]-_boundes.Xdimension/2.0;
+		_boundes.z_max = _objPosition[2]+_boundes.Xdimension/2.0;
 	}
 }

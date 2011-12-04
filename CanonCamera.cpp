@@ -67,7 +67,7 @@ namespace CastleBlast {
 	{	
 		_anglex += _cannonMouseSpeed*(_lastMousePosition[0] - x)*PI/180;
 		_angley += _cannonMouseSpeed*(_lastMousePosition[1] - y)*PI/180;
-		std::cout << sin(_angley) << std::endl;
+		//std::cout << sin(_angley) << std::endl;
 		_center[0] = 10*cos(_anglex);
 		_center[2] = 10*sin(_anglex);
 		_center[1] = -30*sin(_angley);

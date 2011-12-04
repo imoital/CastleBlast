@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#ifndef KING_H
+#define KING_H
 #include "cg/cg.h"
 
 namespace CastleBlast {
@@ -32,3 +34,4 @@ namespace CastleBlast {
 		void onMousePassiveMotion(int x, int y);*/
 	};
 }
+#endif

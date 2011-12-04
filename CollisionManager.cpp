@@ -22,5 +22,16 @@ namespace CastleBlast {
 		_collidableObjects.push_back(obj);
 	}
 	
-	bool CollisionManager::verifyCollision(CastleBlast::Collidable *obj) { return false;}
+	bool CollisionManager::verifyCollision(CastleBlast::Collidable *obj) { 
+		
+		bool collided = false;
+		
+		for (int i = 0; i < _collidableObjects.size(); i++) {
+			if (_collidableObjects[i] != obj)
+				collided = collided || _collidableObjects[i]->isCollision(obj);
+		}
+		
+		return collided;
+	
+	}
 }

@@ -24,7 +24,7 @@ namespace CastleBlast {
 
 	void Controller::onKeyReleased(unsigned char key)
 	{
-		if (key == GLUT_KEY_F2) {
+		if (key == '2') {
 			DebugManager *debugManager = (DebugManager*) cg::Registry::instance()->get("DEBUG_MANAGER");
 			if (debugManager) {
 				debugManager->debugToggle();

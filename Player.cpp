@@ -15,6 +15,7 @@ namespace CastleBlast {
 	Player::Player(std::string id, int number) : cg::Group(id)
 	{
 		_playerNumber = number;
+		_currentPlayer = false;
 	}
 	
 	Player::~Player() {}
