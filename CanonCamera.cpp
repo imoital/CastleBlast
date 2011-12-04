@@ -43,8 +43,8 @@ namespace CastleBlast {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		/* CAREFULL! the Magic Numbers in gluLookAt have the purpose of shifting the camera a bit from the cannon */
-		gluLookAt(_eye[0]+_cannonPos[0]+2, _eye[1]+_cannonPos[1]+3, _eye[2]+_cannonPos[2]+2,
-			_center[0]+_cannonPos[0], _center[1]+_cannonPos[1], _center[2]+_cannonPos[2],
+		gluLookAt(_eye[0]+_cannonPos[0]+2, _eye[1]+_cannonPos[1]+4, _eye[2]+_cannonPos[2]+2,
+			_center[0]+_cannonPos[0], _center[1]+_cannonPos[1]+5, _center[2]+_cannonPos[2],
 			_up[0], _up[1], _up[2]);
 	}
 
