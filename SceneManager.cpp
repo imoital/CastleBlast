@@ -381,9 +381,41 @@ namespace CastleBlast {
 			posX = positions[i][0];
 			posY = positions[i][1];
 			posZ = positions[i][2];
-			if (posZ != 0)
-				_worldOriginal[posZ][posX][posY] = 0;
+			destroyCircle(cg::Vector3d(posX,posY,posZ), 2);
 		}
 		initWorldMatrix();
+	}
+	
+	void SceneManager::destroyCircle(cg::Vector3d center, int radios) {
+	
+		bool removeCenter = true;
+		
+		if(center[0] > 1 && center[0] < _worldSize){
+			_worldOriginal[center[2]][center[0]-1][center[1]] = 0;
+			_worldOriginal[center[2]][center[0]+1][center[1]] = 0;
+			if (radios>1) {
+				destroyCircle(cg::Vector3d(center[0]-1,center[1],center[2]), radios-1);
+				destroyCircle(cg::Vector3d(center[0]+1,center[1],center[2]), radios-1);
+			}
+		} else removeCenter = false;
+		if(center[1] > 1 && center[1] < _worldSize){
+			_worldOriginal[center[2]][center[0]][center[1]-1] = 0;
+			_worldOriginal[center[2]][center[0]][center[1]+1] = 0;
+			if (radios>1) {
+				destroyCircle(cg::Vector3d(center[0],center[1]-1,center[2]), radios-1);
+				destroyCircle(cg::Vector3d(center[0],center[1]+1,center[2]), radios-1);
+			}
+		} else removeCenter = false;
+		if (center[2] > 1 && center[2] < _worldHeight) {
+			_worldOriginal[center[2]-1][center[0]][center[1]] = 0;
+			_worldOriginal[center[2]+1][center[0]][center[1]] = 0;
+			if (radios > 1){				
+				destroyCircle(cg::Vector3d(center[0],center[1],center[2]-1), radios-1);
+				destroyCircle(cg::Vector3d(center[0],center[1],center[2]+1), radios-1);
+			}
+		} else removeCenter = false;
+		
+		if (removeCenter)
+			_worldOriginal[center[2]][center[0]][center[1]] = 0;
 	}
 }

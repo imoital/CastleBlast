@@ -79,6 +79,7 @@ namespace CastleBlast {
 		
 		bool isCollision(CastleBlast::Collidable *obj);
 		void collision(std::vector<cg::Vector3d>);
+		void destroyCircle(cg::Vector3d center, int radios);
 		
 	};
 }
