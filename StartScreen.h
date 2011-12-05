@@ -12,7 +12,7 @@
 #include <cg/cg.h>
 
 namespace CastleBlast {
-	class StartScreen : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener, public cg::IMouseEventListener {
+	class StartScreen {
 	private:
 		
 		GLuint _startScreenImage;

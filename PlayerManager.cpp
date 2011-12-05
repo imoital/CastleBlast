@@ -10,26 +10,29 @@
 #include "Player.h"
 #include "SceneManager.h"
 #include "GameManager.h"
+#include "FontsManager.h"
 #include <math.h>
 
 namespace CastleBlast {
 	
-	PlayerManager::PlayerManager() : cg::Group("PLAYER_MANAGER") {}
+	PlayerManager::PlayerManager() : cg::Group("PLAYER_MANAGER") 
+	{
+		_numPlayers = 2;
+	}
 	
 	PlayerManager::~PlayerManager() {}
 	
 	void PlayerManager::preInit()
 	{
-		_distancePlayers = 2*3.14 / (double) cg::Properties::instance()->getInt("NUM_PLAYERS");
+		_distancePlayers = 2*3.14 / (double)_numPlayers;
 		_currentPlayerNum = 0;
+		_changePlayerPressed = false;
 
 	}
 	
 	void PlayerManager::createEntities()
 	{
-		int numPlayers = cg::Properties::instance()->getInt("NUM_PLAYERS");
-		
-		for (int i = 0; i < numPlayers; i++) {
+		for (int i = 0; i < _numPlayers; i++) {
 			std::ostringstream player;
 			player << "PLAYER" << i;
 			Player* p = new Player(player.str(), i+1);
@@ -43,6 +46,7 @@ namespace CastleBlast {
 		cg::Vector2d distanceCenter = cg::Vector2d (50, 50); //player distance from center
 		GameManager* gameManager = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
 		SceneManager* sceneManager = (SceneManager*)gameManager->get("SCENE_MANAGER");
+		_fontsManager = (FontsManager*)gameManager->get("FONTS_MANAGER");
 		int worldsize = sceneManager->getWorldSize();
 		int center = worldsize/2;
 		std::vector<cg::Vector2d> playerPos;
@@ -65,12 +69,11 @@ namespace CastleBlast {
 	
 	Player* PlayerManager::nextPlayer()
 	{
-		int numPlayers = cg::Properties::instance()->getInt("NUM_PLAYERS");
 		Player* p = _players[_currentPlayerNum];
 		_currentPlayer->unsetCurrentPlayer();
 		_currentPlayer = p;
 		_currentPlayer->setCurrentPlayer();
-		_currentPlayerNum = (_currentPlayerNum+1)%numPlayers;
+		_currentPlayerNum = (_currentPlayerNum+1)%_numPlayers;
 		return p;
 	}
 	
@@ -97,10 +100,14 @@ namespace CastleBlast {
 	
 	void PlayerManager::draw()
 	{
-		int numPlayers = cg::Properties::instance()->getInt("NUM_PLAYERS");
 		
 		for (int i = _players.size(); i >= 0; i--) {
-			_players[(i+_currentPlayerNum)%numPlayers]->draw();
+			_players[(i+_currentPlayerNum)%_numPlayers]->draw();
 		}
+	}
+	
+	void PlayerManager::setNumPlayers(int numPlayers)
+	{
+		_numPlayers = numPlayers;
 	}
 }

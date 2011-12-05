@@ -13,6 +13,7 @@
 namespace CastleBlast {
 	
 	class Player;
+	class FontsManager;
 	
 	class PlayerManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent 
 	{
@@ -21,6 +22,9 @@ namespace CastleBlast {
 		float _distancePlayers; //distance from witch player
 		int _currentPlayerNum;
 		Player* _currentPlayer;
+		FontsManager* _fontsManager;
+		bool _changePlayerPressed;
+		int _numPlayers;
 		
 	public:
 		PlayerManager();
@@ -35,6 +39,7 @@ namespace CastleBlast {
 		void onMouseMotion(int x, int y);
 		void onMousePassiveMotion(int x, int y);
 		Player* nextPlayer();
+		void setNumPlayers(int numPlayers);
 	};
 }
 

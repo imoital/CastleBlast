@@ -1,0 +1,41 @@
+//
+//  ScreenManager.h
+//  CastleBlast
+//
+//  Created by Inês on 12/5/11.
+//  Copyright 2011 AVT. All rights reserved.
+//
+
+#ifndef SCREEN_MANAGER_H
+#define SCREEN_MANAGER_H
+
+#include <cg/cg.h>
+
+namespace CastleBlast {
+	
+	class SettingsScreen;
+	class StartScreen;
+	
+	class ScreenManager: 
+	public cg::Entity, 
+	public cg::IDrawListener, 
+	public cg::IUpdateListener, 
+	public cg::IMouseEventListener{
+	private:
+		SettingsScreen* _settingScreen;
+		StartScreen* _startScreen;
+		bool _isStartScreen;
+		
+	public:
+		ScreenManager();
+		~ScreenManager();
+		
+		void init();
+		void update(unsigned long elapsed_millis);
+		void draw();
+		void onMouse(int button, int state, int x, int y);
+	}; 
+}
+
+
+#endif

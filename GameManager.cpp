@@ -12,7 +12,7 @@
 #include "PlayerManager.h"
 #include "FontsManager.h"
 #include "SceneManager.h"
-#include "StartScreen.h"
+#include "ScreenManager.h"
 #include "Sky.h"
 //#include "CameraManager.h"
 
@@ -28,7 +28,7 @@ namespace CastleBlast {
 		_playerManager = new PlayerManager();
 		_changePlayerPressed = false;
 		_fontsManager = (FontsManager*)cg::Registry::instance()->get("FONTS_MANAGER");
-		_startScreen = new StartScreen();
+		_screenManager = new ScreenManager();
 		_sky = new Sky();
 		_gameMode = false;
 	}
@@ -39,14 +39,14 @@ namespace CastleBlast {
 		addAtBeginning(_playerManager);
 		addAtBeginning(_sky);
 		//addAtBeginning(new CameraManager());
-		addAtBeginning(_startScreen);
+		addAtBeginning(_screenManager);
 	}
 	
 	void GameManager::postInit()
 	{
 		_currentPlayer = _playerManager->nextPlayer();
 		removeAll();
-		addAtBeginning(_startScreen);
+		addAtBeginning(_screenManager);
 	}
 	
 	void GameManager::preDrawOverlay()
@@ -76,24 +76,24 @@ namespace CastleBlast {
 	{
 		if (!_gameMode) {
 			if(x >= 265 && x <= 555 && y >= 270 && y <= 330)
-				startGame();
+				startGame(2);
 		}
 	}
 	
-	void GameManager::startGame() 
+	void GameManager::startGame(int numPlayers) 
 	{
-		removeAll();
 		_gameMode = true;
+
+		removeAll();
 		addAtBeginning(_sky);
 		addAtBeginning(_sceneManager);
 		addAtBeginning(_playerManager);
-		//addAtBeginning(new CameraManager());
 	}
 	
 	void GameManager::endGame()
 	{
 		removeAll();
 		_gameMode = false;
-		addAtBeginning(_startScreen);
+		addAtBeginning(_screenManager);
 	}
 }

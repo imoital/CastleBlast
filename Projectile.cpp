@@ -40,6 +40,9 @@ namespace CastleBlast {
 			glMaterialfv(GL_FRONT,GL_SPECULAR,mat_specular);
 			glMaterialfv(GL_FRONT,GL_SHININESS,mat_shininess);
 			
+			if (_start && _debug)
+				drawBoundingBox();
+			
 			glTranslated(_position[0], _position[1], _position[2]);
 			
 			if (_start) {

@@ -1,30 +1,34 @@
 //
-//  StartScreen.cpp
+//  SettingsScreen.cpp
 //  CastleBlast
 //
-//  Created by Inês on 12/4/11.
+//  Created by Inês on 12/5/11.
 //  Copyright 2011 AVT. All rights reserved.
 //
 
-#include "StartScreen.h"
+#include "SettingsScreen.h"
 #include "Loader.h"
+#include "FontsManager.h"
 
 namespace CastleBlast {
 	
-	StartScreen::StartScreen()
+	SettingsScreen::SettingsScreen()
 	{
 #ifdef __APPLE__
-		_startScreenImage = Loader::loadTexture("Images/StartScreen.png");
+		_settingsScreenImage = Loader::loadTexture("Images/SettingsScreen.png");
 #else
-		_startScreenImage = Loader::loadTexture("..\\..\\src\\Images\\StartScreen.png");
+		_settingsScreenImage = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen.png");
 #endif
+		
+		_fontsManager = (FontsManager*)cg::Registry::instance()->get("FONTS_MANAGER");
+		_numPlayers = 2;
 	}
 	
-	StartScreen::~StartScreen() {}
-	
-	void StartScreen::draw() 
+	SettingsScreen::~SettingsScreen() {}
+
+	void SettingsScreen::draw() 
 	{
-		glBindTexture(GL_TEXTURE_2D, _startScreenImage);
+		glBindTexture(GL_TEXTURE_2D, _settingsScreenImage);
 		
 		glDisable(GL_DEPTH_TEST);                       // Disables Depth Testing
 		
@@ -52,7 +56,7 @@ namespace CastleBlast {
 			glTexCoord2d(1, 0);
 			glVertex2d(win.width, 0);
 		}
-		glEnd(); 
+		glEnd();
 		glDisable(GL_TEXTURE_2D);
 		glEnable(GL_LIGHTING);
 		glMatrixMode(GL_PROJECTION);                        // Select The Projection Matrix
@@ -62,9 +66,40 @@ namespace CastleBlast {
 		glPopMatrix();                              // Restore The Old Projection Matrix
 		
 		glEnable(GL_DEPTH_TEST);
+		
+		
+		std::stringstream numPlayers;
+		numPlayers << _numPlayers;
+		
+		_fontsManager->printFont(50, 300, 1.3, 0, 1, "How many players will be playing?");
+		_fontsManager->printFont(650, 300, 1.3, 0, 1, numPlayers.str());
 	}
 	
-	void StartScreen::update(unsigned long elapsed_millis) {}
-
+	void SettingsScreen::update(unsigned long elapsed_millis) 
+	{
+		if (cg::KeyBuffer::instance()->isKeyDown('1'))
+			_numPlayers = 1;
+		if (cg::KeyBuffer::instance()->isKeyDown('2'))
+			_numPlayers = 2;
+		if (cg::KeyBuffer::instance()->isKeyDown('3'))
+			_numPlayers = 3;
+		if (cg::KeyBuffer::instance()->isKeyDown('4'))
+			_numPlayers = 4;
+		if (cg::KeyBuffer::instance()->isKeyDown('5'))
+			_numPlayers = 5;
+		if (cg::KeyBuffer::instance()->isKeyDown('6'))
+			_numPlayers = 6;
+		if (cg::KeyBuffer::instance()->isKeyDown('7'))
+			_numPlayers = 7;
+		if (cg::KeyBuffer::instance()->isKeyDown('8'))
+			_numPlayers = 8;
+		if (cg::KeyBuffer::instance()->isKeyDown('9'))
+			_numPlayers = 9;
+	}
+	
+	int SettingsScreen::getNumPlayers()
+	{
+		return _numPlayers;
+	}
 	
 }
