@@ -25,10 +25,16 @@ namespace CastleBlast {
 	{
 		_king = new King();
 		_cannon = new Cannon();
+		_cameraManager = new CameraManager(_cannon);
 		
 		addAtBeginning(_king);
 		addAtBeginning(_cannon);
-		addAtBeginning(new CameraManager(_cannon));
+		addAtBeginning(_cameraManager);
+	}
+	
+	void Player::postInit()
+	{
+		remove("CAMERA_MANAGER");
 	}
 	
 	void Player::positionKing(cg::Vector3d initPosition)
@@ -44,5 +50,19 @@ namespace CastleBlast {
 	int Player::getPlayerNumber()
 	{
 		return _playerNumber;
+	}
+	
+	void Player::setCurrentPlayer()
+	{
+		addAtBeginning(_cameraManager);
+	}
+	void Player::unsetCurrentPlayer()
+	{
+		remove("CAMERA_MANAGER");
+	}
+	
+	void Player::drawCamera()
+	{
+		_cameraManager->draw();
 	}
 }
