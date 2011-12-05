@@ -17,7 +17,11 @@ namespace CastleBlast {
 	
 	void StartScreen::init() 
 	{
+#ifdef __APPLE__
 		_startScreenImage = Loader::loadTexture("Images/StartScreen.png");
+#else
+		_startScreenImage = Loader::loadTexture("..\\..\\src\\Images\\StartScreen.png");
+#endif
 	}
 	
 	void StartScreen::draw() 
