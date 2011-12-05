@@ -27,7 +27,7 @@ namespace CastleBlast {
 		~Projectile();
 		void init();
 		void draw();
-		void update(cg::Vector3d poistion, float rotation, unsigned long elapsed_millis);
+		void update(cg::Vector3d poistion, cg::Vector3d rotation, unsigned long elapsed_millis);
 		void debugDrawAxis();
 		void debugToggle();
 		void start();

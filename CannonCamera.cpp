@@ -52,7 +52,6 @@ namespace CastleBlast {
 		gluLookAt(_eye[0]+_cannonPos[0], _eye[1]+_cannonPos[1]+5, _eye[2]+_cannonPos[2],
 			_center[0]+_cannonPos[0], _center[1]+_cannonPos[1]+5, _center[2]+_cannonPos[2],
 			_up[0], _up[1], _up[2]);
-		std::cout << _cannonPos << std::endl;
 	}
 
 	void CannonCamera::update(unsigned long elapsed_millis)
@@ -81,6 +80,20 @@ namespace CastleBlast {
 			_centerInc[0] += _cameraSpeed*_front[0];
 			_centerInc[2] += _cameraSpeed*_front[2];
 		}
+		
+		cg::Vector3d directionEye;
+		directionEye[0] = _eye[0]+_cannonPos[0];
+		directionEye[1] = _eye[1]+_cannonPos[1]+5;
+		directionEye[2] = _eye[2]+_cannonPos[2];
+		
+		cg::Vector3d directionCenter;
+		directionCenter[0] = _center[0]+_cannonPos[0];
+		directionCenter[1] = _center[1]+_cannonPos[1]+5;
+		directionCenter[2] = _center[2]+_cannonPos[2];
+		
+		
+		std::cout << "" << normalize(directionCenter-directionEye) << std::endl; 
+		_cannon->setDirection(normalize(directionCenter-directionEye));
 	}
 
 #if !defined(GLUT_WHEEL_UP)

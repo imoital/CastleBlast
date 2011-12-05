@@ -86,14 +86,14 @@ namespace CastleBlast {
 		_debug = !_debug;
 	}
 	
-	void Projectile::update(cg::Vector3d position, float rotation, unsigned long elapsed_millis) 
+	void Projectile::update(cg::Vector3d position, cg::Vector3d direction, unsigned long elapsed_millis) 
 	{
 		if (!_start){
-			float radRotation = (rotation*3.14)/(float)180 + 0.79;
 			_position = position;
-			_position[1] += 8*sin(radRotation) + 1;
-			_position[2] += 8*cos(radRotation) - 1;
-			_direction = cg::Vector3d(0, sin(radRotation), cos(radRotation))*_force;
+			_position[1] = _position[1]+3;
+			_direction = direction;
+			_direction[1] = _direction[1]+0.5;
+			_direction = _direction*_force;
 		}
 		else {
 			

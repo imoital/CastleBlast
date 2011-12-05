@@ -31,6 +31,7 @@ namespace CastleBlast {
 		Projectile* _projectile;
 		bool _fire;
 		bool _rotateCannon;
+		cg::Vector3d _cannonDirection;
 
 		double _rotationMatrix[16];
 		cg::Quaterniond _q;
@@ -48,6 +49,7 @@ namespace CastleBlast {
 		void onMouseMotion(int x, int y);
 		void onMouse(int button, int state, int x, int y);
 		void rotateCannon();
+		void setDirection(cg::Vector3d direction);
 	};
 }
 

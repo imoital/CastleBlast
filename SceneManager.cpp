@@ -211,7 +211,7 @@ namespace CastleBlast {
 			nQuads = nQuads + _quads[m].size();
 		}
 		
-		std::cout << "Number of quads: " << nQuads << std::endl;
+		std::cout << "Number of cubes: " << nQuads << std::endl;
 	}
 	
 	void SceneManager::init()
@@ -338,7 +338,7 @@ namespace CastleBlast {
 		int j_max = getZMatrixPos(otherObjectBoundaries.z_min);
 		int j_min = getZMatrixPos(otherObjectBoundaries.z_max);
 		
-		if (i_max < 0 || i_min < 0 || j_min < 0 || j_max < 0 || k_min < 0 || k_max < 0)
+		if (i_max <= 0 || i_min <= 0 || j_min <= 0 || j_max <= 0 || k_min <= 0 || k_max <= 0)
 			return true;
 		
 		if (i_max >= _worldSize || i_min >= _worldSize || j_min >= _worldSize || j_max >= _worldSize || k_min >= _worldHeight || k_max >= _worldHeight)

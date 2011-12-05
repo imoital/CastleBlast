@@ -28,6 +28,7 @@ namespace CastleBlast {
 		_anglex = 0;
 		_angley = 0;
 		_rotateCannon = false;
+		_cannonDirection = cg::Vector3d(0,0,0);
 
 		_orientation.setRotationDeg(0,cg::Vector3d(0,1,0));
 		_right.set(0,0,1);
@@ -99,7 +100,7 @@ namespace CastleBlast {
 			_cannonRotation = _cannonRotation - 0.01*elapsed_millis;
 		}*/
 		
-		//_projectile->update(_position, _cannonRotation-27, elapsed_millis);
+		_projectile->update(_position, _cannonDirection, elapsed_millis);
 		
 		if(cg::KeyBuffer::instance()->isKeyDown(' ') && !_fire) {
 			_projectile->start();
@@ -150,5 +151,10 @@ namespace CastleBlast {
 	void Cannon::rotateCannon()
 	{
 		_rotateCannon = !_rotateCannon;
+	}
+	
+	void Cannon::setDirection(cg::Vector3d direction)
+	{
+		_cannonDirection = direction;
 	}
 }
