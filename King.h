@@ -9,17 +9,27 @@
 #ifndef KING_H
 #define KING_H
 #include "cg/cg.h"
+#include "Collidable.h"
+#include "DebugMode.h"
 
 namespace CastleBlast {
 	
 	class ModelManager;
 	
-	class King : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener, public cg::IMouseEventListener 
+	class King : 
+	public cg::Entity, 
+	public cg::IDrawListener, 
+	public cg::IUpdateListener, 
+	public cg::IMouseEventListener, 
+	public Collidable,
+	public DebugMode
 	{
 	private:
 		ModelManager* _model;
 		cg::Vector3d _position;
 		std::string _type;
+		bool _alive;
+		bool _debug;
 		
 	public:
 		King();
@@ -29,9 +39,8 @@ namespace CastleBlast {
 		void draw();
 		void update(unsigned long elapsed_millis);
 		void placeKing(cg::Vector3d position);
-		/*void onMouse(int button, int state, int x, int y);
-		void onMouseMotion(int x, int y);
-		void onMousePassiveMotion(int x, int y);*/
+		void debugToggle();
+		bool isCollision(Collidable* obj);
 	};
 }
 #endif

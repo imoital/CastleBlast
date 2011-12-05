@@ -46,6 +46,7 @@ namespace CastleBlast {
 		virtual bool isCollision(Collidable* obj) = 0;
 		bool notify(cg::Vector3d position);
 		boundaries getBoundaries();
+		void drawBoundingBox();
 	};
 }
 

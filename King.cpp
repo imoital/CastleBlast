@@ -11,7 +11,7 @@
 
 namespace CastleBlast {
 	
-	King::King() : cg::Entity("KING") 
+	King::King() : cg::Entity("KING"), Collidable(3,6.4,2) 
 	{
 		_type = "KING";
 	}
@@ -20,6 +20,8 @@ namespace CastleBlast {
 	
 	void King::init()
 	{
+		_alive = true;
+		_debug = false;
 		_position = cg::Vector3d(0,0,0);
 		_model = (ModelManager*)cg::Registry::instance()->get("MODEL_MANAGER");
 #ifdef __APPLE__
@@ -33,29 +35,41 @@ namespace CastleBlast {
 	{
 		glPushMatrix();
 		{
+			if (_debug)
+				drawBoundingBox();
 			glTranslatef(_position[0], _position[1], _position[2]);
 			_model->drawModel(_type);
 		}
 		glPopMatrix();
 	}
 	
-	void King::update(unsigned long elapsed_millis) {}
+	void King::update(unsigned long elapsed_millis) 
+	{}
 	
 	void King::placeKing(cg::Vector3d position)
 	{
+		cg::Vector3d center = position;
+		center[1] = center[1]+3.2;
+		newPosition(center);
 		_position = position;
 	}
-
-/*	void King::onMouse(int button, int state, int x, int y)
+	
+	void King::debugToggle()
 	{
-		std::cout << "cannon" << std::endl;
+		_debug = !_debug;
 	}
-	void King::onMouseMotion(int x, int y)
+	
+	bool King::isCollision(Collidable* obj)
 	{
-		std::cout << "cannon" << std::endl;
+		boundaries otherObjBoundaries = obj->getBoundaries();
+		
+		if (otherObjBoundaries.x_min >= _boundes.x_min && otherObjBoundaries.x_max <= _boundes.x_max &&
+		    otherObjBoundaries.y_min >= _boundes.y_min && otherObjBoundaries.y_max <= _boundes.y_max &&
+		    otherObjBoundaries.z_min >= _boundes.z_min && otherObjBoundaries.z_max <= _boundes.z_max){
+			_alive = false;
+			std::cout << "the king is dead" << std::endl;
+			return true;
+		}
+		return false;
 	}
-	void King::onMousePassiveMotion(int x, int y)
-	{
-		std::cout << "cannon" << std::endl;
-	}*/
 }
