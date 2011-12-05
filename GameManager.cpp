@@ -74,7 +74,6 @@ namespace CastleBlast {
 	
 	void GameManager::preOnMouse(int button, int state, int x, int y) 
 	{
-		std::cout << "x: " << x << " y: " << y << std::endl;
 		if (!_gameMode) {
 			if(x >= 265 && x <= 555 && y >= 270 && y <= 330)
 				startGame();

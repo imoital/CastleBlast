@@ -268,7 +268,20 @@ namespace CastleBlast {
 	{
 		std::vector<std::vector<int> > castle = _castle;
 		
-		for (int i = 1; i < _worldHeight; i++) {
+		int minz = _worldHeight;
+		
+		for (int i = posX; i < posX+30; i++){
+			for (int j = posY; j < posY+30; j++){
+				for (int k = 0; k < _worldHeight; k++) {
+					if (_worldOriginal[k][i][j] == 0 && minz > k){
+						minz = k;
+						break;
+					}
+				}
+			}
+		}
+		
+		for (int i = minz; i < _worldHeight; i++) {
 			for (int j = posX, a = 0; a < 30; a++, j++){
 				for (int k = posY, b = 0; b < 30; b++, k++) {
 					if (castle[a][b] > 0) {
