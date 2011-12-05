@@ -110,7 +110,6 @@ namespace CastleBlast {
 	void Cannon::placeCannon(cg::Vector3d position)
 	{
 		_position = position;
-	//	std::cout << _position << std::endl;
 	}
 
 	cg::Vector3d Cannon::getPosition()

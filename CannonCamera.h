@@ -23,21 +23,20 @@ namespace CastleBlast {
 		public cg::IMouseEventListener
 	{
 	private:
-		double _winWidth, _winHeight; 
-		double _angley, _anglex;
+		double _winWidth, _winHeight, _anglex, _angley;
 		int _mouseWheelUp, _mouseWheelDown;
-		double _cannonMouseSpeed;
+		int _cameraSpeed;
 		cg::Vector3d _eye, _eyeInc;
-		cg:: Vector3d _center, _centerInc;
+		cg:: Vector3d _center, _centerInc, _cannonPos;
 		cg::Vector2d _lastMousePosition;
+		cg::Quaterniond _orientation, _q;
 		bool _isRoll;
 		cg::Vector3d _up,_front,_right;
 		float _scale;
-		cg::Vector3d _cannonPos;
 		Cannon *_cannon;
 		
 	public:
-		CannonCamera(Cannon *cannon);
+		CannonCamera(Cannon* cannon);
 		~CannonCamera();
 		void init();
 		void draw();
