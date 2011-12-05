@@ -27,6 +27,7 @@ namespace CastleBlast {
 		_cannon = new Cannon();
 		_cameraManager = new CameraManager(_cannon);
 		
+		
 		addAtBeginning(_king);
 		addAtBeginning(_cannon);
 		addAtBeginning(_cameraManager);
@@ -43,9 +44,10 @@ namespace CastleBlast {
 		_king->placeKing(initPosition);
 	}
 	
-	void Player::positionCannon(cg::Vector3d initPosition)
+	void Player::positionCannon(cg::Vector3d initPosition, int rot)
 	{
-		_cannon->placeCannon(initPosition);
+		_cannon->placeCannon(initPosition, rot);
+		_cameraManager->setCannonCameraRotation(rot);
 	}
 	
 	int Player::getPlayerNumber()
@@ -71,7 +73,7 @@ namespace CastleBlast {
 	{
 		if(cg::KeyBuffer::instance()->isKeyDown('c') && !_changeCameraKeyPressed) {
 			_cameraManager->switchCamera();
-			_cannon->rotateCannon();
+			_cannon->cameraToggle();
 			_changeCameraKeyPressed = true;
 		}
 		if (cg::KeyBuffer::instance()->isKeyUp('c') && _changeCameraKeyPressed) {
