@@ -126,8 +126,8 @@ namespace CastleBlast {
 
 	void Cannon::onMouseMotion(int x, int y) 
 	{
-		_anglex = -0.25*(_lastMousePosition[0] - x);
-		_angley = -0.6*(_lastMousePosition[1] - y);
+		_anglex = (_lastMousePosition[0] - x)/ (double)5;
+		_angley = (_lastMousePosition[1] - y)/ (double)5;
 		std::cout << _angley << std::endl;
 
 		_q.setRotationDeg(_angley, _right);

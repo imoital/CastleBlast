@@ -71,7 +71,7 @@ namespace CastleBlast {
 	}
 	
 	// Need to be uncommented when camera manager is finish (need to be where for change players to work)
-	/*void PlayerManager::update(unsigned long elapsed_millis)
+	void PlayerManager::update(unsigned long elapsed_millis)
 	{
 		_currentPlayer->update(elapsed_millis);
 	}
@@ -89,5 +89,5 @@ namespace CastleBlast {
 	void PlayerManager::onMousePassiveMotion(int x, int y)
 	{
 		_currentPlayer->onMousePassiveMotion(x, y);
-	}*/
+	}
 }
