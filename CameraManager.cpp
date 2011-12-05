@@ -36,12 +36,6 @@ namespace CastleBlast
 	void CameraManager::preUpdate(unsigned long elapsed_millis) 
 	{
 		
-		if(cg::KeyBuffer::instance()->isKeyDown('c') && !_changeCameraKeyPressed) {
-			switchCamera();
-			_changeCameraKeyPressed = true;
-		}
-		if (cg::KeyBuffer::instance()->isKeyUp('c') && _changeCameraKeyPressed) {
-			_changeCameraKeyPressed = false;
-		}
+		
 	}
 }

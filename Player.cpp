@@ -35,6 +35,7 @@ namespace CastleBlast {
 	void Player::postInit()
 	{
 		remove("CAMERA_MANAGER");
+		_changeCameraKeyPressed = false;
 	}
 	
 	void Player::positionKing(cg::Vector3d initPosition)
@@ -64,5 +65,17 @@ namespace CastleBlast {
 	void Player::drawCamera()
 	{
 		_cameraManager->draw();
+	}
+	
+	void Player::postUpdate(unsigned long elapsed_millis)
+	{
+		if(cg::KeyBuffer::instance()->isKeyDown('c') && !_changeCameraKeyPressed) {
+			_cameraManager->switchCamera();
+			_cannon->rotateCannon();
+			_changeCameraKeyPressed = true;
+		}
+		if (cg::KeyBuffer::instance()->isKeyUp('c') && _changeCameraKeyPressed) {
+			_changeCameraKeyPressed = false;
+		}
 	}
 }

@@ -27,6 +27,7 @@ namespace CastleBlast {
 		_fire = false;
 		_anglex = 0;
 		_angley = 0;
+		_rotateCannon = false;
 
 		_orientation.setRotationDeg(0,cg::Vector3d(0,1,0));
 		_right.set(0,0,1);
@@ -121,25 +122,33 @@ namespace CastleBlast {
 
 	void Cannon::onMouse(int button, int state, int x, int y)
 	{
-		_lastMousePosition.set(x,y);
+		if (_rotateCannon)
+			_lastMousePosition.set(x,y);
 	}
 
 	void Cannon::onMouseMotion(int x, int y) 
 	{
-		_anglex = (_lastMousePosition[0] - x)/ (double)5;
-		_angley = (_lastMousePosition[1] - y)/ (double)5;
-		std::cout << _angley << std::endl;
-
-		_q.setRotationDeg(_angley, _right);
-		_up = apply(_q,_up);
-		_front = apply(_q,_front);
-		_orientation = _q*_orientation;
-		_orientation.getGLMatrix(_rotationMatrix);
-		_q.setRotationDeg(_anglex,_up);
-		//apply(_q,_front);
-		_right = apply(_q,_right);
-		_orientation = _q*_orientation;
-		_orientation.getGLMatrix(_rotationMatrix);
-		_lastMousePosition.set(x,y);
+		if (_rotateCannon) {
+			_anglex = (_lastMousePosition[0] - x)/ (double)5;
+			_angley = (_lastMousePosition[1] - y)/ (double)5;
+			std::cout << _angley << std::endl;
+			
+			_q.setRotationDeg(_angley, _right);
+			_up = apply(_q,_up);
+			_front = apply(_q,_front);
+			_orientation = _q*_orientation;
+			_orientation.getGLMatrix(_rotationMatrix);
+			_q.setRotationDeg(_anglex,_up);
+			//apply(_q,_front);
+			_right = apply(_q,_right);
+			_orientation = _q*_orientation;
+			_orientation.getGLMatrix(_rotationMatrix);
+			_lastMousePosition.set(x,y);
+		}
+	}
+	
+	void Cannon::rotateCannon()
+	{
+		_rotateCannon = !_rotateCannon;
 	}
 }

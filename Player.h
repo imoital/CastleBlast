@@ -27,6 +27,7 @@ namespace CastleBlast {
 		CameraManager* _cameraManager;
 		int _playerNumber;
 		bool _currentPlayer;
+		bool _changeCameraKeyPressed;
 		
 	public:
 		Player(std::string id, int number);
@@ -34,6 +35,7 @@ namespace CastleBlast {
 		
 		void postInit();
 		void createEntities();
+		void postUpdate(unsigned long elapsed_millis);
 		void positionKing(cg::Vector3d initPosition);
 		void positionCannon(cg::Vector3d initPosition);
 		void drawCamera();

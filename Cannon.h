@@ -30,6 +30,7 @@ namespace CastleBlast {
 		float _wheelRotation;
 		Projectile* _projectile;
 		bool _fire;
+		bool _rotateCannon;
 
 		double _rotationMatrix[16];
 		cg::Quaterniond _q;
@@ -46,6 +47,7 @@ namespace CastleBlast {
 		cg::Vector3d getPosition();
 		void onMouseMotion(int x, int y);
 		void onMouse(int button, int state, int x, int y);
+		void rotateCannon();
 	};
 }
 
