@@ -43,6 +43,8 @@ namespace CastleBlast {
 	
 	void PlayerManager::postInit()
 	{
+		int relativePos=20; //this test is a stupid hack to make cannons face each other. We most program quickly as evaluation is comming!!!
+		int rot= 180;
 		cg::Vector2d distanceCenter = cg::Vector2d (50, 50); //player distance from center
 		GameManager* gameManager = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
 		SceneManager* sceneManager = (SceneManager*)gameManager->get("SCENE_MANAGER");
@@ -59,9 +61,11 @@ namespace CastleBlast {
 		
 		for (int i = 0; i < size(); i++) {
 			cg::Vector3d kingPos = sceneManager->getWorldPosition(playerPos[i][0]+14, playerPos[i][1]+15);
-			cg::Vector3d cannonPos = sceneManager->getWorldPosition(playerPos[i][0]+4, playerPos[i][1]+24);
+			cg::Vector3d cannonPos = sceneManager->getWorldPosition(playerPos[i][0]+4+relativePos, playerPos[i][1]+24-relativePos);
 			_players[i]->positionKing(kingPos);
-			_players[i]->positionCannon(cannonPos);
+			_players[i]->positionCannon(cannonPos, rot);
+			relativePos -=20;
+			rot -= 180;
 		}
 		_currentPlayer = _players[0];
 		_currentPlayer->setCurrentPlayer();

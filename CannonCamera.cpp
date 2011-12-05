@@ -34,11 +34,6 @@ namespace CastleBlast {
 		
 		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
 		/* Initialize camera position */
-		_q.setRotationDeg(90,_up);
-		_front = apply(_q,_front);
-		_right = apply(_q,_right);
-		_q.setRotationDeg(15, _right);
-		_front = apply(_q,_front);
 	}
 	void CannonCamera::draw() 
 	{
@@ -49,8 +44,8 @@ namespace CastleBlast {
 		gluPerspective(65, _winWidth/(double)_winHeight, 1, 500);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(_eye[0]+_cannonPos[0], _eye[1]+_cannonPos[1]+5, _eye[2]+_cannonPos[2],
-			_center[0]+_cannonPos[0], _center[1]+_cannonPos[1]+5, _center[2]+_cannonPos[2],
+		gluLookAt(_eye[0]+_cannonPos[0], _eye[1]+_cannonPos[1]+6, _eye[2]+_cannonPos[2],
+			_center[0]+_cannonPos[0], _center[1]+_cannonPos[1]+6, _center[2]+_cannonPos[2],
 			_up[0], _up[1], _up[2]);
 	}
 
@@ -114,6 +109,7 @@ namespace CastleBlast {
 
 	void CannonCamera::onMouseMotion(int x, int y)
 	{	
+		int rot = _cannon->getRotation();
 		double anglex = (_lastMousePosition[0] - x) / (double)5;
 			_q.setRotationDeg(anglex,_up);
 			_front = apply(_q,_front);
@@ -132,5 +128,14 @@ namespace CastleBlast {
 	{
 		_winWidth = width;
 		_winHeight = height;
+	}
+
+	void CannonCamera::setInitialRotation(int rot)
+	{
+		_q.setRotationDeg(90-rot,_up);
+		_front = apply(_q,_front);
+		_right = apply(_q,_right);
+		_q.setRotationDeg(15, _right);
+		_front = apply(_q,_front);
 	}
 }

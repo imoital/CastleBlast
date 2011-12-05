@@ -18,6 +18,7 @@ namespace CastleBlast {
 	
 	void Cannon::init()
 	{
+		_rotation =0;
 		_cannon = "CANNON";
 		_wheels = "WHEELS";
 		_position = cg::Vector3d(0,0,0);
@@ -27,7 +28,7 @@ namespace CastleBlast {
 		_fire = false;
 		_anglex = 0;
 		_angley = 0;
-		_rotateCannon = false;
+		_isCannonCamera = false;
 		_cannonDirection = cg::Vector3d(0,0,0);
 
 		_orientation.setRotationDeg(0,cg::Vector3d(0,1,0));
@@ -111,9 +112,20 @@ namespace CastleBlast {
 		}
 	}
 	
-	void Cannon::placeCannon(cg::Vector3d position)
+	void Cannon::placeCannon(cg::Vector3d position, int rot)
 	{
+		std::cout << "placecanonrotation: " << rot << std::endl;
+		_rotation = rot;
 		_position = position;
+		_q.setRotationDeg(0, _right);
+		_up = apply(_q,_up);
+		_front = apply(_q,_front);
+		_orientation = _q*_orientation;
+		_orientation.getGLMatrix(_rotationMatrix);
+		_q.setRotationDeg(rot,_up);
+		_right = apply(_q,_right);
+		_orientation = _q*_orientation;
+		_orientation.getGLMatrix(_rotationMatrix);
 	}
 
 	cg::Vector3d Cannon::getPosition()
@@ -121,15 +133,21 @@ namespace CastleBlast {
 		return _position;
 	}
 
+	int Cannon::getRotation()
+	{
+		std::cout << "canonrotation: " << _rotation << std::endl;
+		return _rotation;
+	}
+
 	void Cannon::onMouse(int button, int state, int x, int y)
 	{
-		if (_rotateCannon)
+		if (_isCannonCamera)
 			_lastMousePosition.set(x,y);
 	}
 
 	void Cannon::onMouseMotion(int x, int y) 
 	{
-		if (_rotateCannon) {
+		if (_isCannonCamera) {
 			_anglex = (_lastMousePosition[0] - x)/ (double)5;
 			_angley = (_lastMousePosition[1] - y)/ (double)5;
 			std::cout << _angley << std::endl;
@@ -140,7 +158,6 @@ namespace CastleBlast {
 			_orientation = _q*_orientation;
 			_orientation.getGLMatrix(_rotationMatrix);
 			_q.setRotationDeg(_anglex,_up);
-			//apply(_q,_front);
 			_right = apply(_q,_right);
 			_orientation = _q*_orientation;
 			_orientation.getGLMatrix(_rotationMatrix);
@@ -148,9 +165,9 @@ namespace CastleBlast {
 		}
 	}
 	
-	void Cannon::rotateCannon()
+	void Cannon::cameraToggle()
 	{
-		_rotateCannon = !_rotateCannon;
+		_isCannonCamera = !_isCannonCamera;
 	}
 	
 	void Cannon::setDirection(cg::Vector3d direction)
