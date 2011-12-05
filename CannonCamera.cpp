@@ -21,36 +21,66 @@ namespace CastleBlast {
 		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
 		_winWidth = win.width;
 		_winHeight = win.height;
-		_anglex = 0;
-		_angley = 0;
+		_orientation.setRotationDeg(0,cg::Vector3d::ny);
 		_eye.set(0,0,0);
 		_center.set(0,0,0);
-		_eyeInc.set(0,0,0);
+		_eyeInc.set(0,5,0);
 		_centerInc.set(0,5,0);
 		_up.set(0,1,0);
 		_front.set(1,0,0);
 		_right.set(0,0,1);
 		_isRoll = false;
-		_scale = 5.0f;
-		_cannonMouseSpeed = cg::Properties::instance()->getDouble("CANNON_MOUSE_SPEED");
+		_scale = 150.0f;
 		
+		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
+		/* Initialize camera position */
+		_q.setRotationDeg(-90,_up);
+		_front = apply(_q,_front);
+		_right = apply(_q,_right);
+		_q.setRotationDeg(15, _right);
+		_front = apply(_q,_front);
 	}
-	void CannonCamera::draw() {
-		_cannonPos = _cannon->getPosition(); 
+	void CannonCamera::draw() 
+	{
+		_center = _front * _scale;
+		_cannonPos = _cannon->getPosition();
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluPerspective(65, _winWidth/(double)_winHeight, 1, 500);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		/* CAREFULL! the Magic Numbers in gluLookAt have the purpose of shifting the camera a bit from the cannon */
-		gluLookAt(_eye[0]+_cannonPos[0]+2, _eye[1]+_cannonPos[1]+4, _eye[2]+_cannonPos[2]+2,
-			_center[0]+_cannonPos[0], _center[1]+_cannonPos[1]+5, _center[2]+_cannonPos[2],
+		gluLookAt(_eye[0]+_cannonPos[0], _eye[1]+_cannonPos[1]+10, _eye[2]+_cannonPos[2],
+			_center[0]+_centerInc[0], _center[1]+_centerInc[1], _center[2]+_centerInc[2],
 			_up[0], _up[1], _up[2]);
+		std::cout << _cannonPos << std::endl;
 	}
 
 	void CannonCamera::update(unsigned long elapsed_millis)
 	{
-
+		if (cg::KeyBuffer::instance()->isKeyDown('a')) {
+			_eyeInc[0] -= _cameraSpeed*_front[2];
+			_eyeInc[2] += _cameraSpeed*_front[0];
+			_centerInc[0] -= _cameraSpeed*_front[2];
+			_centerInc[2] += _cameraSpeed*_front[0];
+		}
+		if (cg::KeyBuffer::instance()->isKeyDown('d')) {
+			_eyeInc[0] += _cameraSpeed*_front[2];
+			_eyeInc[2] -= _cameraSpeed*_front[0];
+			_centerInc[0] += _cameraSpeed*_front[2];
+			_centerInc[2] -= _cameraSpeed*_front[0];
+		}
+		if (cg::KeyBuffer::instance()->isKeyDown('w')) {
+			_eyeInc[0] -= _cameraSpeed*_front[0];
+			_eyeInc[2] -= _cameraSpeed*_front[2];
+			_centerInc[0] -= _cameraSpeed*_front[0];
+			_centerInc[2] -= _cameraSpeed*_front[2];
+		}
+		if (cg::KeyBuffer::instance()->isKeyDown('s')) {
+			_eyeInc[0] += _cameraSpeed*_front[0];
+			_eyeInc[2] += _cameraSpeed*_front[2];
+			_centerInc[0] += _cameraSpeed*_front[0];
+			_centerInc[2] += _cameraSpeed*_front[2];
+		}
 	}
 
 #if !defined(GLUT_WHEEL_UP)
@@ -60,17 +90,26 @@ namespace CastleBlast {
 
 	void CannonCamera::onMouse(int button, int state, int x, int y)
 	{
+		_isRoll = (button == GLUT_RIGHT_BUTTON);
 		_lastMousePosition.set(x,y);
+		if (state == GLUT_UP) {
+			if (button == GLUT_WHEEL_UP)
+				_scale -= 0.5f;
+
+			else if (button == GLUT_WHEEL_DOWN)
+				_scale += 0.5f;
+		}
 	}
 
 	void CannonCamera::onMouseMotion(int x, int y)
 	{	
-		_anglex += _cannonMouseSpeed*(_lastMousePosition[0] - x)*PI/180;
-		_angley += _cannonMouseSpeed*(_lastMousePosition[1] - y)*PI/180;
-		//std::cout << sin(_angley) << std::endl;
-		_center[0] = 10*cos(_anglex);
-		_center[2] = 10*sin(_anglex);
-		_center[1] = -30*sin(_angley)+10;
+		double anglex = (_lastMousePosition[0] - x) / (double)5;
+			_q.setRotationDeg(anglex,_up);
+			_front = apply(_q,_front);
+			_right = apply(_q,_right);
+		double angley = (y - _lastMousePosition[1]) / (double)5;
+			_q.setRotationDeg(angley, _right);
+			_front = apply(_q,_front);
 		_lastMousePosition.set(x,y);
 	}
 
