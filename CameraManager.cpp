@@ -36,6 +36,11 @@ namespace CastleBlast
 	void CameraManager::preUpdate(unsigned long elapsed_millis) 
 	{
 	}
+	
+	void CameraManager::postInit()
+	{
+		remove(_cannonCamera->getId());
+	}
 
 	void CameraManager::setCannonCameraRotation(int rot)
 	{

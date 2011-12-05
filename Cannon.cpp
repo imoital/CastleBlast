@@ -86,20 +86,16 @@ namespace CastleBlast {
 	
 	void Cannon::update(unsigned long elapsed_millis)
 	{
-		if(cg::KeyBuffer::instance()->isKeyDown('u')) {
-			_position[2] = _position[2] + 0.001*elapsed_millis;
-			_wheelRotation = _wheelRotation - 0.04*elapsed_millis;
+		if (_isCannonCamera) {
+			if(cg::KeyBuffer::instance()->isKeyDown('s')) {
+				_position[2] = _position[2] + 0.001*elapsed_millis;
+				_wheelRotation = _wheelRotation - 0.04*elapsed_millis;
+			}
+			if(cg::KeyBuffer::instance()->isKeyDown('w')) {
+				_position[2] = _position[2] - 0.001*elapsed_millis;
+				_wheelRotation = _wheelRotation + 0.04*elapsed_millis;
+			}
 		}
-		if(cg::KeyBuffer::instance()->isKeyDown('j')) {
-			_position[2] = _position[2] - 0.001*elapsed_millis;
-			_wheelRotation = _wheelRotation + 0.04*elapsed_millis;
-		}
-	/*	if(cg::KeyBuffer::instance()->isKeyDown('h') && _cannonRotation < 33) {
-			_cannonRotation = _cannonRotation + 0.01*elapsed_millis;
-		}
-		if(cg::KeyBuffer::instance()->isKeyDown('k') && _cannonRotation > -17) {
-			_cannonRotation = _cannonRotation - 0.01*elapsed_millis;
-		}*/
 		
 		_projectile->update(_position, _cannonDirection, elapsed_millis);
 		
