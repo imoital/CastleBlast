@@ -25,7 +25,7 @@ namespace CastleBlast {
 		_eye.set(0,0,0);
 		_center.set(0,0,0);
 		_eyeInc.set(0,5,0);
-		//_centerInc.set(0,5,0);
+		_centerInc.set(0,5,0);
 		_up.set(0,1,0);
 		_front.set(1,0,0);
 		_right.set(0,0,1);
@@ -34,7 +34,7 @@ namespace CastleBlast {
 		
 		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
 		/* Initialize camera position */
-		_q.setRotationDeg(90,_up);
+		_q.setRotationDeg(-90,_up);
 		_front = apply(_q,_front);
 		_right = apply(_q,_right);
 		_q.setRotationDeg(15, _right);
@@ -42,15 +42,15 @@ namespace CastleBlast {
 	}
 	void CannonCamera::draw() 
 	{
-		_center = -_front * _scale;
+		_center = _front * _scale;
 		_cannonPos = _cannon->getPosition();
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluPerspective(65, _winWidth/(double)_winHeight, 1, 500);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(_eye[0]+_cannonPos[0], _eye[1]+_cannonPos[1]+5, _eye[2]+_cannonPos[2],
-			_center[0]+_cannonPos[0], _center[1]+_cannonPos[1]+5, _center[2]+_cannonPos[2],
+		gluLookAt(_eye[0]+_cannonPos[0], _eye[1]+_cannonPos[1]+10, _eye[2]+_cannonPos[2],
+			_center[0]+_centerInc[0], _center[1]+_centerInc[1], _center[2]+_centerInc[2],
 			_up[0], _up[1], _up[2]);
 		std::cout << _cannonPos << std::endl;
 	}
@@ -103,6 +103,7 @@ namespace CastleBlast {
 
 	void CannonCamera::onMouseMotion(int x, int y)
 	{	
+<<<<<<< HEAD
 		double anglex = (_lastMousePosition[0] - x) / (double)5;
 			_q.setRotationDeg(anglex,_up);
 			_front = apply(_q,_front);
@@ -110,6 +111,14 @@ namespace CastleBlast {
 		double angley = (y - _lastMousePosition[1]) / (double)5;
 			_q.setRotationDeg(angley, _right);
 			_front = apply(_q,_front);
+=======
+		_anglex += _cannonMouseSpeed*(_lastMousePosition[0] - x)*PI/180;
+		_angley += _cannonMouseSpeed*(_lastMousePosition[1] - y)*PI/180;
+		//std::cout << sin(_angley) << std::endl;
+		_center[0] = 10*cos(_anglex);
+		_center[2] = 10*sin(_anglex);
+		_center[1] = -30*sin(_angley)+10;
+>>>>>>> 28a4c2e3bade212a31c0edf109b125c66344fa8e
 		_lastMousePosition.set(x,y);
 	}
 
