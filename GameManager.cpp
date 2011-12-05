@@ -12,6 +12,8 @@
 #include "PlayerManager.h"
 #include "FontsManager.h"
 #include "SceneManager.h"
+#include "StartScreen.h"
+#include "Sky.h"
 //#include "CameraManager.h"
 
 namespace CastleBlast {
@@ -26,36 +28,73 @@ namespace CastleBlast {
 		_playerManager = new PlayerManager();
 		_changePlayerPressed = false;
 		_fontsManager = (FontsManager*)cg::Registry::instance()->get("FONTS_MANAGER");
+		_startScreen = new StartScreen();
+		_sky = new Sky();
+		_gameMode = false;
 	}
 	
 	void GameManager::createEntities()
-	{		
+	{	
 		addAtBeginning(_sceneManager);
 		addAtBeginning(_playerManager);
-	//	addAtBeginning(new CameraManager());
+		addAtBeginning(_sky);
+		//addAtBeginning(new CameraManager());
+		addAtBeginning(_startScreen);
 	}
 	
 	void GameManager::postInit()
 	{
 		_currentPlayer = _playerManager->nextPlayer();
+		removeAll();
+		addAtBeginning(_startScreen);
 	}
 	
 	void GameManager::preDrawOverlay()
 	{
-		std::stringstream player;
-		player << "Player " << _currentPlayer->getPlayerNumber() << " turn";
-		
-		_fontsManager->printFont(10, 10,1, 0, 1, player.str());
+		if (_gameMode) {
+			std::stringstream player;
+			player << "Player " << _currentPlayer->getPlayerNumber() << " turn";
+			
+			_fontsManager->printFont(10, 10,1, 0, 1, player.str());
+		}
 	}
 	
 	void GameManager::preUpdate(unsigned long elapsed_millis)
 	{
-		if(cg::KeyBuffer::instance()->isKeyDown('z') && !_changePlayerPressed) {
-			_currentPlayer = _playerManager->nextPlayer();
-			_changePlayerPressed = true;
+		if (_gameMode) {
+			if(cg::KeyBuffer::instance()->isKeyDown('z') && !_changePlayerPressed) {
+				_currentPlayer = _playerManager->nextPlayer();
+				_changePlayerPressed = true;
+			}
+			if (cg::KeyBuffer::instance()->isKeyUp('z') && _changePlayerPressed) {
+				_changePlayerPressed = false;
+			}
 		}
-		if (cg::KeyBuffer::instance()->isKeyUp('z') && _changePlayerPressed) {
-			_changePlayerPressed = false;
+	}
+	
+	void GameManager::preOnMouse(int button, int state, int x, int y) 
+	{
+		std::cout << "x: " << x << " y: " << y << std::endl;
+		if (!_gameMode) {
+			if(x >= 265 && x <= 555 && y >= 270 && y <= 330)
+				startGame();
 		}
+	}
+	
+	void GameManager::startGame() 
+	{
+		removeAll();
+		_gameMode = true;
+		addAtBeginning(_sky);
+		addAtBeginning(_sceneManager);
+		addAtBeginning(_playerManager);
+		//addAtBeginning(new CameraManager());
+	}
+	
+	void GameManager::endGame()
+	{
+		removeAll();
+		_gameMode = false;
+		addAtBeginning(_startScreen);
 	}
 }

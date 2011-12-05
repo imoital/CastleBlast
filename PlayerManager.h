@@ -20,6 +20,7 @@ namespace CastleBlast {
 		std::vector<Player*> _players;
 		float _distancePlayers; //distance from witch player
 		int _currentPlayerNum;
+		Player* _currentPlayer;
 		
 	public:
 		PlayerManager();

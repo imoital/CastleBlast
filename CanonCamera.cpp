@@ -70,7 +70,7 @@ namespace CastleBlast {
 		//std::cout << sin(_angley) << std::endl;
 		_center[0] = 10*cos(_anglex);
 		_center[2] = 10*sin(_anglex);
-		_center[1] = -30*sin(_angley);
+		_center[1] = -30*sin(_angley)+10;
 		_lastMousePosition.set(x,y);
 	}
 

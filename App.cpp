@@ -38,8 +38,8 @@ namespace CastleBlast {
 		addEntity(new ModelManager());
 		addEntity(new DebugManager());
 		addEntity(new Controller());
-		addEntity(new Fog());
-		addEntity(new Sky());
+		//addEntity(new Fog());
+		//addEntity(new Sky());
 		addEntity(new GameManager());
 		addEntity(new Lights());
 	}
@@ -52,7 +52,7 @@ namespace CastleBlast {
 		v0->linkEntityAtEnd("SCENE_MANAGER");
 		v0->linkEntityAtEnd("GAME_MANAGER");
 		v0->linkEntityAtEnd("LIGHTS");
-		v0->linkEntityAtEnd("SKY");
+		//v0->linkEntityAtEnd("SKY");
 		v0->linkEntityAtEnd("FOG");
 		
 	}

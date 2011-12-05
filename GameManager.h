@@ -16,6 +16,8 @@ namespace CastleBlast {
 	class PlayerManager;
 	class Player;
 	class FontsManager;
+	class StartScreen;
+	class Sky;
 	
 	class GameManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent{
 	private:
@@ -23,9 +25,13 @@ namespace CastleBlast {
 		PlayerManager* _playerManager;
 		Player* _currentPlayer;
 		FontsManager* _fontsManager;
+		StartScreen* _startScreen;
+		Sky* _sky;
+		
 		bool _changePlayerPressed;
 		GLuint _fontTexture;
 		GLuint _base;
+		bool _gameMode;
 		
 	public:
 		GameManager();
@@ -36,6 +42,9 @@ namespace CastleBlast {
 		void createEntities();
 		void preDrawOverlay();
 		void preUpdate(unsigned long elapsed_millis);
+		void preOnMouse(int button, int state, int x, int y);
+		void startGame();
+		void endGame();
 	};
 }
 

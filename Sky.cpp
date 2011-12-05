@@ -26,4 +26,6 @@ namespace CastleBlast {
 		glutSolidSphere(_worldSize, 16, 16);
 		glEnable(GL_LIGHTING);
 	}
+	
+	void Sky::update(unsigned long elapsed_millis) {}
 }

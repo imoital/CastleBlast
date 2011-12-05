@@ -14,13 +14,14 @@
 namespace CastleBlast {
 	
 	//Sky : a sheper that represents the sky
-	class Sky : public cg::Entity, public cg::IDrawListener{
+	class Sky : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener, public cg::IMouseEventListener{
 	public:
 		Sky();
 		~Sky();
 		
 		void init();
 		void draw();
+		void update(unsigned long elapsed_millis);
 		
 	private:
 		int _worldSize;

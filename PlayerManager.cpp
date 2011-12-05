@@ -64,29 +64,30 @@ namespace CastleBlast {
 	Player* PlayerManager::nextPlayer()
 	{
 		int numPlayers = cg::Properties::instance()->getInt("NUM_PLAYERS");
-		_currentPlayerNum = (_currentPlayerNum+1)%numPlayers;
 		Player* p = _players[_currentPlayerNum];
+		_currentPlayer = p;
+		_currentPlayerNum = (_currentPlayerNum+1)%numPlayers;
 		return p;
 	}
 	
 	// Need to be uncommented when camera manager is finish (need to be where for change players to work)
 	/*void PlayerManager::update(unsigned long elapsed_millis)
 	{
-		_players[_currentPlayerNum]->update(elapsed_millis);
+		_currentPlayer->update(elapsed_millis);
 	}
 	
 	void PlayerManager::onMouse(int button, int state, int x, int y)
 	{
-		_players[_currentPlayerNum]->onMouse(button, state, x, y);
+		_currentPlayer->onMouse(button, state, x, y);
 	}
 	
 	void PlayerManager::onMouseMotion(int x, int y)
 	{
-		_players[_currentPlayerNum]->onMouseMotion(x, y);
+		_currentPlayer->onMouseMotion(x, y);
 	}
 	
 	void PlayerManager::onMousePassiveMotion(int x, int y)
 	{
-		_players[_currentPlayerNum]->onMousePassiveMotion(x, y);
+		_currentPlayer->onMousePassiveMotion(x, y);
 	}*/
 }
