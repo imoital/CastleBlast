@@ -54,18 +54,19 @@ namespace CastleBlast {
 	
 	Block::~Block() {}
 	
-	void Block::draw(int startLine, int endLine, int startColumn, int endColumn, int depth){
+	void Block::draw(int startLine, int endLine, int startColumn, int endColumn, int startDepth, int endDepth){
 		
 		_startPoint = cg::Vector3d(_startFrom[0] + _blockSize*startLine, 
-					   _startFrom[1] + _blockSize*depth, 
+					   _startFrom[1] + _blockSize*startDepth, 
 					   _startFrom[2] + _blockSize*startColumn);
 		
 		_endPoint = cg::Vector3d(_startFrom[0] + _blockSize*(endLine+1), 
-					 _startFrom[1] + _blockSize*depth + _blockSize, 
+					 _startFrom[1] + _blockSize*endDepth + _blockSize, 
 					 _startFrom[2] + _blockSize*(endColumn+1));
 		
 		int lines = endLine-startLine+1; //number of lines to be drawn
 		int columns = endColumn-startColumn+1; // number of columns to be draw
+		int depth = endDepth-startDepth+1;
 		
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_CULL_FACE);
@@ -81,10 +82,10 @@ namespace CastleBlast {
 		glMaterialfv(GL_FRONT, GL_SPECULAR, side_mat_specular);
 		glMaterialf(GL_FRONT, GL_SHININESS, side_shininess);
 	
-		drawFrontFace(lines, columns);
-		drawBackFace(lines, columns);
-		drawLeftFace(lines, columns);
-		drawRightFace(lines, columns);
+		drawFrontFace(lines, depth);
+		drawBackFace(lines, depth);
+		drawLeftFace(columns, depth);
+		drawRightFace(columns, depth);
 		
 		// draw top and bottom faces
 		glBindTexture(GL_TEXTURE_2D, _topBottomTexture);
@@ -124,16 +125,16 @@ namespace CastleBlast {
 		glEnd();
 	}
 	
-	void Block::drawRightFace(int lines, int columns)
+	void Block::drawRightFace(int columns, int depth)
 	{
 		glBegin(GL_QUADS);
 		{
 			glNormal3d(-1, 0, 0);
-			glTexCoord2d(0, 1);
+			glTexCoord2d(0, depth);
 			glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
 			
 			glNormal3d(-1, 0, 0);
-			glTexCoord2d(columns, 1);
+			glTexCoord2d(columns, depth);
 			glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
 			
 			glNormal3d(-1, 0, 0);
@@ -147,12 +148,12 @@ namespace CastleBlast {
 		glEnd();
 	}
 	
-	void Block::drawLeftFace(int lines, int columns)
+	void Block::drawLeftFace(int columns, int depth)
 	{
 		glBegin(GL_QUADS);
 		{
 			glNormal3d(1, 0, 0);
-			glTexCoord2d(columns, 1);
+			glTexCoord2d(columns, depth);
 			glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
 			
 			glNormal3d(1, 0, 0);
@@ -164,18 +165,18 @@ namespace CastleBlast {
 			glVertex3d(_startPoint[0], _startPoint[1], _endPoint[2]);
 			
 			glNormal3d(1, 0, 0);
-			glTexCoord2d(0, 1);
+			glTexCoord2d(0, depth);
 			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
 		}
 		glEnd();
 	}
 	
-	void Block::drawFrontFace(int lines, int columns)
+	void Block::drawFrontFace(int lines, int depth)
 	{
 		glBegin(GL_QUADS);
 		{
 			glNormal3d(0, 0, 1);
-			glTexCoord2d(0, 1);
+			glTexCoord2d(0, depth);
 			glVertex3d(_startPoint[0], _endPoint[1], _endPoint[2]);
 			
 			glNormal3d(0, 0, 1);
@@ -187,7 +188,7 @@ namespace CastleBlast {
 			glVertex3d(_endPoint[0], _startPoint[1], _endPoint[2]);
 			
 			glNormal3d(0, 0, 1);
-			glTexCoord2d(lines, 1);
+			glTexCoord2d(lines, depth);
 			glVertex3d(_endPoint[0], _endPoint[1], _endPoint[2]);
 		}
 		glEnd();
@@ -217,16 +218,16 @@ namespace CastleBlast {
 		glEnd();
 	}
 	
-	void Block::drawBackFace(int lines, int columns)
+	void Block::drawBackFace(int lines, int depth)
 	{
 		glBegin(GL_QUADS);
 		{
 			glNormal3d(0, 0, -1);
-			glTexCoord2d(lines, 1);
+			glTexCoord2d(lines, depth);
 			glVertex3d(_startPoint[0], _endPoint[1], _startPoint[2]);
 			
 			glNormal3d(0, 0, -1);
-			glTexCoord2d(0, 1);
+			glTexCoord2d(0, depth);
 			glVertex3d(_endPoint[0], _endPoint[1], _startPoint[2]);
 			
 			glNormal3d(0, 0, -1);

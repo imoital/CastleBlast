@@ -25,7 +25,7 @@ namespace CastleBlast {
 		
 		// draws a cube from the start line ('startLine') to the endline('endLine'), 
 		// from the start column ('startColumn') to the end column ('endColumn') and at depth 'depth'
-		void draw(int startLine, int endLine, int startColumn, int endColumn, int depth);
+		void draw(int startLine, int endLine, int startColumn, int endColumn, int startDepth, int endDepth);
 		
 		// Needs to be implemented in the below classes to load a texture
 		virtual void loadTextures() = 0;

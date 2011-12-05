@@ -70,6 +70,7 @@ namespace CastleBlast {
 		q->endLine = endLine;
 		q->endColumn = endColumn;
 		q->startDepth = depth;
+		q->endDepth = depth;
 		
 		return q;
 	}
@@ -188,7 +189,7 @@ namespace CastleBlast {
 		}
 		
 		// TODO: depth in blocks
-		/*for (int type = 0; type < _quads.size(); type++) {
+		for (int type = 0; type < _quads.size(); type++) {
 			for (int i = 0; i < _quads[type].size(); i++) {
 				for (int j = i+1; j < _quads[type].size(); j++) {
 					quads *q1 = _quads[type][i];
@@ -197,14 +198,15 @@ namespace CastleBlast {
 					if (q1->startColumn == q2->startColumn && 
 					    q1->endColumn == q2->endColumn && 
 					    q1->endLine == q2->endLine &&
-					    q1->startLine == q2->startLine) {
+					    q1->startLine == q2->startLine &&
+					    q1->endDepth == q2->startDepth-1) {
 						q1->endDepth = q2->startDepth;
 						_quads[type].erase(_quads[type].begin()+j);
 						j--;
 					}
 				}
 			}
-		}*/
+		}
 		
 		int nQuads = 0;
 		for (int m = 0; m < _quads.size(); m++) {
@@ -230,14 +232,16 @@ namespace CastleBlast {
 								  _quads[i][j]->endLine, 
 								  _quads[i][j]->startColumn, 
 								  _quads[i][j]->endColumn, 
-								  _quads[i][j]->startDepth);
+								  _quads[i][j]->startDepth,
+								  _quads[i][j]->endDepth);
 					}
 					else if (i == 1){
 						_stoneBlock->draw(_quads[i][j]->startLine, 
 								  _quads[i][j]->endLine, 
 								  _quads[i][j]->startColumn, 
 								  _quads[i][j]->endColumn, 
-								  _quads[i][j]->startDepth);
+								  _quads[i][j]->startDepth,
+								  _quads[i][j]->endDepth);
 					}
 				}
 			}
@@ -391,10 +395,7 @@ namespace CastleBlast {
 		int posX, posY, posZ;
 		
 		for (int i = 0; i < positions.size(); i++) {
-			posX = positions[i][0];
-			posY = positions[i][1];
-			posZ = positions[i][2];
-			destroyCircle(cg::Vector3d(posX,posY,posZ), 2);
+			destroyCircle(positions[i], 2);
 		}
 		initWorldMatrix();
 	}

@@ -18,9 +18,7 @@
 #include "Collidable.h"
 
 namespace CastleBlast {
-	
-	// SceneManager: this class will construct the scene
-	//TODO: add more types of blocks to the scene
+
 	class SceneManager : 
 	public cg::Entity, 
 	public cg::IDrawListener, 

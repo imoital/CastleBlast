@@ -91,8 +91,6 @@ namespace CastleBlast {
 		directionCenter[1] = _center[1]+_cannonPos[1]+5;
 		directionCenter[2] = _center[2]+_cannonPos[2];
 		
-		
-		std::cout << "" << normalize(directionCenter-directionEye) << std::endl; 
 		_cannon->setDirection(normalize(directionCenter-directionEye));
 	}
 
