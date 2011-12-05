@@ -6,18 +6,18 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#include "CanonCamera.h"
+#include "CannonCamera.h"
 namespace CastleBlast {
 	
-	CanonCamera::CanonCamera(Cannon *cannon) : Entity("CANON_CAMERA") 
+	CannonCamera::CannonCamera(Cannon *cannon) : Entity("CANNON_CAMERA") 
 	{
 		_cannon = cannon;
 	}
-	CanonCamera::~CanonCamera() {
+	CannonCamera::~CannonCamera() {
 	}
 
 
-	void CanonCamera::init() {
+	void CannonCamera::init() {
 		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
 		_winWidth = win.width;
 		_winHeight = win.height;
@@ -35,7 +35,7 @@ namespace CastleBlast {
 		_cannonMouseSpeed = cg::Properties::instance()->getDouble("CANNON_MOUSE_SPEED");
 		
 	}
-	void CanonCamera::draw() {
+	void CannonCamera::draw() {
 		_cannonPos = _cannon->getPosition(); 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -48,7 +48,7 @@ namespace CastleBlast {
 			_up[0], _up[1], _up[2]);
 	}
 
-	void CanonCamera::update(unsigned long elapsed_millis)
+	void CannonCamera::update(unsigned long elapsed_millis)
 	{
 
 	}
@@ -58,12 +58,12 @@ namespace CastleBlast {
 # define GLUT_WHEEL_DOWN 4
 #endif
 
-	void CanonCamera::onMouse(int button, int state, int x, int y)
+	void CannonCamera::onMouse(int button, int state, int x, int y)
 	{
 		_lastMousePosition.set(x,y);
 	}
 
-	void CanonCamera::onMouseMotion(int x, int y)
+	void CannonCamera::onMouseMotion(int x, int y)
 	{	
 		_anglex += _cannonMouseSpeed*(_lastMousePosition[0] - x)*PI/180;
 		_angley += _cannonMouseSpeed*(_lastMousePosition[1] - y)*PI/180;
@@ -74,11 +74,11 @@ namespace CastleBlast {
 		_lastMousePosition.set(x,y);
 	}
 
-	void CanonCamera::onMousePassiveMotion(int x, int y)
+	void CannonCamera::onMousePassiveMotion(int x, int y)
 	{
 
 	}
-	void CanonCamera::onReshape(int width, int height) 
+	void CannonCamera::onReshape(int width, int height) 
 	{
 		_winWidth = width;
 		_winHeight = height;

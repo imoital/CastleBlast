@@ -3,7 +3,7 @@
 
 #include "cg/cg.h"
 #include "WorldCamera.h"
-#include "CanonCamera.h"
+#include "CannonCamera.h"
 #include "Cannon.h"
 
 namespace CastleBlast 
@@ -15,7 +15,7 @@ namespace CastleBlast
 	private:
 		std::vector<WorldCamera*> _cameraVector;
 		WorldCamera* _worldCamera;
-		CanonCamera* _canonCamera;
+		CannonCamera* _cannonCamera;
 		bool _changeCameraKeyPressed;
 		typedef std::vector<WorldCamera*>::iterator _worldCameraIterator;
 		bool _isWorldCamera;
