@@ -106,6 +106,12 @@ namespace CastleBlast {
 		if(cg::KeyBuffer::instance()->isKeyUp(' ')) {
 			_fire = false;
 		}
+
+	}
+
+	bool Cannon::getIsOtherPlayer()
+	{
+		return _projectile->getIsOtherPlayer();
 	}
 	
 	void Cannon::placeCannon(cg::Vector3d position, int rot)

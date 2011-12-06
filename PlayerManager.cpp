@@ -98,6 +98,11 @@ namespace CastleBlast {
 	{
 		_currentPlayer->onMousePassiveMotion(x, y);
 	}
+
+	bool PlayerManager::getIsOtherPlayer()
+	{
+		return _currentPlayer->getIsOtherPlayer();
+	}
 	
 	void PlayerManager::draw()
 	{

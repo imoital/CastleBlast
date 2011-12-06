@@ -19,6 +19,7 @@ namespace CastleBlast {
 		cg::Vector3d _startPosition;
 		int _force;
 		bool _start;
+		bool _isOtherPlayer;
 		
 	public:
 		cg::Vector3d _size;
@@ -32,6 +33,8 @@ namespace CastleBlast {
 		void debugToggle();
 		void start();
 		bool isCollision(Collidable *obj);
+		bool getIsOtherPlayer();
+		void toggleIsOtherPlayer();
 	};
 }
 #endif
