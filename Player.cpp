@@ -49,10 +49,16 @@ namespace CastleBlast {
 		_cannon->placeCannon(initPosition, rot);
 		_cameraManager->setCannonCameraRotation(rot);
 	}
+
 	
 	int Player::getPlayerNumber()
 	{
 		return _playerNumber;
+	}
+
+	bool Player::getIsOtherPlayer()
+	{
+		return _cannon->getIsOtherPlayer();
 	}
 	
 	void Player::setCurrentPlayer()

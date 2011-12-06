@@ -71,6 +71,9 @@ namespace CastleBlast {
 			if (cg::KeyBuffer::instance()->isKeyUp('z') && _changePlayerPressed) {
 				_changePlayerPressed = false;
 			}
+
+			if (_playerManager->getIsOtherPlayer() == true)
+				_currentPlayer = _playerManager->nextPlayer();
 		}
 	}
 	

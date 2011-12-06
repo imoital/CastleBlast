@@ -18,7 +18,10 @@ namespace CastleBlast {
 	Projectile::~Projectile(void)
 	{}
 	
-	void Projectile::init() {}
+	void Projectile::init() 
+	{
+		_isOtherPlayer = false;
+	}
 
 	void Projectile::draw()
 	{
@@ -53,6 +56,20 @@ namespace CastleBlast {
 			}
 		}
 		glPopMatrix();
+	}
+
+	void Projectile::toggleIsOtherPlayer()
+	{
+		_isOtherPlayer = !_isOtherPlayer;
+	}
+
+	bool Projectile::getIsOtherPlayer()
+	{
+		if (_isOtherPlayer == true) {
+			_isOtherPlayer = false;
+			return true;
+		} else
+			return _isOtherPlayer;
 	}
 
 	void Projectile::debugDrawAxis()
@@ -106,7 +123,10 @@ namespace CastleBlast {
 			_position[1] += _direction[1] * time - (G*time*time)/2;
 			_position[0] += _direction[0]*time;
 			_position[2] += _direction[2]*time;
-			if (notify(_position)) _start = false;
+			if (notify(_position)) {
+				_start = false;
+				_isOtherPlayer = true;
+			}
 		}
 	}
 	

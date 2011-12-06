@@ -52,6 +52,7 @@ namespace CastleBlast {
 		void cameraToggle();
 		void setDirection(cg::Vector3d direction);
 		int getRotation();
+		bool getIsOtherPlayer();
 	};
 }
 

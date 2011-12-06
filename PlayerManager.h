@@ -40,6 +40,7 @@ namespace CastleBlast {
 		void onMousePassiveMotion(int x, int y);
 		Player* nextPlayer();
 		void setNumPlayers(int numPlayers);
+		bool getIsOtherPlayer();
 	};
 }
 
