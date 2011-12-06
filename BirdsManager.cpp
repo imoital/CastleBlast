@@ -22,7 +22,7 @@ namespace CastleBlast {
 		for (int i = 0; i < numBirds; i++) {
 			std::stringstream birdName;
 			birdName << "BIRD" << i;
-			addAtBeginning(new Bird(birdName.str(), rand()%360));
+			addAtBeginning(new Bird(birdName.str()));
 		}
 	}
 }

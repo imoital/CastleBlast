@@ -26,7 +26,7 @@ namespace CastleBlast {
 		double _lastAngle;
 		bool _toBeDeleted;
 	public:
-		Bird(std::string birdName, double initAngle);
+		Bird(std::string birdName);
 		~Bird();
 		void init();
 		void draw();

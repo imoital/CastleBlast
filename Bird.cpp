@@ -10,17 +10,15 @@
 
 namespace CastleBlast {
 	
-	Bird::Bird(std::string birdName, double initAngle) : cg::Entity(birdName), Collidable(2,2,2)
-	{
-		_lastAngle = initAngle;
-	}
+	Bird::Bird(std::string birdName) : cg::Entity(birdName), Collidable(2,2,2) {}
 	
 	Bird::~Bird() {}
 	
 	void Bird::init() 
 	{
-		_position = cg::Vector3d(0,35,0);
+		_position = cg::Vector3d(rand()%4,42+rand()%7,rand()%4);
 		_toBeDeleted = false;
+		_lastAngle = rand()%360;
 	}
 	
 	void Bird::draw() 
