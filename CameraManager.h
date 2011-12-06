@@ -28,6 +28,7 @@ namespace CastleBlast
 		void switchCamera();
 		void preUpdate(unsigned long elapsed_millis);
 		void setCannonCameraRotation(int rot);
+		void postInit();
 		
 	};
 }
