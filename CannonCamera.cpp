@@ -49,6 +49,18 @@ namespace CastleBlast {
 			_up[0], _up[1], _up[2]);
 	}
 
+	cg::Vector3d CannonCamera::getEpos(){
+		return _eye;
+	}
+
+	cg::Vector3d CannonCamera::getCpos(){
+		return _center;
+	}
+
+	cg::Vector3d CannonCamera::getUpos(){
+		return _up;
+	}
+
 	void CannonCamera::update(unsigned long elapsed_millis)
 	{
 		if (cg::KeyBuffer::instance()->isKeyDown('a')) {

@@ -13,7 +13,7 @@ namespace CastleBlast
 
 	void CameraManager::createEntities()
 	{
-		_worldCamera = new WorldCamera();
+		//_worldCamera = new WorldCamera();
 		_cannonCamera = new CannonCamera(_cannon);
 		addAtBeginning(_worldCamera);
 		addAtBeginning(_cannonCamera);
@@ -29,8 +29,25 @@ namespace CastleBlast
 			_isWorldCamera = false;
 		} else {
 			addAtBeginning(_worldCamera);
+			//_worldCamera->setPos(_cannonCamera->getEpos(), _cannonCamera->getCpos(), _cannonCamera->getUpos());
 			_isWorldCamera = true;
 		}
+	}
+
+	WorldCamera* CameraManager::getWorldCamera(){
+		return _worldCamera;
+	}
+
+	bool CameraManager::isWorldCamera(){
+		return _isWorldCamera;
+	}
+
+	Cannon* CameraManager::getCannon(){
+		return _cannon;
+	}
+
+	void CameraManager::setWorldCamera(WorldCamera* w){
+		_worldCamera = w;
 	}
 
 	void CameraManager::preUpdate(unsigned long elapsed_millis) 

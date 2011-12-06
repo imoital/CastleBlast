@@ -43,12 +43,18 @@ namespace CastleBlast {
 		_eye = _front * _scale;
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(65, _winWidth/(double)_winHeight, 1, 500);
+		gluPerspective(65, _winWidth/(double)_winHeight, 1, 3000);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		gluLookAt(_eye[0]+_eyeInc[0], _eye[1]+_eyeInc[1], _eye[2]+_eyeInc[2],
 			_center[0]+_centerInc[0], _center[1]+_centerInc[1], _center[2]+_centerInc[2],
 			_up[0], _up[1], _up[2]);
+	}
+
+	void WorldCamera::setPos(cg::Vector3d e, cg::Vector3d c, cg::Vector3d u){
+		_eye = e;
+		_center = c;
+		_up = u;
 	}
 
 	void WorldCamera::update(unsigned long elapsed_millis)

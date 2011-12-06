@@ -10,12 +10,15 @@
 #include "King.h"
 #include "Cannon.h"
 #include "CameraManager.h"
+#include "WorldCamera.h"
+
 namespace CastleBlast {
 	
-	Player::Player(std::string id, int number) : cg::Group(id)
+	Player::Player(std::string id, int number, WorldCamera* w) : cg::Group(id)
 	{
 		_playerNumber = number;
 		_currentPlayer = false;
+		_worldCamera = w;
 	}
 	
 	Player::~Player() {}
@@ -27,10 +30,10 @@ namespace CastleBlast {
 		_cannon = new Cannon();
 		_cameraManager = new CameraManager(_cannon);
 		
-		
 		addAtBeginning(_king);
 		addAtBeginning(_cannon);
 		addAtBeginning(_cameraManager);
+		_cameraManager->setWorldCamera(_worldCamera);
 	}
 	
 	void Player::postInit()
@@ -39,6 +42,10 @@ namespace CastleBlast {
 		_changeCameraKeyPressed = false;
 	}
 	
+	cg::Vector3d Player::getCannonPosition(){
+		return _cannon->getPosition();
+	}
+
 	void Player::positionKing(cg::Vector3d initPosition)
 	{
 		_king->placeKing(initPosition);
@@ -91,4 +98,13 @@ namespace CastleBlast {
 	{
 		return _king->isAlive();
 	}
+
+	CameraManager* Player::getCamera(){
+		return _cameraManager;
+	}
+
+	void Player::setWorldCamera(WorldCamera* w){
+		_cameraManager->setWorldCamera(w);
+	}
+
 }

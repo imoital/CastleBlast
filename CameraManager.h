@@ -20,6 +20,7 @@ namespace CastleBlast
 		typedef std::vector<WorldCamera*>::iterator _worldCameraIterator;
 		bool _isWorldCamera;
 		Cannon *_cannon;
+
 	
 	public:
 		CameraManager(Cannon *cannon);
@@ -29,7 +30,10 @@ namespace CastleBlast
 		void preUpdate(unsigned long elapsed_millis);
 		void setCannonCameraRotation(int rot);
 		void postInit();
-		
+		WorldCamera* getWorldCamera();
+		void setWorldCamera(WorldCamera* w);
+		bool isWorldCamera();
+		Cannon* getCannon();
 	};
 }
 #endif

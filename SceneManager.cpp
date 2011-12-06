@@ -40,6 +40,7 @@ namespace CastleBlast {
 	
 	void SceneManager::initWorldMatrix()
 	{
+		cast = true;
 		_world = _worldOriginal;
 		for (int i = 0; i < _worldHeight; i++) {
 			for (int j = 0; j < _worldSize; j++) {
@@ -54,7 +55,7 @@ namespace CastleBlast {
 						 _worldOriginal[i][j+1][k] != 0 &&
 						 _worldOriginal[i][j][k-1] != 0 &&
 						 _worldOriginal[i][j][k+1] != 0)
-						
+
 						_world[i][j][k] = 0;
 				}
 			}
@@ -92,6 +93,7 @@ namespace CastleBlast {
 		_startFrom  = cg::Vector3d(-_worldSize, 0, -_worldSize);
 		_grassBlock = new GrassBlock(_startFrom);
 		_stoneBlock = new StoneBlock(_startFrom);
+		_stone2Block = new Stone2Block(_startFrom);
 		loadCastleHeightMap();
 		_worldOriginal = createWorld();
 		_world = createWorld();
@@ -242,6 +244,13 @@ namespace CastleBlast {
 								  _quads[i][j]->endColumn, 
 								  _quads[i][j]->startDepth,
 								  _quads[i][j]->endDepth);
+					} else if (i == 2){
+						_stone2Block->draw(_quads[i][j]->startLine, 
+								  _quads[i][j]->endLine, 
+								  _quads[i][j]->startColumn, 
+								  _quads[i][j]->endColumn, 
+								  _quads[i][j]->startDepth,
+								  _quads[i][j]->endDepth);
 					}
 				}
 			}
@@ -289,13 +298,24 @@ namespace CastleBlast {
 			for (int j = posX, a = 0; a < 30; a++, j++){
 				for (int k = posY, b = 0; b < 30; b++, k++) {
 					if (castle[a][b] > 0) {
-						_worldOriginal[i][j][k] = 2;
-						_world[i][j][k] = 2;
-						castle[a][b]--;
+						if(cast){
+							_worldOriginal[i][j][k] = 2;
+							_world[i][j][k] = 2;
+							castle[a][b]--;
+						} else {
+							_worldOriginal[i][j][k] = 3;
+							_world[i][j][k] = 3;
+							castle[a][b]--;
+						}
 					}
 				}
 			}
 		}
+
+		if(cast) 
+			cast = false;
+		else 
+			cast = true;
 		
 		updateQuads();
 	}

@@ -12,6 +12,8 @@
 #include "GameManager.h"
 #include "FontsManager.h"
 #include <math.h>
+#include "WorldCamera.h"
+#include "CameraManager.h"
 
 namespace CastleBlast {
 	
@@ -28,15 +30,18 @@ namespace CastleBlast {
 		_currentPlayerNum = 0;
 		_changePlayerPressed = false;
 		_isGameOver = false;
+		anim = 0;
+		auxAnim = false;
 
 	}
 	
 	void PlayerManager::createEntities()
 	{
+		WorldCamera * _worldCamera = new WorldCamera();
 		for (int i = 0; i < _numPlayers; i++) {
 			std::ostringstream player;
 			player << "PLAYER" << i;
-			Player* p = new Player(player.str(), i+1);
+			Player* p = new Player(player.str(), i+1, _worldCamera);
 			_players.push_back(p);
 			addAtBeginning(p);
 		}
@@ -74,11 +79,18 @@ namespace CastleBlast {
 	
 	Player* PlayerManager::nextPlayer()
 	{
+	//	WorldCamera* te;
 		Player* p = _players[_currentPlayerNum];
+	//	te = _currentPlayer->getCamera()->getWorldCamera();
 		_currentPlayer->unsetCurrentPlayer();
 		_currentPlayer = p;
 		_currentPlayer->setCurrentPlayer();
 		_currentPlayerNum = (_currentPlayerNum+1)%_numPlayers;
+	//	p->setWorldCamera(te);
+		if(!p->getCamera()->isWorldCamera()){
+			p->getCamera()->switchCamera();
+			p->getCamera()->getCannon()->cameraToggle();
+		}
 		return p;
 	}
 	
@@ -87,6 +99,15 @@ namespace CastleBlast {
 	{
 		if(!_isGameOver)
 			_currentPlayer->update(elapsed_millis);
+		if(anim > 2)
+			auxAnim = true;
+		if (anim < -2)
+			auxAnim = false;
+		if(auxAnim)
+			anim -= elapsed_millis * 0.002;
+		else
+			anim += elapsed_millis * 0.002;
+
 	}
 	
 	void PlayerManager::onMouse(int button, int state, int x, int y)
@@ -111,10 +132,24 @@ namespace CastleBlast {
 	
 	void PlayerManager::draw()
 	{
-		
 		for (int i = _players.size(); i >= 0; i--) {
 			_players[(i+_currentPlayerNum)%_numPlayers]->draw();
 		}
+				//setinha
+		cg::Vector3d pos = _currentPlayer->getCannonPosition();
+		glPushMatrix();
+		glShadeModel(GL_SMOOTH);
+		glBegin(GL_TRIANGLE_FAN);
+			glVertex3f(pos[0], pos[1] + 10 + anim, pos[2]);
+			glVertex3f(pos[0]+ 1, pos[1] + 15 + anim, pos[2] + 1);
+			glVertex3f(pos[0]+ 1, pos[1] + 15 + anim, pos[2] - 1);
+			glVertex3f(pos[0]- 1, pos[1] + 15 + anim, pos[2] - 1);
+			glVertex3f(pos[0]- 1, pos[1] + 15 + anim, pos[2] + 1);
+			glVertex3f(pos[0]+ 1, pos[1] + 15 + anim, pos[2] + 1);
+			
+		glEnd(); 
+		glPopMatrix();
+
 	}
 	
 	void PlayerManager::setNumPlayers(int numPlayers)

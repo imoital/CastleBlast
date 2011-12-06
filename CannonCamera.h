@@ -34,6 +34,7 @@ namespace CastleBlast {
 		cg::Vector3d _up,_front,_right;
 		float _scale;
 		Cannon *_cannon;
+
 		
 	public:
 		CannonCamera(Cannon* cannon);
@@ -46,6 +47,10 @@ namespace CastleBlast {
 		void onMouseMotion(int x, int y);
 		void onMousePassiveMotion(int x, int y);
 		void setInitialRotation(int rot);
+		cg::Vector3d getEpos();
+		cg::Vector3d getCpos();
+		cg::Vector3d getUpos();
+
 
 	};
 }

@@ -13,6 +13,7 @@
 #include "Block.h"
 #include "GrassBlock.h"
 #include "StoneBlock.h"
+#include "Stone2Block.h"
 #include "Projectile.h"
 #include "FreeImage.h"
 #include "Collidable.h"
@@ -53,12 +54,14 @@ namespace CastleBlast {
 		void initQuads();
 		void initWorldMatrix();
 		
+		bool cast;
 		int _worldSize; //the size of the world
 		int _worldHeight;
 		int _blockSize;
 		cg::Vector3d _startFrom;
 		Block *_grassBlock;
 		Block *_stoneBlock;
+		Block *_stone2Block;
 		std::vector<std::vector<std::vector<int> > > _world;
 		std::vector<std::vector<std::vector<int> > > _worldOriginal;	//matriz that represents the blocks in the world
 		

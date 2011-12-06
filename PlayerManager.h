@@ -26,6 +26,8 @@ namespace CastleBlast {
 		bool _changePlayerPressed;
 		int _numPlayers;
 		bool _isGameOver;
+		float anim;
+		bool auxAnim;
 		
 	public:
 		PlayerManager();
