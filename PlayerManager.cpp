@@ -139,16 +139,21 @@ namespace CastleBlast {
 		cg::Vector3d pos = _currentPlayer->getCannonPosition();
 		glPushMatrix();
 		glShadeModel(GL_SMOOTH);
+		glDisable(GL_LIGHTING);
 		glBegin(GL_TRIANGLE_FAN);
+		{
+			glColor3f(1.0f, 0.0f, 0.0f);
 			glVertex3f(pos[0], pos[1] + 10 + anim, pos[2]);
+			glColor3f(1.0f, 0.5f, 0.0f);
 			glVertex3f(pos[0]+ 1, pos[1] + 15 + anim, pos[2] + 1);
 			glVertex3f(pos[0]+ 1, pos[1] + 15 + anim, pos[2] - 1);
 			glVertex3f(pos[0]- 1, pos[1] + 15 + anim, pos[2] - 1);
 			glVertex3f(pos[0]- 1, pos[1] + 15 + anim, pos[2] + 1);
 			glVertex3f(pos[0]+ 1, pos[1] + 15 + anim, pos[2] + 1);
-			
+		}
 		glEnd(); 
 		glPopMatrix();
+		glEnable(GL_LIGHTING);
 
 	}
 	
