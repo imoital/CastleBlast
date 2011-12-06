@@ -34,6 +34,7 @@ namespace CastleBlast {
 		GLuint _fontTexture;
 		GLuint _base;
 		bool _gameMode;
+		bool _isEndGame;
 		
 	public:
 		GameManager();
@@ -44,6 +45,7 @@ namespace CastleBlast {
 		void createEntities();
 		void preDrawOverlay();
 		void preUpdate(unsigned long elapsed_millis);
+		void postUpdate(unsigned long elapsed_millis);
 		void preOnMouse(int button, int state, int x, int y);
 		void startGame(int numPlayers);
 		void endGame();

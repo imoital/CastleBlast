@@ -43,6 +43,7 @@ namespace CastleBlast {
 		void unsetCurrentPlayer();
 		int getPlayerNumber();
 		bool getIsOtherPlayer();
+		bool isKingAlive();
 	};
 }
 

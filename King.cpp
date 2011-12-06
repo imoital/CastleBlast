@@ -20,7 +20,7 @@ namespace CastleBlast {
 	
 	void King::init()
 	{
-		_alive = true;
+		_isAlive = true;
 		_debug = false;
 		_position = cg::Vector3d(0,0,0);
 		_model = (ModelManager*)cg::Registry::instance()->get("MODEL_MANAGER");
@@ -66,10 +66,15 @@ namespace CastleBlast {
 		if (otherObjBoundaries.x_min >= _boundes.x_min && otherObjBoundaries.x_max <= _boundes.x_max &&
 		    otherObjBoundaries.y_min >= _boundes.y_min && otherObjBoundaries.y_max <= _boundes.y_max &&
 		    otherObjBoundaries.z_min >= _boundes.z_min && otherObjBoundaries.z_max <= _boundes.z_max){
-			_alive = false;
+			_isAlive = false;
 			std::cout << "the king is dead" << std::endl;
 			return true;
 		}
 		return false;
+	}
+	
+	bool King::isAlive()
+	{
+		return _isAlive;
 	}
 }

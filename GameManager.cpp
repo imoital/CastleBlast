@@ -32,6 +32,7 @@ namespace CastleBlast {
 		_sky = new Sky();
 		_bird = new Bird("BIRD");
 		_gameMode = false;
+		_isEndGame = false;
 	}
 	
 	void GameManager::createEntities()
@@ -58,6 +59,12 @@ namespace CastleBlast {
 			player << "Player " << _currentPlayer->getPlayerNumber() << " turn";
 			
 			_fontsManager->printFont(10, 10,1, 0, 1, player.str());
+			
+			if (_playerManager->finishGame()) {
+				std::stringstream winnerPlayer;
+				winnerPlayer << "Player " << _playerManager->winnerPlayer()->getPlayerNumber() << " is the winner";
+				_fontsManager->printFont(100, 300, 2, 0, 1, winnerPlayer.str());
+			}
 		}
 	}
 	
@@ -75,6 +82,10 @@ namespace CastleBlast {
 			if (_playerManager->getIsOtherPlayer() == true)
 				_currentPlayer = _playerManager->nextPlayer();
 		}
+	}
+	
+	void GameManager::postUpdate(unsigned long elapsed_millis)
+	{
 	}
 	
 	void GameManager::preOnMouse(int button, int state, int x, int y) 

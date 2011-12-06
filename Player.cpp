@@ -86,4 +86,9 @@ namespace CastleBlast {
 			_changeCameraKeyPressed = false;
 		}
 	}
+	
+	bool Player::isKingAlive()
+	{
+		return _king->isAlive();
+	}
 }

@@ -25,6 +25,7 @@ namespace CastleBlast {
 		FontsManager* _fontsManager;
 		bool _changePlayerPressed;
 		int _numPlayers;
+		bool _isGameOver;
 		
 	public:
 		PlayerManager();
@@ -41,6 +42,8 @@ namespace CastleBlast {
 		Player* nextPlayer();
 		void setNumPlayers(int numPlayers);
 		bool getIsOtherPlayer();
+		bool finishGame();
+		Player* winnerPlayer();
 	};
 }
 

@@ -27,6 +27,7 @@ namespace CastleBlast {
 		_distancePlayers = 2*3.14 / (double)_numPlayers;
 		_currentPlayerNum = 0;
 		_changePlayerPressed = false;
+		_isGameOver = false;
 
 	}
 	
@@ -84,7 +85,8 @@ namespace CastleBlast {
 	// Need to be uncommented when camera manager is finish (need to be where for change players to work)
 	void PlayerManager::update(unsigned long elapsed_millis)
 	{
-		_currentPlayer->update(elapsed_millis);
+		if(!_isGameOver)
+			_currentPlayer->update(elapsed_millis);
 	}
 	
 	void PlayerManager::onMouse(int button, int state, int x, int y)
@@ -118,5 +120,23 @@ namespace CastleBlast {
 	void PlayerManager::setNumPlayers(int numPlayers)
 	{
 		_numPlayers = numPlayers;
+	}
+	
+	bool PlayerManager::finishGame()
+	{
+		for (int i = 0; i < _players.size(); i++) {
+			if(!_players[i]->isKingAlive())
+				return true;
+		}
+		return false;
+	}
+	
+	Player *PlayerManager::winnerPlayer()
+	{
+		for (int i = 0; i < _players.size(); i++) {
+			if(_players[i]->isKingAlive())
+				return _players[i];
+		}
+		return _players[0];
 	}
 }

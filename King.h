@@ -28,7 +28,7 @@ namespace CastleBlast {
 		ModelManager* _model;
 		cg::Vector3d _position;
 		std::string _type;
-		bool _alive;
+		bool _isAlive;
 		bool _debug;
 		
 	public:
@@ -41,6 +41,7 @@ namespace CastleBlast {
 		void placeKing(cg::Vector3d position);
 		void debugToggle();
 		bool isCollision(Collidable* obj);
+		bool isAlive();
 	};
 }
 #endif
