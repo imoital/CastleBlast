@@ -10,14 +10,17 @@
 
 namespace CastleBlast {
 	
-	Bird::Bird(std::string birdName) : cg::Entity(birdName) {}
+	Bird::Bird(std::string birdName, double initAngle) : cg::Entity(birdName), Collidable(2,2,2)
+	{
+		_lastAngle = initAngle;
+	}
 	
 	Bird::~Bird() {}
 	
 	void Bird::init() 
 	{
 		_position = cg::Vector3d(0,35,0);
-		_lastAngle = 0;
+		_toBeDeleted = false;
 	}
 	
 	void Bird::draw() 
@@ -46,6 +49,27 @@ namespace CastleBlast {
 		_position[0] = 100*cos(3*_lastAngle);
 		_position[2] = 100*sin(4*_lastAngle);
 		_lastAngle = _lastAngle+0.001;
+	}
+	
+	bool Bird::isCollision(CastleBlast::Collidable *obj)
+	{
+		Collidable::boundaries otherBoundaries = obj->getBoundaries();
+		
+		if ((_boundes.x_min >= otherBoundaries.x_min) &&
+		    (_boundes.x_max <= otherBoundaries.x_max) &&
+		    (_boundes.y_min >= otherBoundaries.y_min) &&
+		    (_boundes.y_max <= otherBoundaries.y_max) &&
+		    (_boundes.z_min >= otherBoundaries.z_min) &&
+		    (_boundes.z_max <= otherBoundaries.z_max)) {
+			_toBeDeleted = true;
+			return true;
+		}
+		else return false;
+	}
+	
+	bool Bird::isToDelete()
+	{
+		return _toBeDeleted;
 	}
 	
 }
