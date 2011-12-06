@@ -14,7 +14,7 @@
 #include "SceneManager.h"
 #include "ScreenManager.h"
 #include "Sky.h"
-//#include "CameraManager.h"
+#include "Bird.h"
 
 namespace CastleBlast {
 	
@@ -30,6 +30,7 @@ namespace CastleBlast {
 		_fontsManager = (FontsManager*)cg::Registry::instance()->get("FONTS_MANAGER");
 		_screenManager = new ScreenManager();
 		_sky = new Sky();
+		_bird = new Bird("BIRD");
 		_gameMode = false;
 	}
 	
@@ -40,6 +41,7 @@ namespace CastleBlast {
 		addAtBeginning(_sky);
 		//addAtBeginning(new CameraManager());
 		addAtBeginning(_screenManager);
+		addAtBeginning(_bird);
 	}
 	
 	void GameManager::postInit()
@@ -87,6 +89,7 @@ namespace CastleBlast {
 		removeAll();
 		addAtBeginning(_sky);
 		addAtBeginning(_sceneManager);
+		addAtBeginning(_bird);
 		addAtBeginning(_playerManager);
 	}
 	

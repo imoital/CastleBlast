@@ -18,6 +18,7 @@ namespace CastleBlast {
 	class FontsManager;
 	class ScreenManager;
 	class Sky;
+	class Bird;
 	
 	class GameManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent{
 	private:
@@ -27,6 +28,7 @@ namespace CastleBlast {
 		FontsManager* _fontsManager;
 		ScreenManager* _screenManager;
 		Sky* _sky;
+		Bird* _bird;
 		
 		bool _changePlayerPressed;
 		GLuint _fontTexture;
