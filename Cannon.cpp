@@ -9,11 +9,16 @@
 #include "Cannon.h"
 #include "ModelManager.h"
 #include "Projectile.h"
+#include "GameManager.h"
+
 #define PI 3.14
 
 namespace CastleBlast {
 	
-	Cannon::Cannon() :cg::Entity("CANNON") {}
+	Cannon::Cannon(GameManager* gm) :cg::Entity("CANNON") 
+	{
+		_gameManager = gm;
+	}
 	
 	Cannon::~Cannon() {}
 	
@@ -25,7 +30,7 @@ namespace CastleBlast {
 		_position = cg::Vector3d(0,0,0);
 		_wheelRotation = 0;
 		_cannonRotation.set(0, 0, 0);
-		_projectile = new Projectile();
+		_projectile = new Projectile(_gameManager);
 		_fire = false;
 		_anglex = 0;
 		_angley = 0;
@@ -109,11 +114,6 @@ namespace CastleBlast {
 			_fire = false;
 		}
 
-	}
-
-	bool Cannon::getIsOtherPlayer()
-	{
-		return _projectile->getIsOtherPlayer();
 	}
 	
 	void Cannon::placeCannon(cg::Vector3d position, float rot)

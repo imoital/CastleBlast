@@ -5,6 +5,7 @@
 #include "WorldCamera.h"
 #include "CannonCamera.h"
 #include "Cannon.h"
+#include "Sky.h"
 
 namespace CastleBlast 
 {

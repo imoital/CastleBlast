@@ -16,11 +16,15 @@ namespace CastleBlast {
 	
 	// Lights : class that manages the lights in the scene
 	class Lights : public cg::Entity {
-		
+	
+	private:
+		int _currentLevel;
+		void setLevel1();
+		void setLevel2();
 	public:
 		Lights();
 		~Lights();
-		
+		void setLevel(int level);
 		void init();
 	};
 }

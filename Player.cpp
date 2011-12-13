@@ -11,15 +11,17 @@
 #include "Cannon.h"
 #include "CameraManager.h"
 #include "WorldCamera.h"
+#include "GameManager.h"
 
 namespace CastleBlast {
 	
-	Player::Player(std::string id, int number, WorldCamera* w) : cg::Group(id)
+	Player::Player(std::string id, int number, WorldCamera* w, GameManager* gm) : cg::Group(id)
 	{
 		_playerNumber = number;
 		_currentPlayer = false;
 		_worldCamera = w;
 		_playerRot = 0;
+		_gameManager = gm;
 	}
 	
 	Player::~Player() {}
@@ -28,7 +30,7 @@ namespace CastleBlast {
 	void Player::createEntities() 
 	{
 		_king = new King();
-		_cannon = new Cannon();
+		_cannon = new Cannon(_gameManager);
 		_cameraManager = new CameraManager(_cannon);
 		
 		addAtBeginning(_king);
@@ -63,11 +65,6 @@ namespace CastleBlast {
 		return _playerNumber;
 	}
 
-	bool Player::getIsOtherPlayer()
-	{
-		return _cannon->getIsOtherPlayer();
-	}
-	
 	void Player::setCurrentPlayer()
 	{
 		addAtBeginning(_cameraManager);

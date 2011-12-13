@@ -17,10 +17,11 @@
 
 namespace CastleBlast {
 	
-	PlayerManager::PlayerManager() : cg::Group("PLAYER_MANAGER") 
+	PlayerManager::PlayerManager(GameManager* gm) : cg::Group("PLAYER_MANAGER") 
 	{
 		_numPlayers = 2;
 		_currentPlayer = NULL;
+		_gameManager = gm;
 	}
 	
 	PlayerManager::~PlayerManager() {}
@@ -43,7 +44,7 @@ namespace CastleBlast {
 		for (int i = 0; i < _numPlayers; i++) {
 			std::ostringstream player;
 			player << "PLAYER" << i;
-			Player* p = new Player(player.str(), i+1, _worldCamera);
+			Player* p = new Player(player.str(), i+1, _worldCamera, _gameManager);
 			_players.push_back(p);
 			addAtBeginning(p);
 		}
@@ -128,11 +129,6 @@ namespace CastleBlast {
 	void PlayerManager::onMousePassiveMotion(int x, int y)
 	{
 		_currentPlayer->onMousePassiveMotion(x, y);
-	}
-
-	bool PlayerManager::getIsOtherPlayer()
-	{
-		return _currentPlayer->getIsOtherPlayer();
 	}
 	
 	void PlayerManager::draw()

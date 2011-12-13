@@ -1,8 +1,9 @@
 #include "Projectile.h"
+#include "GameManager.h"
 
 namespace CastleBlast {
 
-	Projectile::Projectile() : Collidable(0.7, 0.7, 0.7)
+	Projectile::Projectile(GameManager* gm) : Collidable(0.7, 0.7, 0.7)
 	{
 		_size = cg::Vector3d(5, 15, 3); 
 		_position = cg::Vector3d(10.0, 10.0, 10.0);
@@ -12,6 +13,7 @@ namespace CastleBlast {
 		_up.set(0,2,0);
 		_right.set(0,0,2);
 		_force = 40;
+		_gameManager=gm;
 	}
 
 
@@ -58,19 +60,6 @@ namespace CastleBlast {
 		glPopMatrix();
 	}
 
-	void Projectile::toggleIsOtherPlayer()
-	{
-		_isOtherPlayer = !_isOtherPlayer;
-	}
-
-	bool Projectile::getIsOtherPlayer()
-	{
-		if (_isOtherPlayer == true) {
-			_isOtherPlayer = false;
-			return true;
-		} else
-			return _isOtherPlayer;
-	}
 
 	void Projectile::debugDrawAxis()
 	{
@@ -117,7 +106,7 @@ namespace CastleBlast {
 		}
 		else {
 			
-			double time = (elapsed_millis / 1000.0);
+			double time = (elapsed_millis / 500.0);
 			
 			_direction[1] += -G*time;
 			_position[1] += _direction[1] * time - (G*time*time)/2;
@@ -125,7 +114,7 @@ namespace CastleBlast {
 			_position[2] += _direction[2]*time;
 			if (notify(_position)) {
 				_start = false;
-				_isOtherPlayer = true;
+				_gameManager->changePlayer();
 			}
 		}
 	}
