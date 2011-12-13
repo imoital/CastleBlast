@@ -22,11 +22,12 @@ namespace CastleBlast {
 		int _force;
 		bool _start;
 		bool _isOtherPlayer;
+		GameManager* _gameManager;
 		
 	public:
 		cg::Vector3d _size;
 		
-		Projectile();
+		Projectile(GameManager* gm);
 		~Projectile();
 		void init();
 		void draw();

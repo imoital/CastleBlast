@@ -17,6 +17,7 @@ namespace CastleBlast {
 	class Cannon;
 	class CameraManager;
 	class WorldCamera;
+	class GameManager;
 	
 	// se aqui eu tirar cg::IMouseEventListener e puser cg::GroupMouseEvent CRASHA!
 	class Player : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent
@@ -24,6 +25,7 @@ namespace CastleBlast {
 		
 	private:
 		King* _king;
+		GameManager* _gameManager;
 		Cannon* _cannon;
 		CameraManager* _cameraManager;
 		WorldCamera * _worldCamera;
@@ -32,7 +34,7 @@ namespace CastleBlast {
 		bool _changeCameraKeyPressed;
 		
 	public:
-		Player(std::string id, int number, WorldCamera * w);
+		Player(std::string id, int number, WorldCamera * w, GameManager* gm);
 		~Player();
 		
 		void postInit();
@@ -45,7 +47,6 @@ namespace CastleBlast {
 		void setCurrentPlayer();
 		void unsetCurrentPlayer();
 		int getPlayerNumber();
-		bool getIsOtherPlayer();
 		bool isKingAlive();
 		CameraManager* getCamera();
 		void setWorldCamera(WorldCamera* w);

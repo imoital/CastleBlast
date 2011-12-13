@@ -31,7 +31,7 @@ namespace CastleBlast {
 	void GameManager::preInit()
 	{
 		_sceneManager = new SceneManager();
-		_playerManager = new PlayerManager();
+		_playerManager = new PlayerManager(this);
 		_changePlayerPressed = false;
 		_fontsManager = (FontsManager*)cg::Registry::instance()->get("FONTS_MANAGER");
 		_screenManager = new ScreenManager();
@@ -92,8 +92,6 @@ namespace CastleBlast {
 				_changePlayerPressed = false;
 			}
 
-			if (_playerManager->getIsOtherPlayer() == true)
-				changePlayer();
 		}
 
 		_fog->draw(); //this stupid hack shouldn't be needed! This class should draw all it's entities! 
@@ -101,6 +99,7 @@ namespace CastleBlast {
 
 	void GameManager::changePlayer()
 	{
+		std::cout << "is changing player" << std::endl;
 		_currentPlayer = _playerManager->nextPlayer();
 	}
 	

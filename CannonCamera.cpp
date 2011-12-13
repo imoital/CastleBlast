@@ -121,7 +121,6 @@ namespace CastleBlast {
 
 	void CannonCamera::onMouseMotion(int x, int y)
 	{	
-		std::cout << "SHOULD NOT BE ROTATING" << std::endl;
 		double anglex = (_lastMousePosition[0] - x) / (double)5;
 			_q.setRotationDeg(anglex,_up);
 			_front = apply(_q,_front);

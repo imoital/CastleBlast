@@ -25,7 +25,6 @@ namespace CastleBlast {
 	
 	void Sky::draw()
 	{
-		std::cout << "sky drawing" << std::endl;
 		glDisable(GL_LIGHTING);
 		glColor3d(_red, _green, _blue);
 		glutSolidSphere(_worldSize, 16, 16);

@@ -14,7 +14,8 @@ namespace CastleBlast {
 	
 	class Player;
 	class FontsManager;
-	
+	class GameManager;
+
 	class PlayerManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent 
 	{
 	private:
@@ -23,6 +24,7 @@ namespace CastleBlast {
 		int _currentPlayerNum;
 		Player* _currentPlayer;
 		FontsManager* _fontsManager;
+		GameManager* _gameManager;
 		bool _changePlayerPressed;
 		int _numPlayers;
 		bool _isGameOver;
@@ -30,7 +32,7 @@ namespace CastleBlast {
 		bool auxAnim;
 		
 	public:
-		PlayerManager();
+		PlayerManager(GameManager* gm);
 		~PlayerManager();
 		
 		void createEntities();
@@ -43,7 +45,6 @@ namespace CastleBlast {
 		void onMousePassiveMotion(int x, int y);
 		Player* nextPlayer();
 		void setNumPlayers(int numPlayers);
-		bool getIsOtherPlayer();
 		bool finishGame();
 		Player* winnerPlayer();
 	};
