@@ -37,6 +37,7 @@ namespace CastleBlast {
 		cg::Vector3d getWorldPosition (int posX, int posY);
 		void placeCastle (int posX, int posY);
 		int getWorldSize();
+		void restart();
 		
 	protected:
 		
@@ -80,8 +81,7 @@ namespace CastleBlast {
 		
 		bool isCollision(CastleBlast::Collidable *obj);
 		void collision(std::vector<cg::Vector3d>);
-		void destroyCircle(cg::Vector3d center, int radios);
-		
+		void destroyCircle(cg::Vector3d center, int radios);		
 	};
 }
 

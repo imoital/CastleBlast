@@ -24,7 +24,7 @@ namespace CastleBlast {
 		cg::Vector2d _lastMousePosition;
 		cg::Vector3d _cannonRotation;
 		cg::Vector3d _right, _up, _front;
-		int _rotation;
+		float _rotation;
 		double _anglex, _angley;
 		ModelManager* _model;
 		cg::Vector3d _position;
@@ -45,7 +45,7 @@ namespace CastleBlast {
 		void init();
 		void draw();
 		void update(unsigned long elapsed_millis);
-		void placeCannon(cg::Vector3d position, int rot);
+		void placeCannon(cg::Vector3d position, float rot);
 		cg::Vector3d getPosition();
 		void onMouseMotion(int x, int y);
 		void onMouse(int button, int state, int x, int y);

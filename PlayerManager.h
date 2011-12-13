@@ -28,6 +28,7 @@ namespace CastleBlast {
 		bool _isGameOver;
 		float anim;
 		bool auxAnim;
+		bool _isRestarting;
 		
 	public:
 		PlayerManager();
@@ -46,6 +47,7 @@ namespace CastleBlast {
 		bool getIsOtherPlayer();
 		bool finishGame();
 		Player* winnerPlayer();
+		void restart();
 	};
 }
 

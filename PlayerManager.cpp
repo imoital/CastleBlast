@@ -20,6 +20,7 @@ namespace CastleBlast {
 	PlayerManager::PlayerManager() : cg::Group("PLAYER_MANAGER") 
 	{
 		_numPlayers = 2;
+		_currentPlayer = NULL;
 	}
 	
 	PlayerManager::~PlayerManager() {}
@@ -32,6 +33,7 @@ namespace CastleBlast {
 		_isGameOver = false;
 		anim = 0;
 		auxAnim = false;
+		_isRestarting = false;
 
 	}
 	
@@ -51,7 +53,9 @@ namespace CastleBlast {
 	{
 		int relativePos=20; //this test is a stupid hack to make cannons face each other. We most program quickly as evaluation is comming!!!
 		int rot= 180;
-		cg::Vector2d distanceCenter = cg::Vector2d (50, 50); //player distance from center
+		int distanceCenterX = cg::Properties::instance()->getInt("PLAYERS_DISTANCE_CENTER_X");
+		int distanceCenterY = cg::Properties::instance()->getInt("PLAYERS_DISTANCE_CENTER_Y");
+		cg::Vector2d distanceCenter = cg::Vector2d (distanceCenterX, distanceCenterY); //player distance from center
 		GameManager* gameManager = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
 		SceneManager* sceneManager = (SceneManager*)gameManager->get("SCENE_MANAGER");
 		_fontsManager = (FontsManager*)gameManager->get("FONTS_MANAGER");
@@ -60,16 +64,17 @@ namespace CastleBlast {
 		std::vector<cg::Vector2d> playerPos;
 		
 		for (int i = 0; i < size(); i++) {
-			playerPos.push_back(cg::Vector2d(center - 20 + (int)distanceCenter[0]*sin(_distancePlayers*i), 
+			playerPos.push_back(cg::Vector2d(center + (int)distanceCenter[0]*sin(_distancePlayers*i), 
 							 center + (int)distanceCenter[1]*cos(_distancePlayers*i)));
 			sceneManager->placeCastle(playerPos[i][0], playerPos[i][1]);
 		}
 		
 		for (int i = 0; i < size(); i++) {
+			_players[i]->setRotation(_distancePlayers*i);
 			cg::Vector3d kingPos = sceneManager->getWorldPosition(playerPos[i][0]+14, playerPos[i][1]+15);
-			cg::Vector3d cannonPos = sceneManager->getWorldPosition(playerPos[i][0]+4+relativePos, playerPos[i][1]+24-relativePos);
+			cg::Vector3d cannonPos = sceneManager->getWorldPosition(playerPos[i][0]+4, playerPos[i][1]+24);
 			_players[i]->positionKing(kingPos);
-			_players[i]->positionCannon(cannonPos, rot);
+			_players[i]->positionCannon(cannonPos);
 			relativePos -=20;
 			rot -= 180;
 		}
@@ -164,9 +169,11 @@ namespace CastleBlast {
 	
 	bool PlayerManager::finishGame()
 	{
-		for (int i = 0; i < _players.size(); i++) {
-			if(!_players[i]->isKingAlive())
-				return true;
+		if(!_isRestarting) {
+			for (int i = 0; i < _players.size(); i++) {
+				if(!_players[i]->isKingAlive())
+					return true;
+			}
 		}
 		return false;
 	}
@@ -178,5 +185,54 @@ namespace CastleBlast {
 				return _players[i];
 		}
 		return _players[0];
+	}
+	
+	void PlayerManager::restart()
+	{
+		_isRestarting = true;
+		_currentPlayer->unsetCurrentPlayer();
+		_distancePlayers = 2*3.14 / (double)_numPlayers;
+		_changePlayerPressed = false;
+		_isGameOver = false;
+		anim = 0;
+		auxAnim = false;
+		removeAll();
+		_players.clear();
+		WorldCamera * _worldCamera = new WorldCamera();
+		for (int i = 0; i < _numPlayers; i++) {
+			std::ostringstream player;
+			player << "PLAYER" << i;
+			Player* p = new Player(player.str(), i+1, _worldCamera);
+			_players.push_back(p);
+			addAtBeginning(p);
+			p->init();
+		}
+
+		int distanceCenterX = cg::Properties::instance()->getInt("PLAYERS_DISTANCE_CENTER_X");
+		int distanceCenterY = cg::Properties::instance()->getInt("PLAYERS_DISTANCE_CENTER_Y");
+		cg::Vector2d distanceCenter = cg::Vector2d (distanceCenterX, distanceCenterY); //player distance from center
+		GameManager* gameManager = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
+		SceneManager* sceneManager = (SceneManager*)gameManager->get("SCENE_MANAGER");
+		int worldsize = sceneManager->getWorldSize();
+		int center = worldsize/2;
+		std::vector<cg::Vector2d> playerPos;
+		
+		for (int i = 0; i < size(); i++) {
+			playerPos.push_back(cg::Vector2d(center + (int)distanceCenter[0]*sin(_distancePlayers*i), 
+							 center + (int)distanceCenter[1]*cos(_distancePlayers*i)));
+			sceneManager->placeCastle(playerPos[i][0], playerPos[i][1]);
+		}
+		
+		for (int i = 0; i < size(); i++) {
+			_players[i]->setRotation(_distancePlayers*i);
+			cg::Vector3d kingPos = sceneManager->getWorldPosition(playerPos[i][0]+14, playerPos[i][1]+15);
+			cg::Vector3d cannonPos = sceneManager->getWorldPosition(playerPos[i][0]+4, playerPos[i][1]+24);
+			_players[i]->positionKing(kingPos);
+			_players[i]->positionCannon(cannonPos);
+		}
+		
+		_currentPlayer = _players[0];
+		_currentPlayer->setCurrentPlayer();
+		_isRestarting = false;
 	}
 }

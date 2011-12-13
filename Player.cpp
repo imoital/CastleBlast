@@ -19,6 +19,7 @@ namespace CastleBlast {
 		_playerNumber = number;
 		_currentPlayer = false;
 		_worldCamera = w;
+		_playerRot = 0;
 	}
 	
 	Player::~Player() {}
@@ -48,13 +49,12 @@ namespace CastleBlast {
 
 	void Player::positionKing(cg::Vector3d initPosition)
 	{
-		_king->placeKing(initPosition);
+		_king->placeKing(initPosition, _playerRot);
 	}
 	
-	void Player::positionCannon(cg::Vector3d initPosition, int rot)
+	void Player::positionCannon(cg::Vector3d initPosition)
 	{
-		_cannon->placeCannon(initPosition, rot);
-		_cameraManager->setCannonCameraRotation(rot);
+		_cannon->placeCannon(initPosition, _playerRot);
 	}
 
 	
@@ -105,6 +105,20 @@ namespace CastleBlast {
 
 	void Player::setWorldCamera(WorldCamera* w){
 		_cameraManager->setWorldCamera(w);
+	}
+	
+	void Player::setRotation(float rotation)
+	{
+		if(rotation >= 3*PI/4 && rotation <= 5*PI/4) 
+			_playerRot = 0;
+		else if (rotation > 5*PI/4 && rotation <= 7*PI/4)
+			_playerRot = PI/2;
+		else if (rotation > 7*PI/4 && rotation <= 8*PI/4)
+			_playerRot = PI;
+		else if (rotation >= 0 && rotation <= PI/4)
+			_playerRot = PI;
+		else if (rotation > PI/4 && rotation < 3*PI/4)
+			_playerRot = 3*PI/2;
 	}
 
 }

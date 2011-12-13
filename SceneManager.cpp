@@ -96,7 +96,7 @@ namespace CastleBlast {
 		_stone2Block = new Stone2Block(_startFrom);
 		loadCastleHeightMap();
 		_worldOriginal = createWorld();
-		_world = createWorld();
+		//_world = createWorld();
 		initWorldMatrix();
 		updateQuads();
 	}
@@ -451,5 +451,13 @@ namespace CastleBlast {
 		
 		if (removeCenter)
 			_worldOriginal[center[2]][center[0]][center[1]] = 0;
+	}
+	
+	void SceneManager::restart()
+	{
+		_worldOriginal = createWorld();
+		//_world = createWorld();
+		initWorldMatrix();
+		updateQuads();
 	}
 }

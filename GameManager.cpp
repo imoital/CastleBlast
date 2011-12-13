@@ -40,7 +40,6 @@ namespace CastleBlast {
 		addAtBeginning(_sceneManager);
 		addAtBeginning(_playerManager);
 		addAtBeginning(_sky);
-		//addAtBeginning(new CameraManager());
 		addAtBeginning(_screenManager);
 		addAtBeginning(_birdsManager);
 	}
@@ -64,6 +63,7 @@ namespace CastleBlast {
 				std::stringstream winnerPlayer;
 				winnerPlayer << "Player " << _playerManager->winnerPlayer()->getPlayerNumber() << " is the winner";
 				_fontsManager->printFont(100, 300, 2, 0, 1, winnerPlayer.str());
+				endGame();
 			}
 		}
 	}
@@ -105,12 +105,16 @@ namespace CastleBlast {
 		addAtBeginning(_sceneManager);
 		addAtBeginning(_birdsManager);
 		addAtBeginning(_playerManager);
+		_playerManager->setNumPlayers(numPlayers);
+		_sceneManager->restart();
+		_playerManager->restart();
 	}
 	
 	void GameManager::endGame()
 	{
-		removeAll();
 		_gameMode = false;
+		_playerManager->setNumPlayers(2);
+		removeAll();
 		addAtBeginning(_screenManager);
 	}
 }

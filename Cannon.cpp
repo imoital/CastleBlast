@@ -9,6 +9,7 @@
 #include "Cannon.h"
 #include "ModelManager.h"
 #include "Projectile.h"
+#define PI 3.14
 
 namespace CastleBlast {
 	
@@ -52,10 +53,11 @@ namespace CastleBlast {
 		glPushMatrix();
 		{
 			glTranslated(_position[0], _position[1], _position[2]); //translate the whole cannon (cannon+wheels)
-			glRotated(-90, 0, 1, 0);
+										//glRotated(-90, 0, 1, 0);
 			glScalef(1.5, 1.5, 1.5);
 			glPushMatrix(); 
 			{
+				glRotated(_rotation, 0, 1, 0);
 				glTranslatef(.5, 1.2, 0); // translate the wheels to be in the final position
 				glRotatef(_wheelRotation, 0, 0, 1); // Rotates the Wheels
 				glEnable(GL_NORMALIZE);		// needs to be where because of the scale
@@ -114,20 +116,30 @@ namespace CastleBlast {
 		return _projectile->getIsOtherPlayer();
 	}
 	
-	void Cannon::placeCannon(cg::Vector3d position, int rot)
+	void Cannon::placeCannon(cg::Vector3d position, float rot)
 	{
-		std::cout << "placecanonrotation: " << rot << std::endl;
-		_rotation = rot;
+		_rotation = ((rot*180)/PI) - 90;
+		std::cout << "-------------------------" << _rotation << std::endl;
 		_position = position;
 		_q.setRotationDeg(0, _right);
 		_up = apply(_q,_up);
 		_front = apply(_q,_front);
 		_orientation = _q*_orientation;
 		_orientation.getGLMatrix(_rotationMatrix);
-		_q.setRotationDeg(rot,_up);
+		_q.setRotationRad(rot-PI/2,_up);
 		_right = apply(_q,_right);
 		_orientation = _q*_orientation;
 		_orientation.getGLMatrix(_rotationMatrix);
+		
+		if (rot >= PI/4 && rot <= 3*PI/4) {
+			_position[0] = _position[0]+40;
+			_position[2] = _position[2]+2;
+		} else if (rot > 3*PI/4 && rot <= 5*PI/4) {
+			_position[0] = _position[0]+40;
+			_position[2] = _position[2]-36;
+		} else if (rot > 5*PI/4 && rot <= 7*PI/4) {
+			_position[2] = _position[2]-38;
+		}
 	}
 
 	cg::Vector3d Cannon::getPosition()

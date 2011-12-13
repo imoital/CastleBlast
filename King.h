@@ -30,6 +30,7 @@ namespace CastleBlast {
 		std::string _type;
 		bool _isAlive;
 		bool _debug;
+		float _rotation;
 		
 	public:
 		King();
@@ -38,7 +39,7 @@ namespace CastleBlast {
 		void init();
 		void draw();
 		void update(unsigned long elapsed_millis);
-		void placeKing(cg::Vector3d position);
+		void placeKing(cg::Vector3d position, float rot);
 		void debugToggle();
 		bool isCollision(Collidable* obj);
 		bool isAlive();

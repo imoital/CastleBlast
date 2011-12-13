@@ -8,6 +8,7 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include "cg/cg.h"
 
 namespace CastleBlast {
@@ -30,6 +31,7 @@ namespace CastleBlast {
 		int _playerNumber;
 		bool _currentPlayer;
 		bool _changeCameraKeyPressed;
+		float _playerRot;
 		
 	public:
 		Player(std::string id, int number, WorldCamera * w);
@@ -40,7 +42,7 @@ namespace CastleBlast {
 		cg::Vector3d getCannonPosition();
 		void postUpdate(unsigned long elapsed_millis);
 		void positionKing(cg::Vector3d initPosition);
-		void positionCannon(cg::Vector3d initPosition, int rot);
+		void positionCannon(cg::Vector3d initPosition);
 		void drawCamera();
 		void setCurrentPlayer();
 		void unsetCurrentPlayer();
@@ -49,6 +51,7 @@ namespace CastleBlast {
 		bool isKingAlive();
 		CameraManager* getCamera();
 		void setWorldCamera(WorldCamera* w);
+		void setRotation(float rotation);
 
 	};
 }
