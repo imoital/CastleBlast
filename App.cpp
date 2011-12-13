@@ -8,7 +8,7 @@
 
 #include "App.h"
 #include "Lights.h"
-#include "Sky.h"
+//#include "Sky.h"
 #include "Fog.h"
 #include "Controller.h"
 #include "DebugManager.h"
@@ -38,10 +38,10 @@ namespace CastleBlast {
 		addEntity(new ModelManager());
 		addEntity(new DebugManager());
 		addEntity(new Controller());
-		//addEntity(new Fog());
+	//	addEntity(new Fog());
 		//addEntity(new Sky());
-		addEntity(new GameManager());
-		addEntity(new Lights());
+		addEntity(new GameManager(2));
+		//addEntity(new Lights());
 	}
 	
 	void App::createViews() 
@@ -51,9 +51,9 @@ namespace CastleBlast {
 		v0->linkEntityAtEnd("CAMERA_MANAGER");
 		v0->linkEntityAtEnd("SCENE_MANAGER");
 		v0->linkEntityAtEnd("GAME_MANAGER");
-		v0->linkEntityAtEnd("LIGHTS");
+		//v0->linkEntityAtEnd("LIGHTS");
 		//v0->linkEntityAtEnd("SKY");
-		v0->linkEntityAtEnd("FOG");
+	//	v0->linkEntityAtEnd("FOG");
 		
 	}
 }

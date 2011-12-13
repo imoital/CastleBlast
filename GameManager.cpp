@@ -15,10 +15,16 @@
 #include "ScreenManager.h"
 #include "Sky.h"
 #include "BirdsManager.h"
+#include "Lights.h"
+#include "Fog.h"
+
 
 namespace CastleBlast {
 	
-	GameManager::GameManager() : Group("GAME_MANAGER") {}
+	GameManager::GameManager(int level) : Group("GAME_MANAGER") 
+	{
+		_currentLevel = level;
+	}
 	
 	GameManager::~GameManager() {}
 	
@@ -33,6 +39,8 @@ namespace CastleBlast {
 		_birdsManager = new BirdsManager();
 		_gameMode = false;
 		_isEndGame = false;
+		_lights = new Lights();
+		_fog = new Fog();
 	}
 	
 	void GameManager::createEntities()
@@ -40,9 +48,10 @@ namespace CastleBlast {
 		addAtBeginning(_sceneManager);
 		addAtBeginning(_playerManager);
 		addAtBeginning(_sky);
-		//addAtBeginning(new CameraManager());
 		addAtBeginning(_screenManager);
 		addAtBeginning(_birdsManager);
+		addAtBeginning(_lights);
+		addAtBeginning(_fog);
 	}
 	
 	void GameManager::postInit()
@@ -50,6 +59,10 @@ namespace CastleBlast {
 		_currentPlayer = _playerManager->nextPlayer();
 		removeAll();
 		addAtBeginning(_screenManager);
+		_lights->setLevel(_currentLevel);
+		_sky->setLevel(_currentLevel);
+		_fog->setLevel(_currentLevel);
+
 	}
 	
 	void GameManager::preDrawOverlay()
@@ -72,7 +85,7 @@ namespace CastleBlast {
 	{
 		if (_gameMode) {
 			if(cg::KeyBuffer::instance()->isKeyDown('z') && !_changePlayerPressed) {
-				_currentPlayer = _playerManager->nextPlayer();
+				changePlayer();
 				_changePlayerPressed = true;
 			}
 			if (cg::KeyBuffer::instance()->isKeyUp('z') && _changePlayerPressed) {
@@ -80,8 +93,15 @@ namespace CastleBlast {
 			}
 
 			if (_playerManager->getIsOtherPlayer() == true)
-				_currentPlayer = _playerManager->nextPlayer();
+				changePlayer();
 		}
+
+		_fog->draw(); //this stupid hack shouldn't be needed! This class should draw all it's entities! 
+	}
+
+	void GameManager::changePlayer()
+	{
+		_currentPlayer = _playerManager->nextPlayer();
 	}
 	
 	void GameManager::postUpdate(unsigned long elapsed_millis)

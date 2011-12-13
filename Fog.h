@@ -19,6 +19,9 @@ namespace CastleBlast {
 		
 		void init();
 		void draw();
+		double _red, _green, _blue;
+		GLfloat _start, _end;
+		void setLevel(int level);
 		
 	private:
 		GLfloat _fogColor[4];

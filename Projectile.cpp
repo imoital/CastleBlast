@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include "GameManager.h"
 
 namespace CastleBlast {
 
@@ -117,7 +118,7 @@ namespace CastleBlast {
 		}
 		else {
 			
-			double time = (elapsed_millis / 1000.0);
+			double time = (elapsed_millis / 500.0);
 			
 			_direction[1] += -G*time;
 			_position[1] += _direction[1] * time - (G*time*time)/2;

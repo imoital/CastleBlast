@@ -5,9 +5,11 @@
 #include "DebugMode.h"
 #include "Collidable.h"
 
-#define G 9.8 // G = 9.8m/s^2
+#define G 10 // G = 9.8m/s^2
 
 namespace CastleBlast {
+
+	class GameManager;
 
 	class Projectile : public DebugMode, public Collidable
 	{

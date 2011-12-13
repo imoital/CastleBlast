@@ -22,6 +22,28 @@ namespace CastleBlast {
 		_fogColor[1] = 0.81;
 		_fogColor[2] = 0.98;
 		_fogColor[3] = 1.0;
+		_start = 200.f;
+		_end = 500.f;
+	}
+
+	void Fog::setLevel(int level)
+	{
+		switch(level) {
+		case 1:
+			_start = 100.f;
+			_end = 500.f;
+			_density = 0.1;
+			break;
+		case 2:
+			_fogColor[0] = 0.0;
+			_fogColor[1] = 0.0;
+			_fogColor[2] = 0.0;
+			_fogColor[3] = 1.0;
+			_start = 200.f;
+			_end = 500.f;
+			_density = 1;
+			break;
+		}
 	}
 	
 	void Fog::draw()
@@ -31,8 +53,8 @@ namespace CastleBlast {
 		glFogi (GL_FOG_MODE, GL_LINEAR);
 		glFogfv (GL_FOG_COLOR, _fogColor); 
 		glFogf (GL_FOG_DENSITY, _density); 
-		glFogf(GL_FOG_START, 200.f);
-		glFogf(GL_FOG_END, 500.f);
+		glFogf(GL_FOG_START, _start);
+		glFogf(GL_FOG_END, _end);
 		glHint (GL_FOG_HINT, GL_NICEST);
 		
 	}

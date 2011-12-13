@@ -19,7 +19,9 @@ namespace CastleBlast {
 	class ScreenManager;
 	class Sky;
 	class BirdsManager;
-	
+	class Lights;
+	class Fog;
+
 	class GameManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent{
 	private:
 		SceneManager* _sceneManager;
@@ -28,8 +30,10 @@ namespace CastleBlast {
 		FontsManager* _fontsManager;
 		ScreenManager* _screenManager;
 		Sky* _sky;
+		Lights* _lights;
 		BirdsManager* _birdsManager;
-		
+		Fog* _fog;
+		int _currentLevel;
 		bool _changePlayerPressed;
 		GLuint _fontTexture;
 		GLuint _base;
@@ -37,7 +41,7 @@ namespace CastleBlast {
 		bool _isEndGame;
 		
 	public:
-		GameManager();
+		GameManager(int level);
 		~GameManager();
 		
 		void preInit();
@@ -49,6 +53,7 @@ namespace CastleBlast {
 		void preOnMouse(int button, int state, int x, int y);
 		void startGame(int numPlayers);
 		void endGame();
+		void changePlayer();
 	};
 }
 

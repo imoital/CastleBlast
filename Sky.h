@@ -18,13 +18,18 @@ namespace CastleBlast {
 	public:
 		Sky();
 		~Sky();
-		
+		double _red;
+		double _green;
+		double _blue;
 		void init();
 		void draw();
 		void update(unsigned long elapsed_millis);
+		void setLevel(int level);
 		
 	private:
 		int _worldSize;
+		void setLevel1();
+		void setLevel2();
 	};
 }
 
