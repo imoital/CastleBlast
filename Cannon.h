@@ -17,7 +17,11 @@ namespace CastleBlast {
 	class Projectile;
 	class GameManager;
 
-	class Cannon : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener, public cg::IMouseEventListener 
+	class Cannon : 
+	public cg::Entity, 
+	public cg::IDrawListener, 
+	public cg::IUpdateListener, 
+	public cg::IMouseEventListener
 	{
 	private:
 		std::string _cannon;
@@ -54,6 +58,8 @@ namespace CastleBlast {
 		void cameraToggle();
 		void setDirection(cg::Vector3d direction);
 		int getRotation();
+		double getForce();
+		bool hasStart();
 	};
 }
 

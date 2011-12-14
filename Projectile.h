@@ -38,6 +38,7 @@ namespace CastleBlast {
 		bool isCollision(Collidable *obj);
 		bool getIsOtherPlayer();
 		void toggleIsOtherPlayer();
+		bool hasStart();
 	};
 }
 #endif

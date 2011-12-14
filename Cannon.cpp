@@ -191,4 +191,14 @@ namespace CastleBlast {
 	{
 		_cannonDirection = direction;
 	}
+	
+	double Cannon::getForce()
+	{
+		return _force;
+	}
+	
+	bool Cannon::hasStart()
+	{
+		return _projectile->hasStart();
+	}
 }

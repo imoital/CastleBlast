@@ -88,7 +88,6 @@ namespace CastleBlast {
 		_position[2] = 100*sin(4*_lastAngle);
 		
 		_bodyRot = -(atan(-3*cos(3*_lastAngle)/(4*sin(4*_lastAngle)))*180)/PI;
-		std::cout << "---------------bird " << _bodyRot << std::endl;
 		
 		_lastAngle = _lastAngle+0.001;
 		//_bodyRot = _bodyRot-0.25;

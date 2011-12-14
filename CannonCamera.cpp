@@ -7,6 +7,8 @@
 //
 
 #include "CannonCamera.h"
+#include "Loader.h"
+
 namespace CastleBlast {
 	
 	CannonCamera::CannonCamera(Cannon *cannon) : Entity("CANNON_CAMERA") 
@@ -33,6 +35,7 @@ namespace CastleBlast {
 		_scale = 150.0f;
 		
 		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
+		_forceTexture = Loader::loadTexture("Textures/forceBar.png");
 		/* Initialize camera position */
 	}
 	void CannonCamera::draw() 
@@ -148,5 +151,51 @@ namespace CastleBlast {
 		_right = apply(_q,_right);
 		_q.setRotationDeg(15, _right);
 		_front = apply(_q,_front);
+	}
+	
+	void CannonCamera::drawOverlay()
+	{
+		double cannonForce = _cannon->getForce();
+		
+		if(!_cannon->hasStart()) {
+			glBindTexture(GL_TEXTURE_2D, _forceTexture);
+			
+			glDisable(GL_DEPTH_TEST);                       // Disables Depth Testing
+			
+			glMatrixMode(GL_PROJECTION);                        // Select The Projection Matrix
+			glPushMatrix();                             // Store The Projection Matrix
+			glLoadIdentity();                           // Reset The Projection Matrix
+			glOrtho(0,_winWidth,0,_winHeight,-1,1);                      // Set Up An Ortho Screen
+			
+			glMatrixMode(GL_MODELVIEW);                     // Select The Modelview Matrix
+			glPushMatrix();                             // Store The Modelview Matrix
+			glLoadIdentity();                           // Reset The Modelview Matrix
+			
+			glDisable(GL_LIGHTING);
+			glColor3d(1, 1, 1);
+			glEnable(GL_TEXTURE_2D);
+			glBegin(GL_QUADS);
+			{
+				glTexCoord2d(0, 0);
+				glVertex2d(_winWidth-60, 10);
+				glTexCoord2d(1, 0);
+				glVertex2d(_winWidth-40, 10);
+				glTexCoord2d(1, cannonForce/80);
+				glVertex2d(_winWidth-40, 10 + (cannonForce*70)/80);
+				glTexCoord2d(0, cannonForce/80);
+				glVertex2d(_winWidth-60, 10 + (cannonForce*70)/80);
+			}
+			glEnd(); 
+			glDisable(GL_TEXTURE_2D);
+			glEnable(GL_LIGHTING);
+			glMatrixMode(GL_PROJECTION);                        // Select The Projection Matrix
+			glPopMatrix();                              // Restore The Old Projection Matrix
+			
+			glMatrixMode(GL_MODELVIEW);                     // Select The Modelview Matrix
+			glPopMatrix();                              // Restore The Old Projection Matrix
+			
+			glEnable(GL_DEPTH_TEST);
+		}
+		
 	}
 }

@@ -34,6 +34,7 @@ namespace CastleBlast {
 		cg::Vector3d _up,_front,_right;
 		float _scale;
 		Cannon *_cannon;
+		GLuint _forceTexture;
 
 		
 	public:
@@ -50,7 +51,7 @@ namespace CastleBlast {
 		cg::Vector3d getEpos();
 		cg::Vector3d getCpos();
 		cg::Vector3d getUpos();
-
+		void drawOverlay();
 
 	};
 }

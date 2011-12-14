@@ -139,4 +139,9 @@ namespace CastleBlast {
 		}
 		else return false;
 	}
+	
+	bool Projectile::hasStart()
+	{
+		return _start;
+	}
 }
