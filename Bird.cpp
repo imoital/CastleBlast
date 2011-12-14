@@ -39,7 +39,7 @@ namespace CastleBlast {
 		_model->newModel(_wingsName, "Models/wing.obj");
 #else
 		_model->newModel(_bodyName, "..\\..\\src\\Models\\bird.obj");
-		_model->newModel(_bodyName, "..\\..\\src\\Models\\wing.obj");
+		_model->newModel(_wingsName, "..\\..\\src\\Models\\wing.obj");
 #endif
 	}
 	
