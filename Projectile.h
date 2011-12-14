@@ -5,7 +5,7 @@
 #include "DebugMode.h"
 #include "Collidable.h"
 
-#define G 10 // G = 9.8m/s^2
+#define G 15 // G = 9.8m/s^2
 
 namespace CastleBlast {
 
@@ -31,7 +31,7 @@ namespace CastleBlast {
 		~Projectile();
 		void init();
 		void draw();
-		void update(cg::Vector3d poistion, cg::Vector3d rotation, unsigned long elapsed_millis);
+		void update(cg::Vector3d poistion, cg::Vector3d rotation, double force, unsigned long elapsed_millis);
 		void debugDrawAxis();
 		void debugToggle();
 		void start();

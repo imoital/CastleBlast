@@ -35,7 +35,7 @@ namespace CastleBlast {
 		bool _fire;
 		bool _isCannonCamera;
 		cg::Vector3d _cannonDirection;
-
+		double _force;
 		double _rotationMatrix[16];
 		cg::Quaterniond _q;
 		cg::Quaterniond _orientation;

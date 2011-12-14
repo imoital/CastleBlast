@@ -12,7 +12,7 @@ namespace CastleBlast {
 		_front.set(2,0,0);
 		_up.set(0,2,0);
 		_right.set(0,0,2);
-		_force = 40;
+		_force = 0;
 		_gameManager=gm;
 	}
 
@@ -95,8 +95,9 @@ namespace CastleBlast {
 		_debug = !_debug;
 	}
 	
-	void Projectile::update(cg::Vector3d position, cg::Vector3d direction, unsigned long elapsed_millis) 
+	void Projectile::update(cg::Vector3d position, cg::Vector3d direction, double force, unsigned long elapsed_millis) 
 	{
+		_force = force;
 		if (!_start){
 			_position = position;
 			_position[1] = _position[1]+3;
@@ -106,8 +107,7 @@ namespace CastleBlast {
 		}
 		else {
 			
-			double time = (elapsed_millis / 500.0);
-			
+			double time = (elapsed_millis / 500.0);	
 			_direction[1] += -G*time;
 			_position[1] += _direction[1] * time - (G*time*time)/2;
 			_position[0] += _direction[0]*time;
