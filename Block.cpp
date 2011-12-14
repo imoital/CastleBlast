@@ -39,7 +39,7 @@ namespace CastleBlast {
 		side_mat_ambient[3] = 1.0f;
 		
 		side_mat_difusse[0] = 0.3f;
-		side_mat_difusse[1] = 0.9f;
+		side_mat_difusse[1] = 0.3f;
 		side_mat_difusse[2] = 0.3f;
 		side_mat_difusse[3] = 1.0f;
 		

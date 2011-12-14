@@ -57,8 +57,8 @@ namespace CastleBlast {
 	void Player::positionCannon(cg::Vector3d initPosition)
 	{
 		_cannon->placeCannon(initPosition, _playerRot);
+		_cameraManager->setCannonCameraRotation(_playerRot);
 	}
-
 	
 	int Player::getPlayerNumber()
 	{

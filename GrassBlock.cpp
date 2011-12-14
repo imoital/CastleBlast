@@ -29,7 +29,7 @@ namespace CastleBlast {
 		
 		topBottom_shininess = 10;
 
-		side_mat_ambient[0] = 0.9f;
+		/*side_mat_ambient[0] = 0.9f;
 		side_mat_ambient[1] = 0.9f;
 		side_mat_ambient[2] = 0.6f;
 		side_mat_ambient[3] = 1.0f;
@@ -44,7 +44,7 @@ namespace CastleBlast {
 		side_mat_specular[2] = 0.3f;
 		side_mat_specular[3] = 1.0f;
 		
-		side_shininess = 12;
+		side_shininess = 12;*/
 		
 		loadTextures();
 	}

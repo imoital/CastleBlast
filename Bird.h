@@ -14,6 +14,8 @@
 
 namespace CastleBlast {
 	
+	class ModelManager;
+	
 	class Bird : 
 	public cg::Entity, 
 	public cg::IDrawListener, 
@@ -22,9 +24,16 @@ namespace CastleBlast {
 	public Collidable
 	{
 	private:
+		ModelManager* _model;
+		std::string _bodyName;
+		std::string _wingsName;
 		cg::Vector3d _position;
+		float _wingRot;
+		float _bodyRot;
 		double _lastAngle;
 		bool _toBeDeleted;
+		bool _wingsUp;
+		bool _wingsDown;
 	public:
 		Bird(std::string birdName);
 		~Bird();

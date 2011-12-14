@@ -143,8 +143,7 @@ namespace CastleBlast {
 
 	void CannonCamera::setInitialRotation(int rot)
 	{
-		std::cout<< rot << std::endl;
-		_q.setRotationDeg(90-rot,_up);
+		_q.setRotationRad(rot + PI/2,_up);
 		_front = apply(_q,_front);
 		_right = apply(_q,_right);
 		_q.setRotationDeg(15, _right);
