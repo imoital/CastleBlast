@@ -94,8 +94,6 @@ namespace CastleBlast {
 			}
 
 		}
-
-		_fog->draw(); //this stupid hack shouldn't be needed! This class should draw all it's entities! 
 	}
 
 	void GameManager::changePlayer()
@@ -125,6 +123,7 @@ namespace CastleBlast {
 		addAtBeginning(_sceneManager);
 		addAtBeginning(_birdsManager);
 		addAtBeginning(_playerManager);
+		addAtBeginning(_fog);
 		_playerManager->setNumPlayers(numPlayers);
 		_sceneManager->restart();
 		_playerManager->restart();

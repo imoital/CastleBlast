@@ -58,4 +58,6 @@ namespace CastleBlast {
 		glHint (GL_FOG_HINT, GL_NICEST);
 		
 	}
+	
+	void Fog::update(unsigned long elapsed_millis) {}
 }

@@ -62,6 +62,7 @@ namespace CastleBlast {
 			glTranslated(_position[0], _position[1], _position[2]);
 			glRotated(_bodyRot, 0, 1, 0);
 			
+			glEnable(GL_NORMALIZE);
 			_model->drawModel(_bodyName);
 			
 			glPushMatrix();
@@ -78,6 +79,7 @@ namespace CastleBlast {
 				_model->drawModel(_wingsName);
 			}
 			glPopMatrix();
+			glDisable(GL_NORMALIZE);
 		}
 		glPopMatrix();
 	}

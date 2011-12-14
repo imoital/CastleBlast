@@ -12,7 +12,7 @@
 #include "cg/cg.h"
 
 namespace CastleBlast {
-	class Fog : public cg::Entity, public cg::IDrawListener {
+	class Fog : public cg::Entity, public cg::IDrawListener, public cg::IUpdateListener, public cg::IMouseEventListener {
 	public:
 		Fog();
 		~Fog();
@@ -22,6 +22,7 @@ namespace CastleBlast {
 		double _red, _green, _blue;
 		GLfloat _start, _end;
 		void setLevel(int level);
+		void update(unsigned long elapsed_millis);
 		
 	private:
 		GLfloat _fogColor[4];
