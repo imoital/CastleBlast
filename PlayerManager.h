@@ -16,7 +16,12 @@ namespace CastleBlast {
 	class FontsManager;
 	class GameManager;
 
-	class PlayerManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent 
+	class PlayerManager : 
+	public cg::Group, 
+	public cg::GroupDraw, 
+	public cg::GroupUpdate, 
+	public cg::GroupMouseEvent,
+	public cg::GroupReshapeEvent
 	{
 	private:
 		std::vector<Player*> _players;

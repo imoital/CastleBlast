@@ -21,6 +21,8 @@ namespace CastleBlast {
 		GLuint _settingsScreenImage;
 		FontsManager* _fontsManager;
 		int _numPlayers;
+		int _width;
+		int _height;
 		
 	public:
 		SettingsScreen();
@@ -30,6 +32,7 @@ namespace CastleBlast {
 		void draw();
 		void update(unsigned long elapsed_millis);
 		int getNumPlayers();
+		void onReshape(int witdth, int height);
 	};
 }
 

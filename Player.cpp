@@ -117,5 +117,10 @@ namespace CastleBlast {
 		else if (rotation > PI/4 && rotation < 3*PI/4)
 			_playerRot = 3*PI/2;
 	}
+	
+	void Player::onReshape(int witdth, int height)
+	{
+		_cameraManager->onReshape(witdth, height);
+	}
 
 }

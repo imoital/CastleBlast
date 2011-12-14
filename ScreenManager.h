@@ -20,7 +20,8 @@ namespace CastleBlast {
 	public cg::Entity, 
 	public cg::IDrawListener, 
 	public cg::IUpdateListener, 
-	public cg::IMouseEventListener{
+	public cg::IMouseEventListener,
+	public cg::IReshapeEventListener{
 	private:
 		SettingsScreen* _settingScreen;
 		StartScreen* _startScreen;
@@ -34,6 +35,7 @@ namespace CastleBlast {
 		void update(unsigned long elapsed_millis);
 		void draw();
 		void onMouse(int button, int state, int x, int y);
+		void onReshape(int width, int height);
 	}; 
 }
 

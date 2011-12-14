@@ -58,4 +58,10 @@ namespace CastleBlast {
 			}
 		}
 	}
+	
+	void ScreenManager::onReshape(int width, int height)
+	{
+		_startScreen->onReshape(width, height);
+		_settingScreen->onReshape(width, height);
+	}
 }

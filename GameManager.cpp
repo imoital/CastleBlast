@@ -137,4 +137,10 @@ namespace CastleBlast {
 		removeAll();
 		addAtBeginning(_screenManager);
 	}
+	
+	void GameManager::onReshape(int width, int height)
+	{
+		_playerManager->onReshape(width, height);
+		_screenManager->onReshape(width, height);
+	}
 }

@@ -11,7 +11,7 @@ namespace CastleBlast
 {
 	class CameraManager : 
 		public cg::Group, public cg::GroupDraw,
-		public cg::GroupUpdate, public cg::GroupMouseEvent
+	public cg::GroupUpdate, public cg::GroupMouseEvent, public cg::GroupReshapeEvent
 	{
 	private:
 		std::vector<WorldCamera*> _cameraVector;

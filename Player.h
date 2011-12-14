@@ -21,7 +21,12 @@ namespace CastleBlast {
 	class GameManager;
 	
 	// se aqui eu tirar cg::IMouseEventListener e puser cg::GroupMouseEvent CRASHA!
-	class Player : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent
+	class Player : 
+	public cg::Group, 
+	public cg::GroupDraw, 
+	public cg::GroupUpdate, 
+	public cg::GroupMouseEvent,
+	public cg::IReshapeEventListener
 	{
 		
 	private:
@@ -53,7 +58,7 @@ namespace CastleBlast {
 		CameraManager* getCamera();
 		void setWorldCamera(WorldCamera* w);
 		void setRotation(float rotation);
-
+		void onReshape(int witdth, int height);
 	};
 }
 

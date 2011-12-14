@@ -22,6 +22,13 @@ namespace CastleBlast {
 	
 	StartScreen::~StartScreen() {}
 	
+	void StartScreen::init()
+	{
+		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
+		_width = win.width;
+		_height = win.height;
+	}
+	
 	void StartScreen::draw() 
 	{
 		glBindTexture(GL_TEXTURE_2D, _startScreenImage);
@@ -31,8 +38,7 @@ namespace CastleBlast {
 		glMatrixMode(GL_PROJECTION);                        // Select The Projection Matrix
 		glPushMatrix();                             // Store The Projection Matrix
 		glLoadIdentity();                           // Reset The Projection Matrix
-		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
-		glOrtho(0,win.width,0,win.height,-1,1);                      // Set Up An Ortho Screen
+		glOrtho(0,_width,0,_height,-1,1);                      // Set Up An Ortho Screen
 		
 		glMatrixMode(GL_MODELVIEW);                     // Select The Modelview Matrix
 		glPushMatrix();                             // Store The Modelview Matrix
@@ -46,11 +52,11 @@ namespace CastleBlast {
 			glTexCoord2d(0, 0);
 			glVertex2d(0, 0);
 			glTexCoord2d(0, 1);
-			glVertex2d(0, win.height);
+			glVertex2d(0, _height);
 			glTexCoord2d(1, 1);
-			glVertex2d(win.width, win.height);
+			glVertex2d(_width, _height);
 			glTexCoord2d(1, 0);
-			glVertex2d(win.width, 0);
+			glVertex2d(_width, 0);
 		}
 		glEnd(); 
 		glDisable(GL_TEXTURE_2D);
@@ -65,6 +71,12 @@ namespace CastleBlast {
 	}
 	
 	void StartScreen::update(unsigned long elapsed_millis) {}
+	
+	void StartScreen::onReshape(int width, int height)
+	{
+		_width = width;
+		_height = height;
+	}
 
 	
 }

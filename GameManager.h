@@ -22,7 +22,14 @@ namespace CastleBlast {
 	class Lights;
 	class Fog;
 
-	class GameManager : public cg::Group, public cg::GroupDraw, public cg::GroupUpdate, public cg::GroupMouseEvent{
+	class GameManager : 
+	public cg::Group, 
+	public cg::GroupDraw, 
+	public cg::GroupUpdate, 
+	public cg::GroupMouseEvent , 
+	public cg::IReshapeEventListener
+	{
+		
 	private:
 		SceneManager* _sceneManager;
 		PlayerManager* _playerManager;
@@ -54,6 +61,7 @@ namespace CastleBlast {
 		void startGame(int numPlayers);
 		void endGame();
 		void changePlayer();
+		void onReshape(int width, int height);
 	};
 }
 
