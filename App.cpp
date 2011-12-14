@@ -40,7 +40,7 @@ namespace CastleBlast {
 		addEntity(new Controller());
 	//	addEntity(new Fog());
 		//addEntity(new Sky());
-		addEntity(new GameManager(2));
+		addEntity(new GameManager(1));
 		//addEntity(new Lights());
 	}
 	

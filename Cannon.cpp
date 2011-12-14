@@ -34,7 +34,7 @@ namespace CastleBlast {
 		_angley = 0;
 		_isCannonCamera = false;
 		_cannonDirection = cg::Vector3d(0,0,0);
-
+		_force = 0;
 		_orientation.setRotationDeg(0,cg::Vector3d(0,1,0));
 		_right.set(0,0,1);
 		_front.set(1,0,0);
@@ -101,21 +101,25 @@ namespace CastleBlast {
 			}
 		}
 		
-		_projectile->update(_position, _cannonDirection, elapsed_millis);
+		_projectile->update(_position, _cannonDirection, _force, elapsed_millis);
 		
-		if(cg::KeyBuffer::instance()->isKeyDown(' ') && !_fire) {
-			_projectile->start();
+		if(cg::KeyBuffer::instance()->isKeyDown(' ')) {
+			_force = _force + 2;
 			_fire = true;
+			std::cout << _force << std::endl;
+			if (_force == 80)
+				_projectile->start();
 		}
-		if(cg::KeyBuffer::instance()->isKeyUp(' ')) {
+		if(cg::KeyBuffer::instance()->isKeyUp(' ') && _fire) {
+			_projectile->start();
 			_fire = false;
+			_force = 0;
 		}
 
 	}
 	
 	void Cannon::placeCannon(cg::Vector3d position, int rot)
 	{
-		std::cout << "placecanonrotation: " << rot << std::endl;
 		_rotation = rot;
 		_position = position;
 		_q.setRotationDeg(0, _right);
@@ -136,7 +140,6 @@ namespace CastleBlast {
 
 	int Cannon::getRotation()
 	{
-		std::cout << "canonrotation: " << _rotation << std::endl;
 		return _rotation;
 	}
 
