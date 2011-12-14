@@ -34,9 +34,15 @@ namespace CastleBlast {
 		_isRoll = false;
 		_scale = 150.0f;
 		
-		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
-		_forceTexture = Loader::loadTexture("Textures/forceBar.png");
 		/* Initialize camera position */
+		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
+		
+#ifdef __APPLE__
+		_forceTexture = Loader::loadTexture("Textures/forceBar.png");
+#else
+		_forceTexture = Loader::loadTexture("..\\..\\src\\Textures\\forceBar.png");
+#endif
+		
 	}
 	void CannonCamera::draw() 
 	{
