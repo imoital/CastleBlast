@@ -11,6 +11,8 @@
 
 #include <cg/cg.h>
 
+#define GLUT_KEY_RETURN 13
+
 namespace CastleBlast {
 	
 	class SettingsScreen;

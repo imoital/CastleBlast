@@ -72,8 +72,10 @@ namespace CastleBlast {
 			if (_playerManager->finishGame()) {
 				std::stringstream winnerPlayer;
 				winnerPlayer << "Player " << _playerManager->winnerPlayer()->getPlayerNumber() << " is the winner";
-				_fontsManager->printFont(100, 300, 2, 0, 1, winnerPlayer.str());
-				endGame();
+				cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
+				_fontsManager->printFont(win.width/2.0-win.width/2.6, win.height/2.0, 2, 0, 1, winnerPlayer.str());
+				_fontsManager->printFont(win.width/2.0-win.width/2.3, win.height/2.0-win.width/20.0, 2, 0, 1, "Press \"enter\" to continue");
+				_isEndGame = true;
 			}
 		}
 	}
@@ -88,13 +90,15 @@ namespace CastleBlast {
 			if (cg::KeyBuffer::instance()->isKeyUp('z') && _changePlayerPressed) {
 				_changePlayerPressed = false;
 			}
+			if (cg::KeyBuffer::instance()->isKeyDown(GLUT_KEY_RETURN) && _isEndGame) {
+				endGame();
+			}
 
 		}
 	}
 
 	void GameManager::changePlayer()
 	{
-		std::cout << "is changing player" << std::endl;
 		_currentPlayer = _playerManager->nextPlayer();
 	}
 	
@@ -109,7 +113,8 @@ namespace CastleBlast {
 	void GameManager::startGame(int numPlayers, int ambient) 
 	{
 		_gameMode = true;
-
+		_isEndGame = false;
+		
 		removeAll();
 		addAtBeginning(_sky);
 		addAtBeginning(_sceneManager);
@@ -129,6 +134,7 @@ namespace CastleBlast {
 	void GameManager::endGame()
 	{
 		_gameMode = false;
+		_isEndGame = false;
 		_playerManager->setNumPlayers(2);
 		removeAll();
 		addAtBeginning(_screenManager);

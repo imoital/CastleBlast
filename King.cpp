@@ -47,7 +47,12 @@ namespace CastleBlast {
 	}
 	
 	void King::update(unsigned long elapsed_millis) 
-	{}
+	{
+		if(cg::KeyBuffer::instance()->isKeyDown('k')) {
+			_isAlive = false;
+			std::cout << "king is dead" << std::endl;
+		}
+	}
 	
 	void King::placeKing(cg::Vector3d position, float rot)
 	{

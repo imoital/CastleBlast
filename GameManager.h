@@ -51,6 +51,7 @@ namespace CastleBlast {
 		GLuint _base;
 		bool _gameMode;
 		bool _isEndGame;
+		int _endGameTimer;
 		
 	public:
 		GameManager();

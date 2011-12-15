@@ -11,8 +11,6 @@
 #include "SettingsScreen.h"
 #include "GameManager.h"
 
-#define GLUT_KEY_RETURN 13
-
 namespace CastleBlast {
 	
 	ScreenManager::ScreenManager() : cg::Entity("SCREEN_MANAGER") {}
