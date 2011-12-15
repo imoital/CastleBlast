@@ -12,7 +12,7 @@
 
 namespace CastleBlast {
 	
-	Bird::Bird(std::string birdName) : cg::Entity(birdName), Collidable(2,2,2) 
+	Bird::Bird(std::string birdName) : cg::Entity(birdName), Collidable(5,5,5) 
 	{
 		_bodyName = "BIRD";
 		_wingsName = "WING";
@@ -28,6 +28,7 @@ namespace CastleBlast {
 		_wingRot = rand()%20;
 		_bodyRot = (tan(_lastAngle)*PI)/180.0;
 		int up = rand()%2;
+		_debug = false;
 		
 		if(up == 1)
 			_wingsDown = false;
@@ -59,6 +60,9 @@ namespace CastleBlast {
 			glMaterialfv(GL_FRONT,GL_SHININESS,mat_shininess);
 			
 			glScaled(0.7, 0.7, 0.7);
+			
+			if(_debug)
+				drawBoundingBox();
 			glTranslated(_position[0], _position[1], _position[2]);
 			glRotated(_bodyRot, 0, 1, 0);
 			
@@ -105,6 +109,8 @@ namespace CastleBlast {
 		if(_wingsDown)
 			_wingRot -= elapsed_millis*0.05;
 		else _wingRot += elapsed_millis*0.05;
+		
+		notify(_position);
 	}
 	
 	bool Bird::isCollision(CastleBlast::Collidable *obj)
@@ -126,6 +132,11 @@ namespace CastleBlast {
 	bool Bird::isToDelete()
 	{
 		return _toBeDeleted;
+	}
+	
+	void Bird::debugToggle()
+	{
+		_debug = !_debug;
 	}
 	
 }

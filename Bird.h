@@ -11,6 +11,7 @@
 
 #include <cg/cg.h>
 #include "Collidable.h"
+#include "DebugMode.h"
 
 namespace CastleBlast {
 	
@@ -21,7 +22,8 @@ namespace CastleBlast {
 	public cg::IDrawListener, 
 	public cg::IUpdateListener, 
 	public cg::IMouseEventListener,
-	public Collidable
+	public Collidable,
+	public DebugMode
 	{
 	private:
 		ModelManager* _model;
@@ -34,6 +36,8 @@ namespace CastleBlast {
 		bool _toBeDeleted;
 		bool _wingsUp;
 		bool _wingsDown;
+		bool _debug;
+		
 	public:
 		Bird(std::string birdName);
 		~Bird();
@@ -42,6 +46,7 @@ namespace CastleBlast {
 		void update(unsigned long elapsed_millis);
 		bool isCollision(Collidable* obj);
 		bool isToDelete();
+		void debugToggle();
 	};
 }
 
