@@ -214,8 +214,6 @@ namespace CastleBlast {
 		for (int m = 0; m < _quads.size(); m++) {
 			nQuads = nQuads + _quads[m].size();
 		}
-		
-		std::cout << "Number of cubes: " << nQuads << std::endl;
 	}
 	
 	void SceneManager::init()
