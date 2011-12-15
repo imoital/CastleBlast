@@ -33,7 +33,7 @@ namespace CastleBlast {
 		_right.set(0,0,1);
 		_isRoll = false;
 		_scale = 150.0f;
-		
+		MAX_FORCE = cg::Properties::instance()->getInt("MAX_FORCE");
 		/* Initialize camera position */
 		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
 		
@@ -186,10 +186,10 @@ namespace CastleBlast {
 				glVertex2d(_winWidth-60, 10);
 				glTexCoord2d(1, 0);
 				glVertex2d(_winWidth-40, 10);
-				glTexCoord2d(1, cannonForce/80);
-				glVertex2d(_winWidth-40, 10 + (cannonForce*70)/80);
-				glTexCoord2d(0, cannonForce/80);
-				glVertex2d(_winWidth-60, 10 + (cannonForce*70)/80);
+				glTexCoord2d(1, cannonForce/MAX_FORCE);
+				glVertex2d(_winWidth-40, 10 + (cannonForce*70)/MAX_FORCE);
+				glTexCoord2d(0, cannonForce/MAX_FORCE);
+				glVertex2d(_winWidth-60, 10 + (cannonForce*70)/MAX_FORCE);
 			}
 			glEnd(); 
 			glDisable(GL_TEXTURE_2D);

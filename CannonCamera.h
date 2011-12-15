@@ -35,6 +35,7 @@ namespace CastleBlast {
 		float _scale;
 		Cannon *_cannon;
 		GLuint _forceTexture;
+		int MAX_FORCE;
 
 		
 	public:
