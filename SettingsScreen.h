@@ -18,11 +18,20 @@ namespace CastleBlast {
 	class SettingsScreen {
 	private:
 		
-		GLuint _settingsScreenImage;
+		GLuint _settingsScreen_day;
+		GLuint _settingsScreen_backDay;
+		GLuint _settingsScreen_startDay;
+		GLuint _settingsScreen_playersDay;
+		GLuint _settingsScreen_night;
+		GLuint _settingsScreen_backNight;
+		GLuint _settingsScreen_startNight;
+		GLuint _settingsScreen_playersNight;
+		
 		FontsManager* _fontsManager;
 		int _numPlayers;
 		int _width;
 		int _height;
+		bool _players, _ambient, _start, _back, _day, _downPressed, _upPressed, _rightPressed, _leftPressed;
 		
 	public:
 		SettingsScreen();
@@ -33,6 +42,9 @@ namespace CastleBlast {
 		void update(unsigned long elapsed_millis);
 		int getNumPlayers();
 		void onReshape(int witdth, int height);
+		bool isDay();
+		bool isStart();
+		bool isBack();
 	};
 }
 

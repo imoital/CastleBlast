@@ -21,10 +21,7 @@
 
 namespace CastleBlast {
 	
-	GameManager::GameManager(int level) : Group("GAME_MANAGER") 
-	{
-		_currentLevel = level;
-	}
+	GameManager::GameManager() : Group("GAME_MANAGER") {}
 	
 	GameManager::~GameManager() {}
 	
@@ -59,9 +56,6 @@ namespace CastleBlast {
 		_currentPlayer = _playerManager->nextPlayer();
 		removeAll();
 		addAtBeginning(_screenManager);
-		_lights->setLevel(_currentLevel);
-		_sky->setLevel(_currentLevel);
-		_fog->setLevel(_currentLevel);
 
 	}
 	
@@ -108,13 +102,9 @@ namespace CastleBlast {
 	
 	void GameManager::preOnMouse(int button, int state, int x, int y) 
 	{
-		if (!_gameMode) {
-			if(x >= 265 && x <= 555 && y >= 270 && y <= 330)
-				startGame(2);
-		}
 	}
 	
-	void GameManager::startGame(int numPlayers) 
+	void GameManager::startGame(int numPlayers, int ambient) 
 	{
 		_gameMode = true;
 
@@ -124,6 +114,10 @@ namespace CastleBlast {
 		addAtBeginning(_birdsManager);
 		addAtBeginning(_playerManager);
 		addAtBeginning(_fog);
+		_currentAmbient = ambient;
+		_lights->setLevel(_currentAmbient);
+		_sky->setLevel(_currentAmbient);
+		_fog->setLevel(_currentAmbient);
 		_playerManager->setNumPlayers(numPlayers);
 		_sceneManager->restart();
 		_playerManager->restart();

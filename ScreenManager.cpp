@@ -11,6 +11,8 @@
 #include "SettingsScreen.h"
 #include "GameManager.h"
 
+#define GLUT_KEY_RETURN 13
+
 namespace CastleBlast {
 	
 	ScreenManager::ScreenManager() : cg::Entity("SCREEN_MANAGER") {}
@@ -22,6 +24,7 @@ namespace CastleBlast {
 		_startScreen = new StartScreen();
 		_settingScreen = new SettingsScreen();
 		_isStartScreen = true;
+		_isReturnPressed = false;
 	}
 	
 	void ScreenManager::draw()
@@ -36,27 +39,36 @@ namespace CastleBlast {
 		if (_isStartScreen)
 			_startScreen->update(elapsed_millis);
 		else _settingScreen->update(elapsed_millis);
+		
+		GameManager *gameManager = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
+		
+		if (cg::KeyBuffer::instance()->isKeyDown(GLUT_KEY_RETURN) && !_isReturnPressed) {
+			if (_isStartScreen) {
+				if(_startScreen->isStart())
+					gameManager->startGame(2, 1);
+				if(!_startScreen->isStart()) {
+					_isStartScreen = false;
+					_isReturnPressed =true;
+				}
+			} else {
+				if(_settingScreen->isStart()) {
+					if (_settingScreen->isDay())
+						gameManager->startGame(_settingScreen->getNumPlayers(), DAY);
+					else
+						gameManager->startGame(_settingScreen->getNumPlayers(), NIGHT);
+				} else if (_settingScreen->isBack()) {
+					_isStartScreen = true;
+				}
+			}
+			_isReturnPressed = true;
+		}
+		
+		if(cg::KeyBuffer::instance()->isKeyUp(GLUT_KEY_RETURN) && _isReturnPressed)
+			_isReturnPressed = false;
 	}
 	
 	void ScreenManager::onMouse(int button, int state, int x, int y)
 	{
-		GameManager *gameManager = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
-		if (_isStartScreen) {
-			if(x >= 265 && x <= 555 && y >= 270 && y <= 330)
-				gameManager->startGame(2);
-			if(x >= 265 && x <= 555 && y >= 384 && y <= 444)
-				_isStartScreen = false;
-		}
-		else {
-			std::cout << "" << x << " " << y << std::endl;
-			if (x >= 72 && x <= 357 && y >= 485 && y <= 545) {
-				_isStartScreen = true;
-			}
-			if (x >= 440 && x <= 725 && y >= 485 && y <= 545) {
-				_isStartScreen = true;
-				gameManager->startGame(_settingScreen->getNumPlayers());
-			}
-		}
 	}
 	
 	void ScreenManager::onReshape(int width, int height)

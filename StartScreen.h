@@ -16,8 +16,10 @@ namespace CastleBlast {
 	private:
 		
 		GLuint _startScreenImage;
+		GLuint _settingsScreenImage;
 		int _width;
 		int _height;
+		bool _start;
 	public:
 		StartScreen();
 		~StartScreen();
@@ -26,6 +28,7 @@ namespace CastleBlast {
 		void draw();
 		void update(unsigned long elapsed_millis);
 		void onReshape(int witdth, int height);
+		bool isStart();
 	};
 }
 

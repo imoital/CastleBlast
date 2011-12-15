@@ -26,6 +26,7 @@ namespace CastleBlast {
 		SettingsScreen* _settingScreen;
 		StartScreen* _startScreen;
 		bool _isStartScreen;
+		bool _isReturnPressed;
 		
 	public:
 		ScreenManager();

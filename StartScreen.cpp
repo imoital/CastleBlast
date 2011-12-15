@@ -14,9 +14,11 @@ namespace CastleBlast {
 	StartScreen::StartScreen()
 	{
 #ifdef __APPLE__
-		_startScreenImage = Loader::loadTexture("Images/StartScreen.png");
+		_startScreenImage = Loader::loadTexture("Images/StartScreen_Start.png");
+		_settingsScreenImage = Loader::loadTexture("Images/StartScreen_Settings.png");
 #else
-		_startScreenImage = Loader::loadTexture("..\\..\\src\\Images\\StartScreen.png");
+		_startScreenImage = Loader::loadTexture("..\\..\\src\\Images\\StartScreen_Start.png");
+		_settingsScreenImage = Loader::loadTexture("..\\..\\src\\Images\\StartScreen_Settings.png");
 #endif
 	}
 	
@@ -27,11 +29,15 @@ namespace CastleBlast {
 		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
 		_width = win.width;
 		_height = win.height;
+		_start = true;
 	}
 	
 	void StartScreen::draw() 
 	{
-		glBindTexture(GL_TEXTURE_2D, _startScreenImage);
+		if(_start)
+			glBindTexture(GL_TEXTURE_2D, _startScreenImage);
+		else 
+			glBindTexture(GL_TEXTURE_2D, _settingsScreenImage);
 		
 		glDisable(GL_DEPTH_TEST);                       // Disables Depth Testing
 		
@@ -70,13 +76,23 @@ namespace CastleBlast {
 		glEnable(GL_DEPTH_TEST);
 	}
 	
-	void StartScreen::update(unsigned long elapsed_millis) {}
+	void StartScreen::update(unsigned long elapsed_millis) 
+	{
+		if(cg::KeyBuffer::instance()->isSpecialKeyDown(GLUT_KEY_DOWN))
+			_start = false;
+		if(cg::KeyBuffer::instance()->isSpecialKeyDown(GLUT_KEY_UP))
+			_start = true;
+	}
 	
 	void StartScreen::onReshape(int width, int height)
 	{
 		_width = width;
 		_height = height;
 	}
-
+	
+	bool StartScreen::isStart()
+	{
+		return _start;
+	}
 	
 }

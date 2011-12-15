@@ -10,6 +10,9 @@
 #define GAME_MANAGER_H
 #include "cg/cg.h"
 
+#define DAY 1
+#define NIGHT 2
+
 namespace CastleBlast {
 	
 	class SceneManager;
@@ -40,7 +43,7 @@ namespace CastleBlast {
 		Lights* _lights;
 		BirdsManager* _birdsManager;
 		Fog* _fog;
-		int _currentLevel;
+		int _currentAmbient;
 		bool _changePlayerPressed;
 		GLuint _fontTexture;
 		GLuint _base;
@@ -48,7 +51,7 @@ namespace CastleBlast {
 		bool _isEndGame;
 		
 	public:
-		GameManager(int level);
+		GameManager();
 		~GameManager();
 		
 		void preInit();
@@ -58,7 +61,7 @@ namespace CastleBlast {
 		void preUpdate(unsigned long elapsed_millis);
 		void postUpdate(unsigned long elapsed_millis);
 		void preOnMouse(int button, int state, int x, int y);
-		void startGame(int numPlayers);
+		void startGame(int numPlayers, int ambient);
 		void endGame();
 		void changePlayer();
 		void onReshape(int width, int height);
