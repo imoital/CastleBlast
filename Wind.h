@@ -1,6 +1,6 @@
 #ifndef WIND_H
 #define WIND_H
-#include <cg\cg.h>
+#include <cg/cg.h>
 #include <stdlib.h>
 namespace CastleBlast 
 {
