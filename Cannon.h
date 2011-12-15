@@ -16,6 +16,7 @@ namespace CastleBlast {
 	class ModelManager;
 	class Projectile;
 	class GameManager;
+	class Wind;
 
 	class Cannon : 
 	public cg::Entity, 
@@ -40,9 +41,12 @@ namespace CastleBlast {
 		bool _isCannonCamera;
 		cg::Vector3d _cannonDirection;
 		double _force;
+		cg::Vector3d _windForce;
+		double MAX_FORCE;
 		double _rotationMatrix[16];
 		cg::Quaterniond _q;
 		cg::Quaterniond _orientation;
+		Wind* _wind;
 		
 	public:
 		Cannon(GameManager* gm);

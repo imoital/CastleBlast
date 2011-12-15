@@ -10,6 +10,7 @@
 #include "ModelManager.h"
 #include "Projectile.h"
 #include "GameManager.h"
+#include "Wind.h"
 
 #define PI 3.14
 
@@ -41,6 +42,7 @@ namespace CastleBlast {
 		_right.set(0,0,1);
 		_front.set(1,0,0);
 		_up.set(0,1,0);
+		MAX_FORCE = cg::Properties::instance()->getInt("MAX_FORCE");
 
 		_model = (ModelManager*)cg::Registry::instance()->get("MODEL_MANAGER");
 #ifdef __APPLE__
@@ -109,8 +111,8 @@ namespace CastleBlast {
 		if(cg::KeyBuffer::instance()->isKeyDown(' ')) {
 			_force = _force + 2;
 			_fire = true;
-			std::cout << _force << std::endl;
-			if (_force == 80)
+			std::cout << _force << " / " << MAX_FORCE << std::endl;
+			if (_force >= MAX_FORCE)
 				_projectile->start();
 		}
 		if(cg::KeyBuffer::instance()->isKeyUp(' ') && _fire) {

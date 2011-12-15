@@ -5,11 +5,12 @@
 #include "DebugMode.h"
 #include "Collidable.h"
 
-#define G 15 // G = 9.8m/s^2
+#define G 13 // G = 9.8m/s^2
 
 namespace CastleBlast {
 
 	class GameManager;
+	class Wind;
 
 	class Projectile : public DebugMode, public Collidable
 	{
@@ -17,12 +18,13 @@ namespace CastleBlast {
 		cg::Vector3d _position;
 		bool _debug;
 		cg::Vector3d _front, _up, _right;
-		cg::Vector3d _direction;
+		cg::Vector3d _velocity, _windForce;
 		cg::Vector3d _startPosition;
 		int _force;
 		bool _start;
 		bool _isOtherPlayer;
 		GameManager* _gameManager;
+		Wind* _wind;
 		
 	public:
 		cg::Vector3d _size;

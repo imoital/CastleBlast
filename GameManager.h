@@ -24,6 +24,7 @@ namespace CastleBlast {
 	class BirdsManager;
 	class Lights;
 	class Fog;
+	class Wind;
 
 	class GameManager : 
 	public cg::Group, 
@@ -40,6 +41,7 @@ namespace CastleBlast {
 		FontsManager* _fontsManager;
 		ScreenManager* _screenManager;
 		Sky* _sky;
+		Wind* _wind;
 		Lights* _lights;
 		BirdsManager* _birdsManager;
 		Fog* _fog;

@@ -17,7 +17,7 @@
 #include "BirdsManager.h"
 #include "Lights.h"
 #include "Fog.h"
-
+#include "Wind.h"
 
 namespace CastleBlast {
 	
@@ -38,6 +38,7 @@ namespace CastleBlast {
 		_isEndGame = false;
 		_lights = new Lights();
 		_fog = new Fog();
+		_wind = new Wind();
 	}
 	
 	void GameManager::createEntities()
@@ -49,6 +50,7 @@ namespace CastleBlast {
 		addAtBeginning(_birdsManager);
 		addAtBeginning(_lights);
 		addAtBeginning(_fog);
+		addAtBeginning(_wind);
 	}
 	
 	void GameManager::postInit()
@@ -114,6 +116,7 @@ namespace CastleBlast {
 		addAtBeginning(_birdsManager);
 		addAtBeginning(_playerManager);
 		addAtBeginning(_fog);
+		addAtBeginning(_wind);
 		_currentAmbient = ambient;
 		_lights->setLevel(_currentAmbient);
 		_sky->setLevel(_currentAmbient);
