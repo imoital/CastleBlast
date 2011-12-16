@@ -8,6 +8,8 @@
 
 #include "CannonCamera.h"
 #include "Loader.h"
+#include "Wind.h"
+#include "GameManager.h"
 
 namespace CastleBlast {
 	
@@ -33,13 +35,18 @@ namespace CastleBlast {
 		_isRoll = false;
 		_scale = 150.0f;
 		MAX_FORCE = cg::Properties::instance()->getInt("MAX_FORCE");
+		MAX_WIND = cg::Properties::instance()->getInt("MAX_FORCE");
 		/* Initialize camera position */
 		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
+		GameManager* gm = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
+		_wind = (Wind*) gm->get("WIND");
 		
 #ifdef __APPLE__
 		_forceTexture = Loader::loadTexture("Textures/forceBar.png");
+		_windTexture = Loader::loadTexture("Textures/windBar.png");
 #else
 		_forceTexture = Loader::loadTexture("..\\..\\src\\Textures\\forceBar.png");
+		_windTexture = Loader::loadTexture("..\\..\\src\\Textures\\windBar.png");
 #endif
 		
 	}
@@ -163,7 +170,7 @@ namespace CastleBlast {
 		double cannonForce = _cannon->getForce();
 		
 		if(!_cannon->hasStart()) {
-			glBindTexture(GL_TEXTURE_2D, _forceTexture);
+			
 			
 			glDisable(GL_DEPTH_TEST);                       // Disables Depth Testing
 			
@@ -178,6 +185,7 @@ namespace CastleBlast {
 			
 			glDisable(GL_LIGHTING);
 			glColor3d(1, 1, 1);
+			glBindTexture(GL_TEXTURE_2D, _forceTexture);
 			glEnable(GL_TEXTURE_2D);
 			glBegin(GL_QUADS);
 			{
@@ -191,6 +199,81 @@ namespace CastleBlast {
 				glVertex2d(_winWidth-60, 10 + (cannonForce*70)/MAX_FORCE);
 			}
 			glEnd(); 
+			
+			glBindTexture(GL_TEXTURE_2D, _windTexture);
+			cg::Vector3d windForce = _wind->getWind();
+			int cameraDirection = _eye[2] - _center[2];
+			std::cout << "windforce " << windForce[0] << std::endl;
+			std::cout << cameraDirection << std::endl;
+			if (cameraDirection >= 0) {
+				if (windForce[0] >= 0) {
+					glBegin(GL_QUADS);
+					{
+						glTexCoord2d(0, 0);
+						glVertex2d(_winWidth/2.0 + 5, _winHeight - _winHeight/15.0);
+						glTexCoord2d(windForce[0]/MAX_WIND, 0);
+						glVertex2d(_winWidth/2.0 + 5 + (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/15.0);
+						glTexCoord2d(windForce[0]/MAX_WIND, 1);
+						glVertex2d(_winWidth/2.0 + 5 + (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/30.0);
+						glTexCoord2d(0, 1);
+						glVertex2d(_winWidth/2.0 + 5, _winHeight - _winHeight/30.0);
+					}
+					glEnd();
+				} else {
+					glBegin(GL_QUADS);
+					{
+						glTexCoord2d(0, 0);
+						glVertex2d(_winWidth/2.0 - 5, _winHeight - _winHeight/15.0);
+						glTexCoord2d(windForce[0]/MAX_WIND, 0);
+						glVertex2d(_winWidth/2.0 - 5 - (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/15.0);
+						glTexCoord2d(windForce[0]/MAX_WIND, 1);
+						glVertex2d(_winWidth/2.0 - 5 - (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/30.0);
+						glTexCoord2d(0, 1);
+						glVertex2d(_winWidth/2.0 - 5, _winHeight - _winHeight/30.0);
+					}
+					glEnd();
+				}
+			} else {
+				if (windForce[0] <= 0) {
+					glBegin(GL_QUADS);
+					{
+						glTexCoord2d(0, 0);
+						glVertex2d(_winWidth/2.0 + 5, _winHeight - _winHeight/15.0);
+						glTexCoord2d(windForce[0]/MAX_WIND, 0);
+						glVertex2d(_winWidth/2.0 + 5 + (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/15.0);
+						glTexCoord2d(windForce[0]/MAX_WIND, 1);
+						glVertex2d(_winWidth/2.0 + 5 + (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/30.0);
+						glTexCoord2d(0, 1);
+						glVertex2d(_winWidth/2.0 + 5, _winHeight - _winHeight/30.0);
+					}
+					glEnd();
+				} else {
+					glBegin(GL_QUADS);
+					{
+						glTexCoord2d(0, 0);
+						glVertex2d(_winWidth/2.0 - 10, _winHeight - _winHeight/15.0);
+						glTexCoord2d(windForce[0]/MAX_WIND, 0);
+						glVertex2d(_winWidth/2.0 - 10 - (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/15.0);
+						glTexCoord2d(windForce[0]/MAX_WIND, 1);
+						glVertex2d(_winWidth/2.0 - 10 - (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/30.0);
+						glTexCoord2d(0, 1);
+						glVertex2d(_winWidth/2.0 - 10, _winHeight - _winHeight/30.0);
+					}
+					glEnd();
+				}
+			}
+			
+			
+			glColor3d(0, 0, 0);
+			glLineWidth(2);
+			glBegin(GL_LINE_STRIP);
+			{
+				glVertex2d(_winWidth/2.0, _winHeight - _winHeight/30.0);
+				glVertex2d(_winWidth/2.0, _winHeight - _winHeight/15.0);
+			}
+			glEnd();
+			glLineWidth(1.f); //reset
+			
 			glDisable(GL_TEXTURE_2D);
 			glEnable(GL_LIGHTING);
 			glMatrixMode(GL_PROJECTION);                        // Select The Projection Matrix

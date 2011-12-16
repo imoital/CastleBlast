@@ -18,7 +18,8 @@
 
 namespace CastleBlast {
 	
-
+	class Wind;
+	
 	class CannonCamera : public Camera
 	{
 	private:
@@ -34,7 +35,10 @@ namespace CastleBlast {
 		float _scale;
 		Cannon *_cannon;
 		GLuint _forceTexture;
+		GLuint _windTexture;
 		int MAX_FORCE;
+		int MAX_WIND;
+		Wind* _wind;
 
 		
 	public:
