@@ -41,6 +41,7 @@ namespace CastleBlast
 		void onMouse(int button, int state, int x, int y);
 		void onMouseMotion(int x, int y);
 		void onMousePassiveMotion(int x, int y);
+		void drawOverlay();
 	};
 }
 #endif

@@ -11,7 +11,7 @@
 
 namespace CastleBlast {
 	
-	King::King() : cg::Entity("KING"), Collidable(3,6.4,2) 
+	King::King() : cg::Entity("KING"), Collidable(6,20,4) 
 	{
 		_type = "KING";
 		_rotation = 0;
@@ -41,7 +41,10 @@ namespace CastleBlast {
 				drawBoundingBox();
 			glTranslatef(_position[0], _position[1], _position[2]);
 			glRotated(_rotation, 0, 1, 0);
+			glScaled(2, 2, 2);
+			glEnable(GL_NORMALIZE);
 			_model->drawModel(_type);
+			glDisable(GL_NORMALIZE);
 		}
 		glPopMatrix();
 	}

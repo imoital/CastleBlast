@@ -77,4 +77,9 @@ namespace CastleBlast
 	{
 		_cameras[_activeCamera]->onMousePassiveMotion(x, y);
 	}
+	
+	void CameraManager::drawOverlay()
+	{
+		_cameras[_activeCamera]->drawOverlay();
+	}
 }
