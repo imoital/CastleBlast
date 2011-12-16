@@ -58,6 +58,7 @@ namespace CastleBlast {
 		void setWorldCamera(WorldCamera* w);
 		void setRotation(float rotation);
 		void onReshape(int witdth, int height);
+		void setLineColor(double r, double g, double b);
 	};
 }
 

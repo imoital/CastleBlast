@@ -39,6 +39,7 @@ namespace CastleBlast {
 		int MAX_FORCE;
 		int MAX_WIND;
 		Wind* _wind;
+		cg::Vector3d _lineColor;
 
 		
 	public:
@@ -56,6 +57,7 @@ namespace CastleBlast {
 		cg::Vector3d getCpos();
 		cg::Vector3d getUpos();
 		void drawOverlay();
+		void setLineColor(double r, double g, double b);
 
 	};
 }

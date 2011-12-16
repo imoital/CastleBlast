@@ -82,4 +82,15 @@ namespace CastleBlast
 	{
 		_cameras[_activeCamera]->drawOverlay();
 	}
+	
+	void CameraManager::setLineColor(double r, double g, double b)
+	{
+		for (int i = 0; i < _cameras.size(); i++) {
+			CannonCamera* cannonCamera = dynamic_cast<CannonCamera*>(_cameras[i]);
+			if(cannonCamera != 0) {
+				cannonCamera->setLineColor(r, g, b);
+				return;
+			}
+		}
+	}
 }

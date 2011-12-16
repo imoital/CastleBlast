@@ -54,6 +54,7 @@ namespace CastleBlast {
 		bool finishGame();
 		Player* winnerPlayer();
 		void restart();
+		void setLineColor(double r, double g, double b);
 	};
 }
 

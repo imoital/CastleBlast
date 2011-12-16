@@ -197,4 +197,11 @@ namespace CastleBlast {
 		_currentPlayer->setCurrentPlayer();
 		_isRestarting = false;
 	}
+	
+	void PlayerManager::setLineColor(double r, double g, double b)
+	{
+		for(int i = 0; i < _players.size(); i++) {
+			_players[i]->setLineColor(r, g, b);
+		}
+	}
 }

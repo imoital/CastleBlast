@@ -114,9 +114,11 @@ namespace CastleBlast {
 		
 		removeAll();
 		addAtBeginning(_sky);
-		addAtBeginning(_sceneManager);
+		
 		if (ambient == DAY)
 			addAtBeginning(_birdsManager);
+		
+		addAtBeginning(_sceneManager);
 		addAtBeginning(_playerManager);
 		addAtBeginning(_fog);
 		addAtBeginning(_wind);
@@ -128,6 +130,9 @@ namespace CastleBlast {
 		_playerManager->setNumPlayers(2);
 		_sceneManager->restart();
 		_playerManager->restart();
+		if (ambient == DAY)
+			_playerManager->setLineColor(0, 0, 0);
+		else _playerManager->setLineColor(1, 1, 1);
 		_currentPlayer = _playerManager->nextPlayer();
 		_gameMode = true;
 	}

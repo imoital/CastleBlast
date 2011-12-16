@@ -262,7 +262,7 @@ namespace CastleBlast {
 			}
 			
 			
-			glColor3d(0, 0, 0);
+			glColor3d(_lineColor[0], _lineColor[1], _lineColor[2]);
 			glLineWidth(2);
 			glBegin(GL_LINE_STRIP);
 			{
@@ -283,5 +283,10 @@ namespace CastleBlast {
 			glEnable(GL_DEPTH_TEST);
 		}
 		
+	}
+	
+	void CannonCamera::setLineColor(double r, double g, double b)
+	{
+		_lineColor = cg::Vector3d(r, g, b);
 	}
 }

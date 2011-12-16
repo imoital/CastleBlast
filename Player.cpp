@@ -116,5 +116,10 @@ namespace CastleBlast {
 	{
 		_cameraManager->onReshape(witdth, height);
 	}
+	
+	void Player::setLineColor(double r, double g, double b)
+	{
+		_cameraManager->setLineColor(r, g, b);
+	}
 
 }

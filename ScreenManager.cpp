@@ -43,7 +43,7 @@ namespace CastleBlast {
 		if (cg::KeyBuffer::instance()->isKeyDown(GLUT_KEY_RETURN) && !_isReturnPressed) {
 			if (_isStartScreen) {
 				if(_startScreen->isStart())
-					gameManager->startGame(1, 1);
+					gameManager->startGame(1, DAY);
 				if(!_startScreen->isStart()) {
 					_isStartScreen = false;
 					_isReturnPressed =true;
