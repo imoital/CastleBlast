@@ -18,8 +18,6 @@ namespace CastleBlast {
 	
 	void Lights::init() 
 	{
-		std::cout << "lights initing" << std::endl;
-		//glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 45.0f);
 	}
 
 	void Lights::setLevel(int level)

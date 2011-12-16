@@ -101,9 +101,6 @@ namespace CastleBlast {
 	void Projectile::update(cg::Vector3d position, cg::Vector3d velocity, double force, unsigned long elapsed_millis) 
 	{
 		_force = force;
-		//_wind->setWind();
-		//std::cout << _wind->getWind() << std::endl;
-		//std::cout << _windForce << std::endl;
 		if (!_start){
 			_position = position;
 			_position[1] = _position[1]+3;
@@ -122,7 +119,6 @@ namespace CastleBlast {
 			_position[0] += _velocity[0]*time + _windForce[0]*time*time/2;
 			_position[2] += _velocity[2]*time; //+ _windForce[2]*time*time/2;
 			if (notify(_position)) {
-				std::cout << _windForce << std::endl;
 				_start = false;
 				_gameManager->changePlayer();
 				_windForce = _wind->setWind();

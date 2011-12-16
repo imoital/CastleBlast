@@ -20,7 +20,6 @@ namespace CastleBlast {
 		_red=0;
 		_green=0;
 		_blue=0;
-		std::cout << "sky initing" << std::endl;
 	}
 	
 	void Sky::draw()

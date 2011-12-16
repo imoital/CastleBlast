@@ -33,7 +33,6 @@ namespace CastleBlast {
 	void Controller::onSpecialKeyReleased(int key)
 	{
 		if (key == GLUT_KEY_F2) {
-			std::cout << "active debug" << std::endl;
 			DebugManager *debugManager = (DebugManager*) cg::Registry::instance()->get("DEBUG_MANAGER");
 			if (debugManager) {
 				debugManager->debugToggle();

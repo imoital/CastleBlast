@@ -302,17 +302,7 @@ namespace CastleBlast {
 			
 		}
 		std::map<std::string, Material*>::iterator it;
-		
-		for (it = m_pMaterial.begin() ; it != m_pMaterial.end(); it++) {
-			std::cout << "Material " << it->first << ":" << std::endl;
-			std::cout << "    Ambient: " << it->second->m_ambient[0] << " " << it->second->m_ambient[1] << " " << it->second->m_ambient[2] << std::endl;
-			std::cout << "    Diffuse: " << it->second->m_diffuse[0] << " " << it->second->m_diffuse[1] << " " << it->second->m_diffuse[2] << " " << std::endl;
-			std::cout << "    Specular: " << it->second->m_specular[0] << " " << it->second->m_specular[1] << " " << it->second->m_specular[2] << " " << std::endl;
-			std::cout << "    Shininess: " << it->second->m_shininess << std::endl;
-			if (it->second->m_asTexture) {
-				std::cout << "    Texture: " << it->second->m_pTextureFilename << std::endl;
-			}
-		}
+	
 		return true;
 	}
 	

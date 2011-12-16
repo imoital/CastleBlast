@@ -111,7 +111,6 @@ namespace CastleBlast {
 		if(cg::KeyBuffer::instance()->isKeyDown(' ')) {
 			_force = _force + 2;
 			_fire = true;
-			std::cout << _force << " / " << MAX_FORCE << std::endl;
 			if (_force >= MAX_FORCE)
 				_projectile->start();
 		}
@@ -169,7 +168,6 @@ namespace CastleBlast {
 		if (_isCannonCamera) {
 			_anglex = (_lastMousePosition[0] - x)/ (double)5;
 			_angley = (_lastMousePosition[1] - y)/ (double)5;
-			std::cout << _angley << std::endl;
 			
 			_q.setRotationDeg(_angley, _right);
 			_up = apply(_q,_up);

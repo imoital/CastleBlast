@@ -15,7 +15,6 @@ namespace CastleBlast
 	{
 		MAX_FORCE = cg::Properties::instance()->getInt("MAX_FORCE");
 		_force = setWind();
-		std::cout << _force << std::endl;
 	}
 
 	cg::Vector3d Wind::getWind()

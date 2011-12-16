@@ -53,7 +53,6 @@ namespace CastleBlast {
 	{
 		if(cg::KeyBuffer::instance()->isKeyDown('k')) {
 			_isAlive = false;
-			std::cout << "king is dead" << std::endl;
 		}
 	}
 	
@@ -80,7 +79,6 @@ namespace CastleBlast {
 		    otherObjBoundaries.y_min >= _boundes.y_min && otherObjBoundaries.y_max <= _boundes.y_max &&
 		    otherObjBoundaries.z_min >= _boundes.z_min && otherObjBoundaries.z_max <= _boundes.z_max){
 			_isAlive = false;
-			std::cout << "the king is dead" << std::endl;
 			return true;
 		}
 		return false;

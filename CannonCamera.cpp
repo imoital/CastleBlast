@@ -203,8 +203,6 @@ namespace CastleBlast {
 			glBindTexture(GL_TEXTURE_2D, _windTexture);
 			cg::Vector3d windForce = _wind->getWind();
 			int cameraDirection = _eye[2] - _center[2];
-			std::cout << "windforce " << windForce[0] << std::endl;
-			std::cout << cameraDirection << std::endl;
 			if (cameraDirection >= 0) {
 				if (windForce[0] >= 0) {
 					glBegin(GL_QUADS);
