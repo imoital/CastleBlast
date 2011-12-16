@@ -29,7 +29,7 @@ namespace CastleBlast {
 		ModelManager* _model;
 		std::string _bodyName;
 		std::string _wingsName;
-		cg::Vector3d _position;
+		cg::Vector3d _position, _novaPos, _first;
 		float _wingRot;
 		float _bodyRot;
 		double _lastAngle;

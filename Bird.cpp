@@ -23,10 +23,11 @@ namespace CastleBlast {
 	void Bird::init() 
 	{
 		_position = cg::Vector3d(rand()%4,42+rand()%7,rand()%4);
+		_position = _position;
 		_toBeDeleted = false;
 		_lastAngle = (rand()%360)*180/PI;
 		_wingRot = rand()%20;
-		_bodyRot = (tan(_lastAngle)*PI)/180.0;
+		_bodyRot = 0;
 		int up = rand()%2;
 		_debug = false;
 		
@@ -90,16 +91,73 @@ namespace CastleBlast {
 	
 	void Bird::update(unsigned long elapsed_millis) 
 	{
-		_position[0] = 100*cos(3*_lastAngle);
-		_position[2] = 100*sin(4*_lastAngle);
 		
-		_bodyRot = -(atan(-3*cos(3*_lastAngle)/(4*sin(4*_lastAngle)))*180)/PI;
+		_novaPos[0] = 100*cos(3*_lastAngle);
+
+		_novaPos[2] = 100*sin(4*_lastAngle);
+
+	/*	if( _novaPos[0] < _position[0] && _novaPos[2] > _position[2]){
+			_bodyRot = atan( ( _position[0] - _novaPos[0]) /(_novaPos[2] - _position[2]));
+			_bodyRot = _bodyRot * 57.692;
+			printf("1\n");
+		} else {
+			if( _novaPos[0] < _position[0] && _novaPos[2] < _position[2]){
+				_bodyRot = atan( (_position[2] - _novaPos[2]) /( _position[0] - _novaPos[0]));
+				_bodyRot = _bodyRot * 57.692 + 90;
+				printf("2\n");
+			} else {
+				if( _novaPos[0] > _position[0] && _novaPos[2] < _position[2]){
+					_bodyRot = -(atan( (_novaPos[0] - _position[0]) /( _novaPos[2] - _position[2])));
+					_bodyRot =  _bodyRot * 57.692 + 180;
+					printf("3\n");
+				} else {
+					if( _novaPos[0] > _position[0] && _novaPos[2] > _position[2]){
+						_bodyRot = (atan( (_novaPos[2] - _position[2]) /( _novaPos[0] - _position[0])));
+						_bodyRot =  _bodyRot * 57.692 + 270;
+						printf("4\n");
+					}
+				}
+			} 
+		} */
+
+		if(_novaPos[0] > _position[0] && _novaPos[2] > _position[2]){
+			_bodyRot = atan((_novaPos[0] - _position[0]) / ( _novaPos[2] - _position[2]));
+			_bodyRot = _bodyRot * 57.692;
+		} else {
+			if(_novaPos[0] > _position[0] && _novaPos[2] < _position[2]){
+				_bodyRot = atan((_position[2] - _novaPos[2]) / ( _novaPos[0] - _position[0]));
+				_bodyRot = _bodyRot * 57.692 + 90;
+			} else {
+				if(_novaPos[0] < _position[0] && _novaPos[2] < _position[2]){
+					_bodyRot = atan((_position[0] - _novaPos[0]) / ( _position[2] - _novaPos[2]));
+					_bodyRot = _bodyRot * 57.692 + 180;
+				} else {
+					if(_novaPos[0] < _position[0] && _novaPos[2] > _position[2]){
+						_bodyRot = atan((_novaPos[2] - _position[2]) / ( _position[0] - _novaPos[0]));
+						_bodyRot = _bodyRot * 57.692 + 270;
+					}
+				}
+			}
+		}
+	
+		//printf("pos: %d %d\n",_position[0], _position[2]);
+		//printf("new: %d %d\n",_novaPos[0], _novaPos[2]);
+		printf("%f\n", _bodyRot);
+
+
+
+	    _position[0] = _novaPos[0];
+		_position[2] = _novaPos[2];
+
+
+
+
+		//_bodyRot = -(atan(-3*cos(3*_lastAngle)/(4*sin(4*_lastAngle)))*180)/PI;
 		
 		_lastAngle = _lastAngle+0.001;
 		//_bodyRot = _bodyRot-0.25;
 		
-		if(_bodyRot >= 360)
-			_bodyRot = 0;
+		
 		
 		if (_wingRot > 30)
 			_wingsDown = true;
