@@ -55,7 +55,6 @@ namespace CastleBlast {
 	
 	void GameManager::postInit()
 	{
-		_currentPlayer = _playerManager->nextPlayer();
 		removeAll();
 		addAtBeginning(_screenManager);
 
@@ -93,7 +92,6 @@ namespace CastleBlast {
 			if (cg::KeyBuffer::instance()->isKeyDown(GLUT_KEY_RETURN) && _isEndGame) {
 				endGame();
 			}
-
 		}
 	}
 
@@ -112,7 +110,6 @@ namespace CastleBlast {
 	
 	void GameManager::startGame(int numPlayers, int ambient) 
 	{
-		_gameMode = true;
 		_isEndGame = false;
 		
 		removeAll();
@@ -129,6 +126,8 @@ namespace CastleBlast {
 		_playerManager->setNumPlayers(numPlayers);
 		_sceneManager->restart();
 		_playerManager->restart();
+		_currentPlayer = _playerManager->nextPlayer();
+		_gameMode = true;
 	}
 	
 	void GameManager::endGame()

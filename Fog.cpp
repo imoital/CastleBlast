@@ -14,22 +14,16 @@ namespace CastleBlast {
 	
 	Fog::~Fog() {}
 	
-	void Fog::init()
-	{
-		_density = 1;
-
-		_fogColor[0] = 0.53;
-		_fogColor[1] = 0.81;
-		_fogColor[2] = 0.98;
-		_fogColor[3] = 1.0;
-		_start = 200.f;
-		_end = 500.f;
-	}
+	void Fog::init() {}
 
 	void Fog::setLevel(int level)
 	{
 		switch(level) {
 		case 1:
+			_fogColor[0] = 0.53;
+			_fogColor[1] = 0.81;
+			_fogColor[2] = 0.98;
+			_fogColor[3] = 1.0;
 			_start = 100.f;
 			_end = 500.f;
 			_density = 0.1;

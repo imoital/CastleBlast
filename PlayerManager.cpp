@@ -39,48 +39,12 @@ namespace CastleBlast {
 	}
 	
 	void PlayerManager::createEntities()
-	{
-		WorldCamera * _worldCamera = new WorldCamera();
-		for (int i = 0; i < _numPlayers; i++) {
-			std::ostringstream player;
-			player << "PLAYER" << i;
-			Player* p = new Player(player.str(), i+1, _worldCamera, _gameManager);
-			_players.push_back(p);
-			addAtBeginning(p);
-		}
-	}
+	{}
 	
 	void PlayerManager::postInit()
 	{
-		int relativePos=20; //this test is a stupid hack to make cannons face each other. We most program quickly as evaluation is comming!!!
-		int rot= 180;
-		int distanceCenterX = cg::Properties::instance()->getInt("PLAYERS_DISTANCE_CENTER_X");
-		int distanceCenterY = cg::Properties::instance()->getInt("PLAYERS_DISTANCE_CENTER_Y");
-		cg::Vector2d distanceCenter = cg::Vector2d (distanceCenterX, distanceCenterY); //player distance from center
 		GameManager* gameManager = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
-		SceneManager* sceneManager = (SceneManager*)gameManager->get("SCENE_MANAGER");
 		_fontsManager = (FontsManager*)gameManager->get("FONTS_MANAGER");
-		int worldsize = sceneManager->getWorldSize();
-		int center = worldsize/2;
-		std::vector<cg::Vector2d> playerPos;
-		
-		for (int i = 0; i < size(); i++) {
-			playerPos.push_back(cg::Vector2d(center + (int)distanceCenter[0]*sin(_distancePlayers*i), 
-							 center + (int)distanceCenter[1]*cos(_distancePlayers*i)));
-			sceneManager->placeCastle(playerPos[i][0], playerPos[i][1]);
-		}
-		
-		for (int i = 0; i < size(); i++) {
-			_players[i]->setRotation(_distancePlayers*i);
-			cg::Vector3d kingPos = sceneManager->getWorldPosition(playerPos[i][0]+14, playerPos[i][1]+15);
-			cg::Vector3d cannonPos = sceneManager->getWorldPosition(playerPos[i][0]+4, playerPos[i][1]+24);
-			_players[i]->positionKing(kingPos);
-			_players[i]->positionCannon(cannonPos);
-			relativePos -=20;
-			rot -= 180;
-		}
-		_currentPlayer = _players[0];
-		_currentPlayer->setCurrentPlayer();
 	}
 	
 	Player* PlayerManager::nextPlayer()
@@ -186,14 +150,17 @@ namespace CastleBlast {
 	void PlayerManager::restart()
 	{
 		_isRestarting = true;
-		_currentPlayer->unsetCurrentPlayer();
+		if (_currentPlayer != NULL)
+			_currentPlayer->unsetCurrentPlayer();
 		_distancePlayers = 2*3.14 / (double)_numPlayers;
 		_changePlayerPressed = false;
 		_isGameOver = false;
 		anim = 0;
 		auxAnim = false;
+		
 		removeAll();
 		_players.clear();
+		
 		WorldCamera * _worldCamera = new WorldCamera();
 		for (int i = 0; i < _numPlayers; i++) {
 			std::ostringstream player;
