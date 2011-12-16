@@ -21,17 +21,23 @@ namespace CastleBlast {
 		GLuint _settingsScreen_day;
 		GLuint _settingsScreen_backDay;
 		GLuint _settingsScreen_startDay;
-		GLuint _settingsScreen_playersDay;
+		GLuint _settingsScreen_selectMapDay;
 		GLuint _settingsScreen_night;
 		GLuint _settingsScreen_backNight;
 		GLuint _settingsScreen_startNight;
-		GLuint _settingsScreen_playersNight;
+		GLuint _settingsScreen_selectMapNight;
+		GLuint _settingsScreen_select1;
+		GLuint _settingsScreen_select1Back;
+		GLuint _settingsScreen_select2;
+		GLuint _settingsScreen_select2Back;
+		GLuint _settingsScreen_select3;
+		GLuint _settingsScreen_select3Back;
 		
 		FontsManager* _fontsManager;
-		int _numPlayers;
 		int _width;
 		int _height;
-		bool _players, _ambient, _start, _back, _day, _downPressed, _upPressed, _rightPressed, _leftPressed;
+		bool _selectMap, _enterSelectMap, _ambient, _start, _back, _day, _downPressed, _upPressed, _rightPressed, _leftPressed, _mapBack;
+		int _mapNum;
 		
 	public:
 		SettingsScreen();
@@ -40,11 +46,15 @@ namespace CastleBlast {
 		void init();
 		void draw();
 		void update(unsigned long elapsed_millis);
-		int getNumPlayers();
+		int getNumMap();
 		void onReshape(int witdth, int height);
 		bool isDay();
 		bool isStart();
 		bool isBack();
+		bool isSelectMap();
+		bool isMapBack();
+		void gotoSelectMap();
+		void gotoSettings();
 	};
 }
 

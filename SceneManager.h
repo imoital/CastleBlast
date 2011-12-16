@@ -38,6 +38,7 @@ namespace CastleBlast {
 		void placeCastle (int posX, int posY);
 		int getWorldSize();
 		void restart();
+		void setTerrain(int num);
 		
 	protected:
 		
@@ -49,6 +50,8 @@ namespace CastleBlast {
 			int startDepth;
 			int endDepth;
 		};
+		
+		int _terrainNum;
 		
 		std::vector<std::vector<quads*> > _quads; // quads to be drawn for each type of block
 		quads* makeQuad (int startLine, int startColumn, int endLine, int endColumn, int depth);
@@ -81,7 +84,7 @@ namespace CastleBlast {
 		
 		bool isCollision(CastleBlast::Collidable *obj);
 		void collision(std::vector<cg::Vector3d>);
-		void destroyCircle(cg::Vector3d center, int radios);		
+		void destroyCircle(cg::Vector3d center, int radios);
 	};
 }
 

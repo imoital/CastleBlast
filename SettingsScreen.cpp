@@ -18,34 +18,48 @@ namespace CastleBlast {
 		_settingsScreen_day = Loader::loadTexture("Images/SettingsScreen_Day.png");
 		_settingsScreen_backDay = Loader::loadTexture("Images/SettingsScreen_BackDay.png");
 		_settingsScreen_startDay = Loader::loadTexture("Images/SettingsScreen_StartDay.png");
-		_settingsScreen_playersDay = Loader::loadTexture("Images/SettingsScreen_playersDay.png");
+		_settingsScreen_selectMapDay = Loader::loadTexture("Images/SettingsScreen_MapDay.png");
 		_settingsScreen_night = Loader::loadTexture("Images/SettingsScreen_Night.png");
 		_settingsScreen_backNight = Loader::loadTexture("Images/SettingsScreen_BackNight.png");
 		_settingsScreen_startNight = Loader::loadTexture("Images/SettingsScreen_StartNight.png");
-		_settingsScreen_playersNight = Loader::loadTexture("Images/SettingsScreen_playersNight.png");
+		_settingsScreen_selectMapNight = Loader::loadTexture("Images/SettingsScreen_MapNight.png");
+		_settingsScreen_select1 = Loader::loadTexture("Images/SettingsScreen_SelectMap1.png");
+		_settingsScreen_select1Back = Loader::loadTexture("Images/SettingsScreen_SelectMap1Back.png");
+		_settingsScreen_select2 = Loader::loadTexture("Images/SettingsScreen_SelectMap2.png");
+		_settingsScreen_select2Back = Loader::loadTexture("Images/SettingsScreen_SelectMap2Back.png");
+		_settingsScreen_select3 = Loader::loadTexture("Images/SettingsScreen_SelectMap3.png");
+		_settingsScreen_select3Back = Loader::loadTexture("Images/SettingsScreen_SelectMap3Back.png");
 		
 #else
 		_settingsScreen_day = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_Day.png");
 		_settingsScreen_backDay = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_BackDay.png");
 		_settingsScreen_startDay = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_StartDay.png");
-		_settingsScreen_playersDay = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_playersDay.png");
+		_settingsScreen_selectMapDay = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_MapDay.png");
 		_settingsScreen_night = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_Night.png");
 		_settingsScreen_backNight = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_BackNight.png");
 		_settingsScreen_startNight = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_StartNight.png");
-		_settingsScreen_playersNight = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_playersNight.png");
+		_settingsScreen_selectMapNight = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_MapNight.png");
+		_settingsScreen_select1 = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_SelectMap1.png");
+		_settingsScreen_select1Back = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_SelectMap1Back.png");
+		_settingsScreen_select2 = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_SelectMap2.png");
+		_settingsScreen_select2Back = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_SelectMap2Back.png");
+		_settingsScreen_select3 = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_SelectMap3.png");
+		_settingsScreen_select3Back = Loader::loadTexture("..\\..\\src\\Images\\SettingsScreen_SelectMap3Back.png");
 #endif
 		
 		_fontsManager = (FontsManager*)cg::Registry::instance()->get("FONTS_MANAGER");
-		_numPlayers = 2;
+		_mapNum = 1;
 		_start = false;
 		_back = false;
 		_day = true;
 		_ambient = false;
-		_players = true;
+		_selectMap = true;
 		_upPressed = false;
 		_downPressed = false;
 		_leftPressed = false;
 		_rightPressed = false;
+		_mapBack = false;
+		_enterSelectMap = false;
 	}
 	
 	SettingsScreen::~SettingsScreen() {}
@@ -60,24 +74,57 @@ namespace CastleBlast {
 	void SettingsScreen::draw() 
 	{
 		
-		if (_day) {
-			if (_players)
-				glBindTexture(GL_TEXTURE_2D, _settingsScreen_playersDay);
-			else if (_back)
-				glBindTexture(GL_TEXTURE_2D, _settingsScreen_backDay);
-			else if (_start)
-				glBindTexture(GL_TEXTURE_2D, _settingsScreen_startDay);
-			else if (_ambient)
-				glBindTexture(GL_TEXTURE_2D, _settingsScreen_day);
-		} else {
-			if (_players)
-				glBindTexture(GL_TEXTURE_2D, _settingsScreen_playersNight);
-			else if (_back)
-				glBindTexture(GL_TEXTURE_2D, _settingsScreen_backNight);
-			else if (_start)
-				glBindTexture(GL_TEXTURE_2D, _settingsScreen_startNight);
-			else if (_ambient)
-				glBindTexture(GL_TEXTURE_2D, _settingsScreen_night);
+		if(_enterSelectMap) {
+			if (_mapBack) {
+				switch (_mapNum) {
+					case 1:
+						glBindTexture(GL_TEXTURE_2D, _settingsScreen_select1Back);
+						break;
+					case 2:
+						glBindTexture(GL_TEXTURE_2D, _settingsScreen_select2Back);
+						break;
+					case 3:
+						glBindTexture(GL_TEXTURE_2D, _settingsScreen_select3Back);
+						break;
+					default:
+						break;
+				}
+			} else {
+				switch (_mapNum) {
+					case 1:
+						glBindTexture(GL_TEXTURE_2D, _settingsScreen_select1);
+						break;
+					case 2:
+						glBindTexture(GL_TEXTURE_2D, _settingsScreen_select2);
+						break;
+					case 3: 
+						glBindTexture(GL_TEXTURE_2D, _settingsScreen_select3);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		else {
+			if (_day) {
+				if (_selectMap)
+					glBindTexture(GL_TEXTURE_2D, _settingsScreen_selectMapDay);
+				else if (_back)
+					glBindTexture(GL_TEXTURE_2D, _settingsScreen_backDay);
+				else if (_start)
+					glBindTexture(GL_TEXTURE_2D, _settingsScreen_startDay);
+				else if (_ambient)
+					glBindTexture(GL_TEXTURE_2D, _settingsScreen_day);
+			} else {
+				if (_selectMap)
+					glBindTexture(GL_TEXTURE_2D, _settingsScreen_selectMapNight);
+				else if (_back)
+					glBindTexture(GL_TEXTURE_2D, _settingsScreen_backNight);
+				else if (_start)
+					glBindTexture(GL_TEXTURE_2D, _settingsScreen_startNight);
+				else if (_ambient)
+					glBindTexture(GL_TEXTURE_2D, _settingsScreen_night);
+			}
 		}
 		
 		glDisable(GL_DEPTH_TEST);                       // Disables Depth Testing
@@ -115,39 +162,15 @@ namespace CastleBlast {
 		glPopMatrix();                              // Restore The Old Projection Matrix
 		
 		glEnable(GL_DEPTH_TEST);
-		
-		
-		std::stringstream numPlayers;
-		numPlayers << _numPlayers;
-		
-		_fontsManager->printFont(_width/2.0, _height/2.0 + _height/12.0, 2.7, 0, 1, numPlayers.str());
 	}
 	
 	void SettingsScreen::update(unsigned long elapsed_millis) 
 	{
-		if (_players) {
-			if (cg::KeyBuffer::instance()->isKeyDown('1'))
-				_numPlayers = 1;
-			if (cg::KeyBuffer::instance()->isKeyDown('2'))
-				_numPlayers = 2;
-			if (cg::KeyBuffer::instance()->isKeyDown('3'))
-				_numPlayers = 3;
-			if (cg::KeyBuffer::instance()->isKeyDown('4'))
-				_numPlayers = 4;
-			if (cg::KeyBuffer::instance()->isKeyDown('5'))
-				_numPlayers = 5;
-			if (cg::KeyBuffer::instance()->isKeyDown('6'))
-				_numPlayers = 6;
-			if (cg::KeyBuffer::instance()->isKeyDown('7'))
-				_numPlayers = 7;
-			if (cg::KeyBuffer::instance()->isKeyDown('8'))
-				_numPlayers = 8;
-			if (cg::KeyBuffer::instance()->isKeyDown('9'))
-				_numPlayers = 9;
-		}
 		if (cg::KeyBuffer::instance()->isSpecialKeyDown(GLUT_KEY_DOWN) && !_downPressed) {
-			if(_players){
-				_players = false;
+			if(_enterSelectMap)
+				_mapBack = true;
+			else if(_selectMap){
+				_selectMap = false;
 				_ambient = true;
 			} else if (_ambient) {
 				_ambient = false;
@@ -159,8 +182,10 @@ namespace CastleBlast {
 			_downPressed = false;
 		
 		if (cg::KeyBuffer::instance()->isSpecialKeyDown(GLUT_KEY_UP) && !_upPressed) {
-			if(_ambient){
-				_players = true;
+			if(_enterSelectMap)
+				_mapBack = false;
+			else if(_ambient){
+				_selectMap = true;
 				_ambient = false;
 			} else if (_back || _start) {
 				_ambient = true;
@@ -173,7 +198,9 @@ namespace CastleBlast {
 			_upPressed = false;
 		
 		if (cg::KeyBuffer::instance()->isSpecialKeyDown(GLUT_KEY_RIGHT) && !_rightPressed) {
-			if (_ambient && _day)
+			if (_enterSelectMap && !_mapBack && _mapNum < 3)
+				_mapNum++;
+			else if (_ambient && _day)
 				_day = false;
 			else if (_back) {
 				_back = false;
@@ -186,7 +213,9 @@ namespace CastleBlast {
 			_rightPressed = false;
 		
 		if (cg::KeyBuffer::instance()->isSpecialKeyDown(GLUT_KEY_LEFT) && !_leftPressed) {
-			if (_ambient && !_day)
+			if (_enterSelectMap && !_mapBack && _mapNum > 1)
+				_mapNum--;
+			else if (_ambient && !_day)
 				_day = true;
 			else if (_start) {
 				_back = true;
@@ -199,15 +228,15 @@ namespace CastleBlast {
 			_leftPressed = false;
 	}
 	
-	int SettingsScreen::getNumPlayers()
-	{
-		return _numPlayers;
-	}
-	
 	void SettingsScreen::onReshape(int width, int height)
 	{
 		_width = width;
 		_height = height;
+	}
+	
+	int SettingsScreen::getNumMap()
+	{
+		return _mapNum;
 	}
 	
 	bool SettingsScreen::isDay()
@@ -225,4 +254,26 @@ namespace CastleBlast {
 		return _back;
 	}
 	
+	bool SettingsScreen::isSelectMap()
+	{
+		return _selectMap;
+	}
+	
+	bool SettingsScreen::isMapBack()
+	{
+		return _mapBack;
+	}
+	
+	void SettingsScreen::gotoSettings()
+	{
+		_mapBack = false;
+		_enterSelectMap = false;
+		_selectMap = true;
+	}
+	
+	void SettingsScreen::gotoSelectMap()
+	{
+		_selectMap = false;
+		_enterSelectMap = true;
+	}
 }

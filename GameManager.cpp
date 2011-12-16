@@ -108,7 +108,7 @@ namespace CastleBlast {
 	{
 	}
 	
-	void GameManager::startGame(int numPlayers, int ambient) 
+	void GameManager::startGame(int mapNumber, int ambient) 
 	{
 		_isEndGame = false;
 		
@@ -120,10 +120,11 @@ namespace CastleBlast {
 		addAtBeginning(_fog);
 		addAtBeginning(_wind);
 		_currentAmbient = ambient;
+		_sceneManager->setTerrain(mapNumber);
 		_lights->setLevel(_currentAmbient);
 		_sky->setLevel(_currentAmbient);
 		_fog->setLevel(_currentAmbient);
-		_playerManager->setNumPlayers(numPlayers);
+		_playerManager->setNumPlayers(2);
 		_sceneManager->restart();
 		_playerManager->restart();
 		_currentPlayer = _playerManager->nextPlayer();
@@ -136,6 +137,7 @@ namespace CastleBlast {
 		_isEndGame = false;
 		_playerManager->setNumPlayers(2);
 		removeAll();
+		_screenManager->restart();
 		addAtBeginning(_screenManager);
 	}
 	

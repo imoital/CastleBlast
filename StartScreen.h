@@ -29,6 +29,7 @@ namespace CastleBlast {
 		void update(unsigned long elapsed_millis);
 		void onReshape(int witdth, int height);
 		bool isStart();
+		void restart();
 	};
 }
 

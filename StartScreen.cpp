@@ -95,4 +95,8 @@ namespace CastleBlast {
 		return _start;
 	}
 	
+	void StartScreen::restart()
+	{
+		_start = true;
+	}
 }

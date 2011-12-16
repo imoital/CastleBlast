@@ -17,14 +17,39 @@ namespace CastleBlast {
 		std::vector<std::vector<int> > tmp(_worldSize, std::vector<int>(_worldSize, 0));
 		std::vector<std::vector<std::vector<int> > > matrix(_worldHeight, tmp);
 		
+		int terrainHeight;
+		std::vector<std::vector<int> > terrain;
 		//Loads the terrain
+		switch (_terrainNum) {
+			case 1:
+				terrainHeight = 6;
 #ifdef __APPLE__
-		std::vector<std::vector<int> > terrain = Loader::createHeightMap("HeightMaps/terrain.png", 6);
+				terrain = Loader::createHeightMap("HeightMaps/terrain.png", terrainHeight);
 #else
-		std::vector<std::vector<int> > terrain = Loader::createHeightMap("..\\..\\src\\HeightMaps\\terrain.png", 6);
+				terrain = Loader::createHeightMap("..\\..\\src\\HeightMaps\\terrain.png", terrainHeight);
 #endif
+				break;
+			case 2:
+				terrainHeight = 17;
+#ifdef __APPLE__
+				terrain = Loader::createHeightMap("HeightMaps/terrain2.png", terrainHeight);
+#else
+				terrain = Loader::createHeightMap("..\\..\\src\\HeightMaps\\terrain2.png", terrainHeight);
+#endif
+				break;
+			case 3:
+				terrainHeight = 17;
+#ifdef __APPLE__
+				terrain = Loader::createHeightMap("HeightMaps/terrain3.png", terrainHeight);
+#else
+				terrain = Loader::createHeightMap("..\\..\\src\\HeightMaps\\terrain3.png", terrainHeight);
+#endif
+				break;	
+			default:
+				break;
+		}
 		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < terrainHeight-1; i++) {
 			for (int j = 0; j < _worldSize; j++) {
 				for (int k = 0; k < _worldSize; k++) {
 					if (terrain[j][k] > 0){
@@ -87,6 +112,7 @@ namespace CastleBlast {
 	
 	SceneManager::SceneManager() : cg::Entity("SCENE_MANAGER"), Collidable(0,0,0)
 	{
+		_terrainNum = 1;
 		_worldSize = cg::Properties::instance()->getInt("WORLD_SIZE");
 		_worldHeight = cg::Properties::instance()->getInt("WORLD_HEIGHT");
 		_blockSize = cg::Properties::instance()->getInt("BLOCK_SIZE");
@@ -457,5 +483,9 @@ namespace CastleBlast {
 		//_world = createWorld();
 		initWorldMatrix();
 		updateQuads();
+	}
+	
+	void SceneManager::setTerrain(int num) {
+		_terrainNum = num;
 	}
 }

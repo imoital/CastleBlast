@@ -39,6 +39,7 @@ namespace CastleBlast {
 		void draw();
 		void onMouse(int button, int state, int x, int y);
 		void onReshape(int width, int height);
+		void restart();
 	}; 
 }
 

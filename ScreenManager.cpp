@@ -43,17 +43,21 @@ namespace CastleBlast {
 		if (cg::KeyBuffer::instance()->isKeyDown(GLUT_KEY_RETURN) && !_isReturnPressed) {
 			if (_isStartScreen) {
 				if(_startScreen->isStart())
-					gameManager->startGame(2, 1);
+					gameManager->startGame(1, 1);
 				if(!_startScreen->isStart()) {
 					_isStartScreen = false;
 					_isReturnPressed =true;
 				}
 			} else {
-				if(_settingScreen->isStart()) {
+				if(_settingScreen->isSelectMap())
+					_settingScreen->gotoSelectMap();
+				else if (_settingScreen->isMapBack())
+					_settingScreen->gotoSettings();
+				else if(_settingScreen->isStart()) {
 					if (_settingScreen->isDay())
-						gameManager->startGame(_settingScreen->getNumPlayers(), DAY);
+						gameManager->startGame(_settingScreen->getNumMap(), DAY);
 					else
-						gameManager->startGame(_settingScreen->getNumPlayers(), NIGHT);
+						gameManager->startGame(_settingScreen->getNumMap(), NIGHT);
 				} else if (_settingScreen->isBack()) {
 					_isStartScreen = true;
 				}
@@ -73,5 +77,11 @@ namespace CastleBlast {
 	{
 		_startScreen->onReshape(width, height);
 		_settingScreen->onReshape(width, height);
+	}
+	
+	void ScreenManager::restart()
+	{
+		_isStartScreen = true;
+		_startScreen->restart();
 	}
 }
