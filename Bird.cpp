@@ -139,17 +139,9 @@ namespace CastleBlast {
 				}
 			}
 		}
-	
-		//printf("pos: %d %d\n",_position[0], _position[2]);
-		//printf("new: %d %d\n",_novaPos[0], _novaPos[2]);
-		printf("%f\n", _bodyRot);
 
-
-
-	    _position[0] = _novaPos[0];
+		_position[0] = _novaPos[0];
 		_position[2] = _novaPos[2];
-
-
 
 
 		//_bodyRot = -(atan(-3*cos(3*_lastAngle)/(4*sin(4*_lastAngle)))*180)/PI;

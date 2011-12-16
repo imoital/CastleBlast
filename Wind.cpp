@@ -13,7 +13,7 @@ namespace CastleBlast
 
 	void Wind::init()
 	{
-		MAX_FORCE = cg::Properties::instance()->getInt("MAX_FORCE");
+		MAX_FORCE = cg::Properties::instance()->getInt("MAX_WIND");
 		_force = setWind();
 	}
 

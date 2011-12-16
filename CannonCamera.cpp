@@ -35,7 +35,7 @@ namespace CastleBlast {
 		_isRoll = false;
 		_scale = 150.0f;
 		MAX_FORCE = cg::Properties::instance()->getInt("MAX_FORCE");
-		MAX_WIND = cg::Properties::instance()->getInt("MAX_FORCE");
+		MAX_WIND = cg::Properties::instance()->getInt("MAX_WIND");
 		/* Initialize camera position */
 		_cameraSpeed = cg::Properties::instance()->getInt("CAMERA_SPEED");
 		GameManager* gm = (GameManager*)cg::Registry::instance()->get("GAME_MANAGER");
@@ -249,13 +249,13 @@ namespace CastleBlast {
 					glBegin(GL_QUADS);
 					{
 						glTexCoord2d(0, 0);
-						glVertex2d(_winWidth/2.0 - 10, _winHeight - _winHeight/15.0);
+						glVertex2d(_winWidth/2.0 - 5, _winHeight - _winHeight/15.0);
 						glTexCoord2d(windForce[0]/MAX_WIND, 0);
-						glVertex2d(_winWidth/2.0 - 10 - (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/15.0);
+						glVertex2d(_winWidth/2.0 - 5 - (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/15.0);
 						glTexCoord2d(windForce[0]/MAX_WIND, 1);
-						glVertex2d(_winWidth/2.0 - 10 - (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/30.0);
+						glVertex2d(_winWidth/2.0 - 5 - (abs(windForce[0])*300)/MAX_WIND, _winHeight - _winHeight/30.0);
 						glTexCoord2d(0, 1);
-						glVertex2d(_winWidth/2.0 - 10, _winHeight - _winHeight/30.0);
+						glVertex2d(_winWidth/2.0 - 5, _winHeight - _winHeight/30.0);
 					}
 					glEnd();
 				}

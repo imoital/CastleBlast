@@ -110,7 +110,7 @@ namespace CastleBlast {
 			
 		}
 		else {
-			
+			_windForce = _wind->getWind();
 			double time = (elapsed_millis / 500.0);	
 			_velocity[1] += -G*time;
 			_velocity[0] += _windForce[0]*time;
