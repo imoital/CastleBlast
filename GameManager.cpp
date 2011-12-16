@@ -115,7 +115,8 @@ namespace CastleBlast {
 		removeAll();
 		addAtBeginning(_sky);
 		addAtBeginning(_sceneManager);
-		addAtBeginning(_birdsManager);
+		if (ambient == DAY)
+			addAtBeginning(_birdsManager);
 		addAtBeginning(_playerManager);
 		addAtBeginning(_fog);
 		addAtBeginning(_wind);
