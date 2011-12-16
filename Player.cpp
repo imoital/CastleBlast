@@ -15,11 +15,10 @@
 
 namespace CastleBlast {
 	
-	Player::Player(std::string id, int number, WorldCamera* w, GameManager* gm) : cg::Group(id)
+	Player::Player(std::string id, int number, GameManager* gm) : cg::Group(id)
 	{
 		_playerNumber = number;
 		_currentPlayer = false;
-		_worldCamera = w;
 		_playerRot = 0;
 		_gameManager = gm;
 	}
@@ -36,7 +35,6 @@ namespace CastleBlast {
 		addAtBeginning(_king);
 		addAtBeginning(_cannon);
 		addAtBeginning(_cameraManager);
-		_cameraManager->setWorldCamera(_worldCamera);
 	}
 	
 	void Player::postInit()
@@ -98,10 +96,6 @@ namespace CastleBlast {
 
 	CameraManager* Player::getCamera(){
 		return _cameraManager;
-	}
-
-	void Player::setWorldCamera(WorldCamera* w){
-		_cameraManager->setWorldCamera(w);
 	}
 	
 	void Player::setRotation(float rotation)

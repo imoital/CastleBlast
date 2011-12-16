@@ -12,13 +12,12 @@
 #include <string>
 #include <Math.h>
 #include "cg/cg.h"
+#include "Camera.h"
 #define PI 3.14159265
 
 namespace CastleBlast {
 	
-	class WorldCamera : public cg::Entity, public cg::IDrawListener, 
-		public cg::IReshapeEventListener, public cg::IUpdateListener,
-		public cg::IMouseEventListener
+	class WorldCamera : public Camera
 	{
 	private:
 		double _winWidth, _winHeight, _anglex, _angley;

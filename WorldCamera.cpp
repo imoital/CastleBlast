@@ -11,7 +11,7 @@
 
 namespace CastleBlast {
 	
-	WorldCamera::WorldCamera() : Entity("WORLD_CAMERA") {
+	WorldCamera::WorldCamera() : Camera("WORLD_CAMERA") {
 	}
 	WorldCamera::~WorldCamera() {
 	}

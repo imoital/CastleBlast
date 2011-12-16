@@ -34,14 +34,13 @@ namespace CastleBlast {
 		GameManager* _gameManager;
 		Cannon* _cannon;
 		CameraManager* _cameraManager;
-		WorldCamera * _worldCamera;
 		int _playerNumber;
 		bool _currentPlayer;
 		bool _changeCameraKeyPressed;
 		float _playerRot;
 		
 	public:
-		Player(std::string id, int number, WorldCamera * w, GameManager* gm);
+		Player(std::string id, int number, GameManager* gm);
 		~Player();
 		
 		void postInit();

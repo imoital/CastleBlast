@@ -2,7 +2,7 @@
 
 namespace CastleBlast 
 {
-	CameraManager::CameraManager(Cannon *cannon) : cg::Group("CAMERA_MANAGER")
+	CameraManager::CameraManager(Cannon *cannon) : cg::Entity("CAMERA_MANAGER")
 	{
 		_cannon = cannon;
 	}
@@ -11,27 +11,20 @@ namespace CastleBlast
 	{
 	}
 
-	void CameraManager::createEntities()
+	void CameraManager::init()
 	{
-		//_worldCamera = new WorldCamera();
-		_cannonCamera = new CannonCamera(_cannon);
-		addAtBeginning(_worldCamera);
-		addAtBeginning(_cannonCamera);
+		_cameras.push_back(new WorldCamera());
+		_cameras.push_back(new CannonCamera(_cannon));
+		for (int i = 0; i < _cameras.size(); i++)
+			_cameras[i]->init();
 		_isWorldCamera = true;
 		_changeCameraKeyPressed = false;
+		_activeCamera = 0;
 	}
 
 	void CameraManager::switchCamera()
 	{
-		removeAll();
-		if (_isWorldCamera) {
-			addAtBeginning(_cannonCamera);
-			_isWorldCamera = false;
-		} else {
-			addAtBeginning(_worldCamera);
-			//_worldCamera->setPos(_cannonCamera->getEpos(), _cannonCamera->getCpos(), _cannonCamera->getUpos());
-			_isWorldCamera = true;
-		}
+		_activeCamera = (_activeCamera+1)%_cameras.size();
 	}
 
 	WorldCamera* CameraManager::getWorldCamera(){
@@ -46,21 +39,42 @@ namespace CastleBlast
 		return _cannon;
 	}
 
-	void CameraManager::setWorldCamera(WorldCamera* w){
-		_worldCamera = w;
-	}
-
-	void CameraManager::preUpdate(unsigned long elapsed_millis) 
+	void CameraManager::update(unsigned long elapsed_millis) 
 	{
+		_cameras[_activeCamera]->update(elapsed_millis);
 	}
 	
-	void CameraManager::postInit()
+	void CameraManager::draw()
 	{
-		remove(_cannonCamera->getId());
+		_cameras[_activeCamera]->draw();
 	}
 
 	void CameraManager::setCannonCameraRotation(int rot)
 	{
-		_cannonCamera->setInitialRotation(rot);
+		for (int i = 0; i < _cameras.size(); i++) {
+			CannonCamera* cannonCamera = dynamic_cast<CannonCamera*>(_cameras[i]);
+			if(cannonCamera != 0) {
+				cannonCamera->setInitialRotation(rot);
+				return;
+			}
+		}
+	}
+	
+	void CameraManager::onReshape(int width, int height)
+	{
+		_cameras[_activeCamera]->onReshape(width, height);
+	}
+	
+	void CameraManager::onMouse(int button, int state, int x, int y)
+	{
+		_cameras[_activeCamera]->onMouse(button, state, x, y);
+	}
+	void CameraManager::onMouseMotion(int x, int y) 
+	{
+		_cameras[_activeCamera]->onMouseMotion(x, y);
+	}
+	void CameraManager::onMousePassiveMotion(int x, int y)
+	{
+		_cameras[_activeCamera]->onMousePassiveMotion(x, y);
 	}
 }

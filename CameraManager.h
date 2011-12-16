@@ -6,12 +6,13 @@
 #include "CannonCamera.h"
 #include "Cannon.h"
 #include "Sky.h"
+#include "Camera.h"
 
 namespace CastleBlast 
 {
 	class CameraManager : 
-		public cg::Group, public cg::GroupDraw,
-	public cg::GroupUpdate, public cg::GroupMouseEvent, public cg::GroupReshapeEvent
+		public cg::Entity, public cg::IDrawListener,
+	public cg::IUpdateListener, public cg::IMouseEventListener, public cg::IReshapeEventListener
 	{
 	private:
 		std::vector<WorldCamera*> _cameraVector;
@@ -21,20 +22,25 @@ namespace CastleBlast
 		typedef std::vector<WorldCamera*>::iterator _worldCameraIterator;
 		bool _isWorldCamera;
 		Cannon *_cannon;
-
+		std::vector<Camera*> _cameras;
+		int _activeCamera;
 	
 	public:
 		CameraManager(Cannon *cannon);
 		~CameraManager(void);
-		void createEntities();
+		void init();
 		void switchCamera();
-		void preUpdate(unsigned long elapsed_millis);
+		void update(unsigned long elapsed_millis);
 		void setCannonCameraRotation(int rot);
 		void postInit();
+		void draw();
 		WorldCamera* getWorldCamera();
-		void setWorldCamera(WorldCamera* w);
 		bool isWorldCamera();
 		Cannon* getCannon();
+		void onReshape(int width, int height);
+		void onMouse(int button, int state, int x, int y);
+		void onMouseMotion(int x, int y);
+		void onMousePassiveMotion(int x, int y);
 	};
 }
 #endif

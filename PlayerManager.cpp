@@ -161,11 +161,10 @@ namespace CastleBlast {
 		removeAll();
 		_players.clear();
 		
-		WorldCamera * _worldCamera = new WorldCamera();
 		for (int i = 0; i < _numPlayers; i++) {
 			std::ostringstream player;
 			player << "PLAYER" << i;
-			Player* p = new Player(player.str(), i+1, _worldCamera, _gameManager);
+			Player* p = new Player(player.str(), i+1, _gameManager);
 			_players.push_back(p);
 			addAtBeginning(p);
 			p->init();

@@ -11,13 +11,12 @@
 
 namespace CastleBlast {
 	
-	CannonCamera::CannonCamera(Cannon *cannon) : Entity("CANNON_CAMERA") 
+	CannonCamera::CannonCamera(Cannon *cannon) : Camera("CANNON_CAMERA") 
 	{
 		_cannon = cannon;
 	}
 	CannonCamera::~CannonCamera() {
 	}
-
 
 	void CannonCamera::init() {
 		cg::tWindowInfo win = cg::Manager::instance()->getApp()->getWindowInfo();
